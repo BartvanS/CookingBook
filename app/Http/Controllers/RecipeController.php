@@ -7,35 +7,48 @@ use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        return 'kaas';
+        return view('recipes.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('recipes.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function store(Request $request)
     {
-        //
+        $validatedValues = $this->validateRecipe($request);
+        $recipe = new Recipe();
+        $recipe->title = $validatedValues['title'];
+        $recipe->description = $validatedValues['description'];
+        $recipe->hours = $validatedValues['hours'] ? $validatedValues['hours'] : 0;
+        $recipe->minutes = $validatedValues['minutes'] ? $validatedValues['minutes'] : 0;
+        $recipe->save();
+        return view('recipes.index');
     }
 
     /**
@@ -44,9 +57,9 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+
     }
 
     /**
@@ -55,7 +68,7 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         //
     }
@@ -63,11 +76,11 @@ class RecipeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         //
     }
@@ -78,8 +91,25 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+
     }
+
+    /**
+     * Return the validated values if successfull
+     *
+     * @param $request
+     * @return string[]
+     */
+    private function validateRecipe($request){
+        $validationValues  = [
+            'title' => 'required',
+            'description' => 'required',
+            'hours' => '',
+            'minutes' =>'',
+        ];
+        return $request->validate($validationValues);
+    }
+
 }
