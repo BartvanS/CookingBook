@@ -21,7 +21,7 @@ class Recipes extends Component
         $query = "%" .  $this->search . "%";
         //gaat fout als ik een search query heb en de pagination gebruik
         return view('livewire.recipes', [
-            'recipes' => Recipe::where('title', 'like', $query)->paginate(5),
+            'recipes' => Recipe::where('title', 'like', $query)->paginate(50),
         ]);
     }
 

@@ -26,6 +26,7 @@ class RecipeFactory extends Factory
             'description' => $this->faker->realText(200),
             'hours' => rand(1, 3),
             'minutes' => rand(1, 59),
+            'user_id' => 1,
         ];
     }
 }

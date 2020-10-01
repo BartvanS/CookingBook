@@ -20,6 +20,8 @@ class CreateRecipesTable extends Migration
             $table->longText('description');
             $table->integer('hours');
             $table->integer('minutes');
+            $table->integer('user_id')->nullable();
+            $table->softDeletes();
         });
     }
 

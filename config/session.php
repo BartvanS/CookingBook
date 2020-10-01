@@ -76,7 +76,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Session Database Table
+    | Session Database RecipeTable
     |--------------------------------------------------------------------------
     |
     | When using the "database" session driver, you may specify the table we

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -36,7 +37,7 @@ class RecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function store(Request $request)
@@ -47,14 +48,15 @@ class RecipeController extends Controller
         $recipe->description = $validatedValues['description'];
         $recipe->hours = $validatedValues['hours'] ? $validatedValues['hours'] : 0;
         $recipe->minutes = $validatedValues['minutes'] ? $validatedValues['minutes'] : 0;
+        $recipe->user_id = Auth::id();
         $recipe->save();
-        return view('recipes.index');
+        return route('recipes.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(int $id)
@@ -65,12 +67,12 @@ class RecipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(int $id)
     {
-        //
+        return view('recipes.edit');
     }
 
     /**
@@ -88,12 +90,17 @@ class RecipeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $recipeId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $recipeId)
     {
-
+        $recipe = Recipe::find($recipeId);
+//        dd($recipe);
+//        if ($recipe->user->id == Auth::id()) {
+            Recipe::destroy($recipeId);
+//        }
+        return redirect('recipes');
     }
 
     /**
@@ -102,12 +109,13 @@ class RecipeController extends Controller
      * @param $request
      * @return string[]
      */
-    private function validateRecipe($request){
-        $validationValues  = [
+    private function validateRecipe($request)
+    {
+        $validationValues = [
             'title' => 'required',
             'description' => 'required',
             'hours' => '',
-            'minutes' =>'',
+            'minutes' => '',
         ];
         return $request->validate($validationValues);
     }

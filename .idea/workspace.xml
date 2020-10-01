@@ -2,15 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28c176ad-b66c-4525-a4c5-3d6e2804a606" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Livewire/Recipes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/livewire/recipes.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/recipes/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/recipes/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/View/Components/RecipeTable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/components/recipes/recipe-table.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/recipes/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RecipeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecipeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Recipes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/Recipes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Recipe.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Recipe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/RecipeFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/RecipeFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_29_153709_create_recipes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_29_153709_create_recipes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/recipes.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/recipes.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +175,11 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\projects\laravel\recipesite\resources\views\components\recipes" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -188,6 +197,8 @@
       <workItem from="1601393022801" duration="2938000" />
       <workItem from="1601407326777" duration="3171000" />
       <workItem from="1601477900944" duration="11111000" />
+      <workItem from="1601545873770" duration="4265000" />
+      <workItem from="1601557013028" duration="5526000" />
     </task>
     <servers />
   </component>
@@ -205,6 +216,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="665" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601492909218" />
+    <state x="681" y="85" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601561038085">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="681" y="85" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601561038085" />
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601394075533">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -233,9 +248,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601407962088" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1601491861656">
+    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1601557515789">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601491861656" />
+    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601557515789" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1601562477691">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601562477691" />
   </component>
 </project>
