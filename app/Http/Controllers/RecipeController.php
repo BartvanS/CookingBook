@@ -38,41 +38,39 @@ class RecipeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $validatedValues = $this->validateRecipe($request);
         $recipe = new Recipe();
-        $recipe->title = $validatedValues['title'];
-        $recipe->description = $validatedValues['description'];
-        $recipe->hours = $validatedValues['hours'] ? $validatedValues['hours'] : 0;
-        $recipe->minutes = $validatedValues['minutes'] ? $validatedValues['minutes'] : 0;
-        $recipe->user_id = Auth::id();
+        $recipe = $this->recipeFields($recipe, $validatedValues);
         $recipe->save();
-        return route('recipes.index');
+        return redirect()->route('recipes.show', [$recipe]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(int $id)
     {
-
+        //todo: solid show page when the input fields are customizable to be set to sendform or view
+        return redirect()->route('recipes.edit', $id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(int $id)
     {
-        return view('recipes.edit');
+        $fields = Recipe::find($id);
+        return view('recipes.edit', ['fields' => $fields]);
     }
 
     /**
@@ -84,23 +82,27 @@ class RecipeController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $validatedValues = $this->validateRecipe($request);
+        $recipe = $this->recipeFields($recipe, $validatedValues);
+        $recipe->save();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $recipeId
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $recipeId)
     {
         $recipe = Recipe::find($recipeId);
-//        dd($recipe);
-//        if ($recipe->user->id == Auth::id()) {
-            Recipe::destroy($recipeId);
-//        }
-        return redirect('recipes');
+        if ($recipe->user->id == Auth::id()) {
+            $recipe->destroy();
+            return redirect()->route('recipes.index');
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -112,12 +114,22 @@ class RecipeController extends Controller
     private function validateRecipe($request)
     {
         $validationValues = [
-            'title' => 'required',
+            'title' => 'required|max:255',
             'description' => 'required',
-            'hours' => '',
-            'minutes' => '',
+            'hours' => 'max:255|numeric',
+            'minutes' => 'max:255|numeric',
         ];
         return $request->validate($validationValues);
+    }
+
+    private function recipeFields($recipe, $validatedValues)
+    {
+        $recipe->title = $validatedValues['title'];
+        $recipe->description = $validatedValues['description'];
+        $recipe->hours = $validatedValues['hours'] ? $validatedValues['hours'] : 0;
+        $recipe->minutes = $validatedValues['minutes'] ? $validatedValues['minutes'] : 0;
+        $recipe->user_id = Auth::id();
+        return $recipe;
     }
 
 }
