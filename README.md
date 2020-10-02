@@ -1,4 +1,4 @@
-#Laravel recepe website
+# Laravel recepe website
 
 This is very basic crud recipe website to learn the basics of laravel 8
 
