@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Database\Eloquent\Model;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -60,6 +60,6 @@ class User extends Authenticatable
     ];
 
     public function recipe(){
-        return $this->hasMany('App\Models\Recipe');
+        return $this->hasMany('App\Models\Recipe', 'id');
     }
 }

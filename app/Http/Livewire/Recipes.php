@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class Recipes extends Component
 {
     use WithPagination;
+
     public $search = '';
 
     public function updatingSearch()
@@ -18,11 +19,9 @@ class Recipes extends Component
 
     public function render()
     {
-        $query = "%" .  $this->search . "%";
-        //gaat fout als ik een search query heb en de pagination gebruik
+        $query = "%" . $this->search . "%";
         return view('livewire.show-recipes', [
             'recipes' => Recipe::where('title', 'like', $query)->paginate(10),
         ]);
     }
-
 }

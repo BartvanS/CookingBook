@@ -11,6 +11,7 @@ class RecipeController extends Controller
 
     public function __construct()
     {
+        //todo: add middleware for everypage except index/show for check if user is allowed to do action
         $this->middleware('auth');
     }
 
@@ -69,8 +70,12 @@ class RecipeController extends Controller
      */
     public function edit(int $id)
     {
-        $fields = Recipe::find($id);
-        return view('recipes.edit', ['fields' => $fields]);
+        $recipe = Recipe::find($id);
+        if ($this->checkAuth($recipe->user->id)) {
+            return view('recipes.edit', ['fields' => $recipe]);
+        } else {
+            return abort(401);
+        }
     }
 
     /**
@@ -83,9 +88,13 @@ class RecipeController extends Controller
     public function update(Request $request, int $id)
     {
         $recipe = Recipe::find($id);
-        $validatedValues = $this->validateRecipe($request);
-        $recipe = $this->recipeFields($recipe, $validatedValues);
-        $recipe->save();
+        if ($this->checkAuth($recipe->user->id)) {
+            $validatedValues = $this->validateRecipe($request);
+            $recipe = $this->recipeFields($recipe, $validatedValues);
+            $recipe->save();
+        } else {
+            return abort(401);
+        }
     }
 
     /**
@@ -97,7 +106,7 @@ class RecipeController extends Controller
     public function destroy(int $recipeId)
     {
         $recipe = Recipe::find($recipeId);
-        if ($recipe->user->id == Auth::id()) {
+        if ($this->checkAuth($recipe->user->id)) {
             $recipe->destroy();
             return redirect()->route('recipes.index');
         } else {
@@ -116,8 +125,8 @@ class RecipeController extends Controller
         $validationValues = [
             'title' => 'required|max:255',
             'description' => 'required',
-            'hours' => 'max:255|numeric',
-            'minutes' => 'max:255|numeric',
+            'hours' => 'max:255',
+            'minutes' => 'max:255',
         ];
         return $request->validate($validationValues);
     }
@@ -131,5 +140,11 @@ class RecipeController extends Controller
         $recipe->user_id = Auth::id();
         return $recipe;
     }
+
+    private function checkAuth($user_id)
+    {
+        return $user_id == Auth::id();
+    }
+
 
 }
