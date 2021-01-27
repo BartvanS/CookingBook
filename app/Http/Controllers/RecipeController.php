@@ -59,7 +59,7 @@ class RecipeController extends Controller
     public function show(int $id)
     {
         //todo: solid show page when the input fields are customizable to be set to sendform or view
-        return redirect()->route('recipes.index');
+        return redirect()->route('recipes.edit', $id);
     }
 
     /**
