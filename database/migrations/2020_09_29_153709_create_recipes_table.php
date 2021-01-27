@@ -18,6 +18,7 @@ class CreateRecipesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->longText('description');
+            $table->longText('ingredients');
             $table->integer('hours');
             $table->integer('minutes');
             $table->integer('user_id')->nullable();

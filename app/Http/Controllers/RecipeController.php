@@ -59,7 +59,7 @@ class RecipeController extends Controller
     public function show(int $id)
     {
         //todo: solid show page when the input fields are customizable to be set to sendform or view
-        return redirect()->route('recipes.edit', $id);
+        return redirect()->route('recipes.index');
     }
 
     /**
@@ -70,7 +70,7 @@ class RecipeController extends Controller
      */
     public function edit(int $id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::findOrFail($id);
         if ($this->checkAuth($recipe->user->id)) {
             return view('recipes.edit', ['fields' => $recipe]);
         } else {
@@ -107,7 +107,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($recipeId);
         if ($this->checkAuth($recipe->user->id)) {
-            $recipe->destroy();
+            $recipe->delete();
             return redirect()->route('recipes.index');
         } else {
             abort(401);
@@ -124,9 +124,10 @@ class RecipeController extends Controller
     {
         $validationValues = [
             'title' => 'required|max:255',
-            'description' => 'required',
+            'description' => 'required|string',
             'hours' => 'max:255',
             'minutes' => 'max:255',
+            'ingredients' => 'required|string',
         ];
         return $request->validate($validationValues);
     }
@@ -135,6 +136,7 @@ class RecipeController extends Controller
     {
         $recipe->title = $validatedValues['title'];
         $recipe->description = $validatedValues['description'];
+        $recipe->ingredients = $validatedValues['ingredients'];
         $recipe->hours = $validatedValues['hours'] ? $validatedValues['hours'] : 0;
         $recipe->minutes = $validatedValues['minutes'] ? $validatedValues['minutes'] : 0;
         $recipe->user_id = Auth::id();

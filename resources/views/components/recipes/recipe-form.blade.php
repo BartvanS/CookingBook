@@ -13,4 +13,6 @@
 <label for="description">Beschrijving</label><textarea name="description">{{$fields->description}}</textarea><br><br>
 <label for="hours">Tijd in uren</label><input type="number" name="hours" value="{{$fields->hours}}"><br><br>
 <label for="minutes">Tijd in minuten</label><input type="number" name="minutes" value="{{$fields->minutes}}"><br><br>
+<label for="ingredients">Ingredienten</label><textarea type="text" name="ingredients">{{$fields->ingredients}}</textarea><br><br>
+
 <input type="submit">
