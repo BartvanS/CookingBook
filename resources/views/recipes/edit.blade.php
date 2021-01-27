@@ -11,9 +11,15 @@
     </form>
 
     <br>
-    <form method="post" action="{{route('recipes.destroy', $fields)}}">
+    <form class="deleteForm" method="post" action="{{route('recipes.destroy', $fields)}}">
         @csrf
         @method('DELETE')
-        <input type="submit" value="YEETUS DELETUS">
+        <input onclick="return comfirmDelete()" type="submit" value="YEETUS DELETUS">
     </form>
+    <script>
+        function comfirmDelete() {
+            return confirm("Weet je zeker of je dit recept wilt verwijderen?");
+        }
+
+    </script>
 </x-app-layout>

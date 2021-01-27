@@ -18,8 +18,8 @@
         @csrf
         <br>
         <label for="title">Titel</label><input type="text" name="title"><br><br>
-        <label for="description">Beschrijving</label><textarea type="text" name="description" value="{{old('description')}}"></textarea><br><br>
-        <label for="ingredients">Ingredienten</label><textarea type="text" name="ingredients" value="{{old('ingredients')}}"></textarea><br><br>
+        <label for="description">Beschrijving</label><textarea class="autoResizeTextArea" type="text" name="description" value="{{old('description')}}"></textarea><br><br>
+        <label for="ingredients">Ingredienten</label><textarea class="autoResizeTextArea" type="text" name="ingredients" value="{{old('ingredients')}}"></textarea><br><br>
         <label for="hours">Tijd in uren</label><input type="number" name="hours" value="{{old('hours')}}"><br><br>
         <label for="minutes">Tijd in minuten</label><input type="number" name="minutes" value="{{old('minutes')}}"><br><br>
         <input type="submit">
