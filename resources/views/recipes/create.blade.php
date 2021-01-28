@@ -71,7 +71,7 @@
                         <label for="minutes" class="mb-1">Tijd in minuten</label>
                         <input type="number"
                                name="minutes"
-                               id="hours"
+                               id="minutes"
                                value="{{old('minutes')}}"
                                class="px-3 py-2 rounded-lg border border-gray-300">
                         @error('minutes')
