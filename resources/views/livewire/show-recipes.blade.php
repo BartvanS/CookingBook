@@ -14,7 +14,6 @@
                 Nieuwe
             </a>
         </div>
-
         <x-recipe-table :recipes="$recipes"/>
     </div>
 </div>
