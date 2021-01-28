@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
-
-    public function __construct()
-    {
-        //todo: add middleware for everypage except index/show for check if user is allowed to do action
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *

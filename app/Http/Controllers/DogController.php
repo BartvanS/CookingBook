@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+/**
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * ====================================
+ * legacy code, dont remove or code breaks!
+ * ====================================
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*/
 class DogController extends Controller
 {
     public function __invoke()
