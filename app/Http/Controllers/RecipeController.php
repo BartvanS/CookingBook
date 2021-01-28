@@ -121,7 +121,6 @@ class RecipeController extends Controller
             'recipes' => $recipes,
         ]);
     }
-
     /**
      * Return the validated values if successfull
      *
