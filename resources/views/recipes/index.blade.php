@@ -7,6 +7,6 @@
     </x-slot>
 
 
-    <livewire:recipes />
+    <livewire:recipes likeQuery=""/>
 
 </x-app-layout>
