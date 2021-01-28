@@ -114,6 +114,14 @@ class RecipeController extends Controller
         }
     }
 
+    public function myRecipes(){
+        $recipes = Recipe::where('user_id', \Illuminate\Support\Facades\Auth::id())->paginate(10);
+
+        return view('recipes.myRecipes', [
+            'recipes' => $recipes,
+        ]);
+    }
+
     /**
      * Return the validated values if successfull
      *

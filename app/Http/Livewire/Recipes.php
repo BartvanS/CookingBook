@@ -31,7 +31,6 @@ class Recipes extends Component
             $recipes = Recipe::where('title', 'like', "%" . $this->search . "%")->paginate(10);
         } else {
             $recipes = Recipe::where('title', 'like', "%" . $this->likeQuery . "%")->paginate(10);
-
         }
         return view('livewire.show-recipes', [
             'recipes' => $recipes,

@@ -22,3 +22,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('recipes', \App\Http\Controllers\RecipeController::class);
+Route::get('myrecipes', [\App\Http\Controllers\RecipeController::class, 'myRecipes'])->name('recipes.myrecipes');
