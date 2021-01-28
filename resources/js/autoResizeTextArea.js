@@ -1,5 +1,5 @@
 // Automatically resize textareas
-// alert("ik werk")
+
 const tx = document.getElementsByTagName('textarea');
 
 for (let i = 0; i < tx.length; i++) {
