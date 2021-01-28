@@ -17,17 +17,12 @@
 
             <div class="flex flex-col p-5 pt-8">
 
-                <label for="title" class="mb-1">Titel</label>
-                <input type="text"
-                       name="title"
-                       id="title"
-                       class="px-3 py-2 rounded-lg border border-gray-300"
-                       value="{{ old('title') }}"/>
-                @error('title')
-                <div class="text-red-800 mt-1">
-                    {{ $message }}
-                </div>
-                @enderror
+                <x-input
+                    type="text"
+                    id="title"
+                    class="px-3 py-2 rounded-lg border border-gray-300"
+                    label="Titel"
+                />
 
                 <label for="description" class="mb-1 mt-3">Beschrijving</label>
                 <textarea class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300"
@@ -54,31 +49,23 @@
 
                 <div class="flex mt-3">
                     <div class="flex-grow flex-col">
-                        <label for="hours" class="mb-1">Tijd in uren</label>
-                        <input type="number"
-                               name="hours"
-                               id="hours"
-                               value="{{old('hours')}}"
-                               class="px-3 py-2 rounded-lg border border-gray-300">
-                        @error('hours')
-                        <div class="text-red-800 mt-1">
-                            {{ $message }}
-                        </div>
-                        @enderror
+                        <x-input
+                            type="number"
+                            id="hours"
+                            class="px-3 py-2 rounded-lg border border-gray-300"
+                            label="Tijd in uren"
+                        />
                     </div>
 
                     <div class="flex-grow flex-col ml-3">
-                        <label for="minutes" class="mb-1">Tijd in minuten</label>
-                        <input type="number"
-                               name="minutes"
-                               id="minutes"
-                               value="{{old('minutes')}}"
-                               class="px-3 py-2 rounded-lg border border-gray-300">
-                        @error('minutes')
-                        <div class="text-red-800 mt-1">
-                            {{ $message }}
+                        <div class="flex-grow flex-col">
+                            <x-input
+                                type="number"
+                                id="minutes"
+                                class="px-3 py-2 rounded-lg border border-gray-300"
+                                label="Tijd in minuten"
+                            />
                         </div>
-                        @enderror
                     </div>
                 </div>
 
