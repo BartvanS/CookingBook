@@ -1,4 +1,4 @@
-<table class="table-auto">
+<table class="table-auto bg-white rounded-lg shadow-lg">
     <thead>
     <tr>
         <th class="px-4 py-2">titel</th>
@@ -11,10 +11,10 @@
     <tbody>
     @foreach($recipes as $recipe)
         <tr>
-            <td class="border px-4 py-2">{{$recipe->title }}</td>
-            <td class="border px-4 py-2">{{$recipe->description}}</td>
-            <td class="border px-4 py-2">Tijd: {{$recipe->hours }}:{{$recipe->minutes}}</td>
-            <td class="border px-4 py-2">
+            <td class="border-t px-4 py-2">{{$recipe->title }}</td>
+            <td class="border-t px-4 py-2">{{ Str::limit($recipe->description, 100) }}</td>
+            <td class="border-t px-4 py-2">{{$recipe->hours }}:{{$recipe->minutes}}</td>
+            <td class="border-t px-4 py-2">
                 <a href="{{route('recipes.show', $recipe->id)}}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                          width="24px">
@@ -23,14 +23,14 @@
                     </svg>
                 </a>
             </td>
-            <td class="border px-4 py-2">
+            <td class="border-t px-4 py-2">
                 @if($recipe->user->id == \Illuminate\Support\Facades\Auth::id())
-                <a href="{{route('recipes.edit', $recipe->id)}}">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20px">
-                        <path
-                            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
-                    </svg>
-                </a>
+                    <a href="{{route('recipes.edit', $recipe->id)}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20px">
+                            <path
+                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                    </a>
                 @endif
 
             </td>
@@ -38,4 +38,6 @@
     @endforeach
     </tbody>
 </table>
-{{ $recipes->links() }}
+<div class="mt-5">
+    {{ $recipes->links() }}
+</div>
