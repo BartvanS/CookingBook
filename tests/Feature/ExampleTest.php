@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -14,8 +14,10 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
+        $this->actingAs(User::factory()->create());
+
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/recipes');
     }
 }
