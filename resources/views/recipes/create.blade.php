@@ -4,24 +4,89 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <h1>Maak recept aan</h1>
+
     <form method="post" action="{{route('recipes.store')}}">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         @csrf
-        <br>
-        <label for="title">Titel</label><input type="text" name="title"><br><br>
-        <label for="description">Beschrijving</label><textarea class="autoResizeTextArea" type="text" name="description" value="{{old('description')}}"></textarea><br><br>
-        <label for="ingredients">Ingredienten</label><textarea class="autoResizeTextArea" type="text" name="ingredients" value="{{old('ingredients')}}"></textarea><br><br>
-        <label for="hours">Tijd in uren</label><input type="number" name="hours" value="{{old('hours')}}"><br><br>
-        <label for="minutes">Tijd in minuten</label><input type="number" name="minutes" value="{{old('minutes')}}"><br><br>
-        <input type="submit">
+
+        <div class="bg-white rounded-lg container mx-auto max-w-md relative mt-12">
+
+            <div class="font-bold text-xl bg-white rounded-full px-3 py-2 absolute ml-5 shadow"
+                 style="margin-top: -25px">
+                Nieuw recept toevoegen
+            </div>
+
+            <div class="flex flex-col p-5 pt-8">
+
+                <label for="title" class="mb-1">Titel</label>
+                <input type="text"
+                       name="title"
+                       id="title"
+                       class="px-3 py-2 rounded-lg border border-gray-300"
+                       value="{{ old('title') }}"/>
+                @error('title')
+                <div class="text-red-800 mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+
+                <label for="description" class="mb-1 mt-3">Beschrijving</label>
+                <textarea class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300"
+                          type="text"
+                          name="description"
+                          id="description">{{ old('description') }}</textarea>
+                @error('description')
+                <div class="text-red-800 mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+
+                <label for="ingredients" class="mb-1 mt-3">Ingredienten</label>
+                <textarea class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300"
+                          type="text"
+                          name="ingredients"
+                          id="ingredients"
+                          value="{{old('ingredients')}}"></textarea>
+                @error('ingredients')
+                <div class="text-red-800 mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+
+                <div class="flex mt-3">
+                    <div class="flex-grow flex-col">
+                        <label for="hours" class="mb-1">Tijd in uren</label>
+                        <input type="number"
+                               name="hours"
+                               id="hours"
+                               value="{{old('hours')}}"
+                               class="px-3 py-2 rounded-lg border border-gray-300">
+                        @error('hours')
+                        <div class="text-red-800 mt-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="flex-grow flex-col ml-3">
+                        <label for="minutes" class="mb-1">Tijd in minuten</label>
+                        <input type="number"
+                               name="minutes"
+                               id="hours"
+                               value="{{old('minutes')}}"
+                               class="px-3 py-2 rounded-lg border border-gray-300">
+                        @error('minutes')
+                        <div class="text-red-800 mt-1">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+
+                <input type="submit"
+                       class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
+                       value="Toevoegen">
+            </div>
+
+        </div>
     </form>
 </x-app-layout>
