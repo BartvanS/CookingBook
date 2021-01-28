@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Recipe;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Symfony\Component\ErrorHandler\Debug;
 
 class Recipes extends Component
 {

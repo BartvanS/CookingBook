@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DogController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,7 +12,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('recipes', \App\Http\Controllers\RecipeController::class);
-Route::get('myrecipes', [\App\Http\Controllers\RecipeController::class, 'myRecipes'])->name('recipes.myrecipes');
+Route::middleware('auth')->group(function () {
+    Route::resource('recipes', RecipeController::class);
+    Route::get('myrecipes', [RecipeController::class, 'myRecipes'])->name('recipes.myrecipes');
+});
 
 Route::get('/hondje', DogController::class)->name('hondje');
