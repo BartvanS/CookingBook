@@ -1,8 +1,8 @@
 <table class="table-auto bg-white rounded-lg shadow-lg">
     <thead>
     <tr>
-        <th class="px-4 py-2">titel</th>
-        <th class="px-4 py-2">beschrijving</th>
+        <th class="px-4 py-2">Titel</th>
+        <th class="px-4 py-2">Beschrijving</th>
         <th class="px-4 py-2">Duur</th>
         <th class="px-4 py-2">Bekijk</th>
         <th class="px-4 py-2">Bewerk</th>
