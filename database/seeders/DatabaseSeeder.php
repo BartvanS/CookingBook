@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -16,14 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(10)->create();
-        DB::table('users')->insert([
-            'name' => 'bart',
+        User::factory()->create([
+            'name' => 'Bart',
             'email' => 'bart@bart.nl',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
         ]);
+
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+        ]);
+
         Recipe::factory(50)->create();
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RecipeFactory extends Factory
@@ -22,12 +23,12 @@ class RecipeFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->domainName,
+            'title' => $this->faker->sentence,
             'description' => $this->faker->realText(200),
             'ingredients' => $this->faker->realText(200),
             'hours' => rand(1, 3),
             'minutes' => rand(1, 59),
-            'user_id' => 1,
+            'user_id' => fn () => User::factory(),
         ];
     }
 }
