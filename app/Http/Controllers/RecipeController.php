@@ -3,150 +3,87 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
     public function index()
     {
         return view('recipes.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
     public function create()
     {
         return view('recipes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
+    public function store(Request $request, User $user): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
+
         $recipe = new Recipe();
-        $recipe = $this->recipeFields($recipe, $validatedValues);
+        $recipe->fill($validatedValues);
+        $recipe->user()->associate($user);
         $recipe->save();
-        return redirect()->route('recipes.show', [$recipe]);
+
+        return redirect()->route('recipes.show', $recipe);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function show(int $id)
+    public function show(Recipe $recipe): RedirectResponse
     {
-        //todo: solid show page when the input fields are customizable to be set to sendform or view
-        return redirect()->route('recipes.edit', $id);
+        // TODO: solid show page when the input fields are customizable to be set to sendform or view
+        return redirect()->route('recipes.edit', $recipe);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
-    public function edit(int $id)
+    public function edit(Request $request, Recipe $recipe)
     {
-        $recipe = Recipe::findOrFail($id);
-        if ($this->checkAuth($recipe->user->id)) {
-            return view('recipes.edit', ['fields' => $recipe]);
-        } else {
-            return abort(401);
-        }
+        abort_if($recipe->user->isNot($request->user()), Response::HTTP_UNAUTHORIZED);
+
+        return view('recipes.edit', ['fields' => $recipe]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return void
-     */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Recipe $recipe): RedirectResponse
     {
-        $recipe = Recipe::find($id);
-        if ($this->checkAuth($recipe->user->id)) {
-            $validatedValues = $this->validateRecipe($request);
-            $recipe = $this->recipeFields($recipe, $validatedValues);
-            $recipe->save();
-        } else {
-            return abort(401);
-        }
+        abort_if($recipe->user->isNot($request->user()), Response::HTTP_UNAUTHORIZED);
+
+        $validatedValues = $this->validateRecipe($request);
+
+        $recipe->update($validatedValues);
+
+        return redirect()->route('recipes.show', $recipe);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $recipeId
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(int $recipeId)
+    public function destroy(Request $request, Recipe $recipe): RedirectResponse
     {
-        $recipe = Recipe::find($recipeId);
-        if ($this->checkAuth($recipe->user->id)) {
-            $recipe->delete();
-            return redirect()->route('recipes.index');
-        } else {
-            abort(401);
-        }
+        abort_if($recipe->user->isNot($request->user()), Response::HTTP_UNAUTHORIZED);
+
+        $recipe->delete();
+
+        return redirect()->route('recipes.index');
     }
 
-    public function myRecipes(){
-        $recipes = Recipe::where('user_id', \Illuminate\Support\Facades\Auth::id())->paginate(10);
+    public function myRecipes()
+    {
+        $recipes = Recipe::where('user_id', Auth::id())->paginate(10);
 
         return view('recipes.myRecipes', [
             'recipes' => $recipes,
         ]);
     }
-    /**
-     * Return the validated values if successfull
-     *
-     * @param $request
-     * @return string[]
-     */
-    private function validateRecipe($request)
+
+    private function validateRecipe($request): array
     {
         $validationValues = [
             'title' => 'required|max:255',
             'description' => 'required|string',
-            'hours' => 'max:255',
-            'minutes' => 'max:255',
+            'hours' => 'nullable|max:255',
+            'minutes' => 'nullable|max:255',
             'ingredients' => 'required|string',
         ];
         return $request->validate($validationValues);
     }
-
-    private function recipeFields($recipe, $validatedValues)
-    {
-        $recipe->title = $validatedValues['title'];
-        $recipe->description = $validatedValues['description'];
-        $recipe->ingredients = $validatedValues['ingredients'];
-        $recipe->hours = $validatedValues['hours'] ? $validatedValues['hours'] : 0;
-        $recipe->minutes = $validatedValues['minutes'] ? $validatedValues['minutes'] : 0;
-        $recipe->user_id = Auth::id();
-        return $recipe;
-    }
-
-    private function checkAuth($user_id)
-    {
-        return $user_id == Auth::id();
-    }
-
-
 }
