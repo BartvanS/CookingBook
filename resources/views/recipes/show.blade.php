@@ -16,15 +16,7 @@
         @endcan
 
         <div class="bg-white p-4 rounded-lg">
-            <div class="flex items-center mb-3">
-                <a class="flex text-sm border-2 border-transparent rounded-full transition duration-150 ease-in-out">
-                    <img class="h-8 w-8 rounded-full object-cover" src="{{ $recipe->user->profile_photo_url }}"
-                         alt="{{ $recipe->user->name }}"/>
-                </a>
-                <div class="ml-2">
-                    {{ $recipe->user->name }}
-                </div>
-            </div>
+            <x-user class="mb-3" :user="$recipe->user"/>
             <div>
                 <div class="text-bold text-blue-900 text-lg mb-1">
                     Bereidingswijze

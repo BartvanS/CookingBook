@@ -41,16 +41,7 @@
                         <td class="border-t px-4 py-2">{{ Str::limit($recipe->description, 100) }}</td>
                         <td class="border-t px-4 py-2">{{ $recipe->hours }}:{{ $recipe->minutes }}</td>
                         <td class="border-t px-4 py-2">
-                            <div class="flex items-center">
-                                <a class="flex text-sm border-2 border-transparent rounded-full transition duration-150 ease-in-out">
-                                    <img class="h-8 w-8 rounded-full object-cover"
-                                         src="{{ $recipe->user->profile_photo_url }}"
-                                         alt="{{ $recipe->user->name }}"/>
-                                </a>
-                                <div class="ml-2 truncate">
-                                    {{ $recipe->user->name }}
-                                </div>
-                            </div>
+                            <x-user :user="$recipe->user"/>
                         </td>
                     </tr>
                 @endforeach
