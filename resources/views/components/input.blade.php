@@ -3,7 +3,9 @@
            name="{{$id}}"
            id="{{$id}}"
            class="{{$class}}"
-           value="{{ old($id) }}"/>
+           value="{{ old($id) }}"
+            {{$attributes}}
+    />
     @error($id)
     <div class="text-red-800 mt-1">
         {{ $message }}

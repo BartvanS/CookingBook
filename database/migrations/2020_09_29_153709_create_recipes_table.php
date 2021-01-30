@@ -18,7 +18,7 @@ class CreateRecipesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->longText('description');
-            $table->longText('ingredients');
+            $table->json('ingredients');
             $table->integer('hours');
             $table->integer('minutes');
             $table->foreignId('user_id')->nullable()->constrained();
