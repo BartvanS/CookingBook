@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Recipe::class);
+    }
+
     public function index()
     {
         return view('recipes.index');
@@ -33,23 +36,18 @@ class RecipeController extends Controller
         return redirect()->route('recipes.show', $recipe);
     }
 
-    public function show(Recipe $recipe): RedirectResponse
+    public function show(Recipe $recipe)
     {
-        // TODO: solid show page when the input fields are customizable to be set to sendform or view
-        return redirect()->route('recipes.edit', $recipe);
+        return view('recipes.show')->with('recipe', $recipe);
     }
 
-    public function edit(Request $request, Recipe $recipe)
+    public function edit(Recipe $recipe)
     {
-        abort_if($recipe->user->isNot($request->user()), Response::HTTP_UNAUTHORIZED);
-
         return view('recipes.edit', ['fields' => $recipe]);
     }
 
     public function update(Request $request, Recipe $recipe): RedirectResponse
     {
-        abort_if($recipe->user->isNot($request->user()), Response::HTTP_UNAUTHORIZED);
-
         $validatedValues = $this->validateRecipe($request);
 
         $recipe->update($validatedValues);
@@ -57,22 +55,11 @@ class RecipeController extends Controller
         return redirect()->route('recipes.show', $recipe);
     }
 
-    public function destroy(Request $request, Recipe $recipe): RedirectResponse
+    public function destroy(Recipe $recipe): RedirectResponse
     {
-        abort_if($recipe->user->isNot($request->user()), Response::HTTP_UNAUTHORIZED);
-
         $recipe->delete();
 
         return redirect()->route('recipes.index');
-    }
-
-    public function myRecipes()
-    {
-        $recipes = Recipe::where('user_id', Auth::id())->paginate(10);
-
-        return view('recipes.myRecipes', [
-            'recipes' => $recipes,
-        ]);
     }
 
     private function validateRecipe($request): array

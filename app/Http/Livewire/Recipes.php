@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Recipe;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,12 +12,15 @@ class Recipes extends Component
 {
     use WithPagination;
 
-    public $search = null;
-    public $likeQuery = '';
+    public ?string $search = null;
 
-    public function mount($likeQuery)
+    public ?User $user = null;
+
+    public function mount(?User $user = null)
     {
-        $this->likeQuery = $likeQuery;
+        if ($user->exists) {
+            $this->user = $user;
+        }
     }
 
     public function updatingSearch()
@@ -25,13 +30,19 @@ class Recipes extends Component
 
     public function render()
     {
-        $recipes = '';
-        if ($this->likeQuery === "") {
-            $recipes = Recipe::where('title', 'like', "%" . $this->search . "%")->paginate(30);
-        } else {
-            $recipes = Recipe::where('title', 'like', "%" . $this->likeQuery . "%")->paginate(30);
-        }
-        return view('livewire.show-recipes', [
+        $recipes = Recipe::with('user')
+            ->when($this->user instanceof User, function (Builder $query) {
+                $query->where('user_id', '=', $this->user->id);
+            })
+            ->when($this->search, function (Builder $query) {
+                $query
+                    ->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
+            })
+            ->latest()
+            ->paginate(15);
+
+        return view('livewire.recipes', [
             'recipes' => $recipes,
         ]);
     }
