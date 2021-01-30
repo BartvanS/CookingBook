@@ -10,20 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeApiController extends Controller
 {
-    public function index(){
-        return "kaas";
+    public function index(Request $request)
+    {
+    $request->validate(['amount' => 'nullable|min:0|max:100']);
+        return response(Recipe::limit($request->input('amount', 10))->get());
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validatedValues = $this->validateRecipe($request);
         $recipe = new Recipe();
         $recipe->fill($validatedValues);
         $recipe->user()->associate($request->user());
         $recipe->save();
-
         return 'succes';
-//        $request->json();
     }
+
     private function validateRecipe($request): array
     {
         $validationValues = [
