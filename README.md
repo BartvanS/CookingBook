@@ -15,7 +15,7 @@ make setup
 Setup database connection in `.env` and run.
 
 ```
-make migrate
+make update
 ```
 
 Done!

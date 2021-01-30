@@ -4,7 +4,7 @@ setup:
 	php artisan key:generate
 	php artisan storage:link
 
-update: do_composer do_assets migrate
+update: do_composer do_assets migrate do_ide_helper
 
 migrate:
 	php artisan migrate:fresh --seed
@@ -21,3 +21,9 @@ do_composer:
 do_assets:
 	npm install
 	npm run dev
+
+do_ide_helper:
+	php artisan ide-helper:generate
+	php artisan ide-helper:models --nowrite
+	php artisan ide-helper:eloquent
+	php artisan ide-helper:meta
