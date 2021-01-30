@@ -56,9 +56,12 @@ class RecipeControllerTest extends TestCase
 
     public function testCanViewDetail()
     {
-        $response = $this->get(route('recipes.show', Recipe::factory()->create()));
+        $recipe = Recipe::factory()->create();
 
-        $response->assertRedirect();
+        $response = $this->get(route('recipes.show', $recipe));
+
+        $response->assertOk();
+        $response->assertSee($recipe->title);
     }
 
     public function testCanEditOwnRecipe()
@@ -78,7 +81,7 @@ class RecipeControllerTest extends TestCase
 
         $response = $this->get(route('recipes.edit', $recipe));
 
-        $response->assertUnauthorized();
+        $response->assertForbidden();
     }
 
     public function testCanUpdateRecipe()
