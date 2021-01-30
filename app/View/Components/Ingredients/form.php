@@ -4,9 +4,10 @@ namespace App\View\Components\Ingredients;
 
 use Illuminate\View\Component;
 
-class form extends Component
+class Form extends Component
 {
     public $value;
+
     public function __construct($value)
     {
         $this->value = $value;
