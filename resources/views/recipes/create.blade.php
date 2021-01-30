@@ -1,3 +1,4 @@
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -24,20 +25,10 @@
                     class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300"
                     label="Beschrijving"
                 />
-                {{--Input field--}}
-                <div class="">
-                    <x-input
-                        type="text"
-                        {{--                        label="Ingredient"--}}
-                        id="ingredientInput"
-                        class="px-3 py-2 rounded-lg border border-gray-300-1"
-                        placeholder=""
-                        onchange=""
-                    />
-                    <button type="button" onclick="addToIngredientsList()" class="flex-5">Voeg toe</button>
-                </div>
-                <div id="ingredientList" class="flex-grow"></div>
-                <input type="hidden" id="ingredients" name="ingredients" value="{{old('ingredients')}}">
+                {{--ingredient Input field--}}
+                <x-ingredients.form
+                    value="{{old('ingredients')}}"
+                />
 
                 {{--Time--}}
                 <div class="flex mt-3">
@@ -87,9 +78,9 @@
             addToIngredientsList();
         }
     });
-    {{--todo: old ingredients ophalen gaat een gedoe worden met cookies enzo--}}
+
     // let parsedIngredients = JSON.parse(hiddenIngredientFieldEl.value);
-    if (hiddenIngredientFieldEl.value.length <= 0){
+    if (hiddenIngredientFieldEl.value.length <= 0) {
         hiddenIngredientFieldEl.value = '[]';
     }
     let ingredients = JSON.parse(hiddenIngredientFieldEl.value);
@@ -101,11 +92,9 @@
         if (confirmContinue) {
             //disable to not send the data
             ingredientInputEl.setAttribute("disabled", "disabled");
-            // document.getElementById("ingredients").value = JSON.stringify(ingredients);
         }
         return confirmContinue;
     }
-
 
     function addToIngredientsList() {
         let inputValue = ingredientInputEl.value;
@@ -121,13 +110,6 @@
         addToIngredientsListHtml(inputValue);
     }
 
-    function removeFromIngredientsList(elem) {
-        ingredients = ingredients.filter( item => "ingredient-"+item !== elem.parentNode.id) ;
-        elem.parentNode.parentNode.removeChild(elem.parentNode);
-        hiddenIngredientFieldEl.value = JSON.stringify(ingredients);
-    }
-
-
     function addToIngredientsListHtml(inputValue) {
         document.getElementById("ingredientList").innerHTML +=
             '<div class="flex" id="ingredient-' + inputValue + '">' +
@@ -139,5 +121,11 @@
             '</button>' +
             '</div>';
     }
-</script>
 
+    function removeFromIngredientsList(elem) {
+        ingredients = ingredients.filter(item => "ingredient-" + item !== elem.parentNode.id);
+        elem.parentNode.parentNode.removeChild(elem.parentNode);
+        hiddenIngredientFieldEl.value = JSON.stringify(ingredients);
+    }
+
+</script>
