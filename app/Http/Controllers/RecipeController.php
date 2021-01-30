@@ -21,13 +21,13 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
 
-    public function store(Request $request, User $user): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
 
         $recipe = new Recipe();
         $recipe->fill($validatedValues);
-        $recipe->user()->associate($user);
+        $recipe->user()->associate($request->user());
         $recipe->save();
 
         return redirect()->route('recipes.show', $recipe);

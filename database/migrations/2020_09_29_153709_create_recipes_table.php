@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRecipesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('recipes', function (Blueprint $table) {
@@ -19,9 +14,9 @@ class CreateRecipesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->json('ingredients');
-            $table->integer('hours');
-            $table->integer('minutes');
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->integer('hours')->nullable();
+            $table->integer('minutes')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->softDeletes();
         });
     }
