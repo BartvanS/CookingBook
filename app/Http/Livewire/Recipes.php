@@ -35,9 +35,11 @@ class Recipes extends Component
                 $query->where('user_id', '=', $this->user->id);
             })
             ->when($this->search, function (Builder $query) {
-                $query
-                    ->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
+                $query->where(function (Builder $query) {
+                    $query
+                        ->where('title', 'like', '%' . $this->search . '%')
+                        ->orWhere('description', 'like', '%' . $this->search . '%');
+                });
             })
             ->latest()
             ->paginate(15);
