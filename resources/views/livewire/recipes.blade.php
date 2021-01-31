@@ -39,7 +39,7 @@
                             </a>
                         </td>
                         <td class="border-t px-4 py-2">{{ Str::limit($recipe->description, 100) }}</td>
-                        <td class="border-t px-4 py-2">{{ $recipe->hours }}:{{ $recipe->minutes }}</td>
+                        <td class="border-t px-4 py-2">{{ \App\Services\DurationConverter::toTime($recipe->duration) }}</td>
                         <td class="border-t px-4 py-2">
                             <x-user :user="$recipe->user"/>
                         </td>

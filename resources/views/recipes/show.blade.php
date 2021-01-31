@@ -22,6 +22,10 @@
                     Bereidingswijze
                 </div>
                 {{ $recipe->description }}
+                <div class="text-bold text-blue-900 text-lg mb-1">
+                    Bereidingstijd
+                </div>
+                {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
             </div>
         </div>
     </div>

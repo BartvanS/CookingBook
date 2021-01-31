@@ -16,13 +16,7 @@ class Recipe extends Model
         'title',
         'description',
         'ingredients',
-        'hours',
-        'minutes',
-    ];
-
-    protected $attributes = [
-        'hours' => 0,
-        'minutes' => 0,
+        'duration',
     ];
 
     public function user(): BelongsTo

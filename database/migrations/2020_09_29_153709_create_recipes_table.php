@@ -14,8 +14,7 @@ class CreateRecipesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->json('ingredients');
-            $table->integer('hours')->nullable();
-            $table->integer('minutes')->nullable();
+            $table->unsignedInteger('duration');
             $table->foreignId('user_id')->constrained();
             $table->softDeletes();
         });

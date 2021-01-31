@@ -6,53 +6,30 @@
     </x-slot>
 
     <x-form action="{{route('recipes.store')}}" title="Nieuw recept">
-        <x-input
-            type="text"
-            id="title"
-            class="px-3 py-2 rounded-lg border border-gray-300"
-            label="Titel"
-        />
-        <x-text-area
-            id="description"
-            class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300"
-            label="Beschrijving"
-        />
+        <x-input type="text"
+                 id="title"
+                 label="Titel"/>
+
+        <x-text-area id="description"
+                     label="Beschrijving"/>
+
         {{--ingredient Input field--}}
         <x-ingredients.form
             value="{{old('ingredients')}}"
         />
 
         {{--Time--}}
-        <div class="flex mt-3">
-            <div class="flex-grow flex-col">
-                <x-input
-                    type="number"
-                    id="hours"
-                    class="px-3 py-2 rounded-lg border border-gray-300"
-                    label="Tijd in uren"
-                    min="0"
-                />
-            </div>
-            <div class="flex-grow flex-col ml-3">
-                <div class="flex-grow flex-col">
-                    <x-input
-                        type="number"
-                        id="minutes"
-                        class="px-3 py-2 rounded-lg border border-gray-300"
-                        label="Tijd in minuten"
-                        min="0"
-
-                    />
-                </div>
-            </div>
-        </div>
+        <x-input type="time"
+                 id="duration"
+                 label="Bereidingstijd"
+                 min="0"
+        />
 
         {{--submit--}}
         <input
             type="submit"
             class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
             value="Toevoegen"
-            onclick="return validateSubmit()"
         />
     </x-form>
 </x-app-layout>

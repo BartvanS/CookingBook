@@ -40,7 +40,8 @@ class RecipeControllerTest extends TestCase
         $response = $this->post(route('recipes.store'), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'ingredients' => "Kaas\nBroodje"
+            'ingredients' => "Kaas\nBroodje",
+            'duration' => '00:30',
         ]);
 
         $response->assertRedirect();
@@ -50,7 +51,8 @@ class RecipeControllerTest extends TestCase
         $this->assertDatabaseHas('recipes', [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'ingredients' => "Kaas\nBroodje"
+            'ingredients' => "Kaas\nBroodje",
+            'duration' => 30,
         ]);
     }
 
@@ -93,7 +95,8 @@ class RecipeControllerTest extends TestCase
         $response = $this->put(route('recipes.update', $recipe), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'ingredients' => "Kaas\nBroodje"
+            'ingredients' => "Kaas\nBroodje",
+            'duration' => '00:30',
         ]);
 
         $response->assertRedirect();
@@ -103,7 +106,8 @@ class RecipeControllerTest extends TestCase
         $this->assertDatabaseHas('recipes', [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'ingredients' => "Kaas\nBroodje"
+            'ingredients' => "Kaas\nBroodje",
+            'duration' => 30,
         ]);
     }
 

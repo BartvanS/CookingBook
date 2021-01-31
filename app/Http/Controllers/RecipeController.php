@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -43,7 +43,7 @@ class RecipeController extends Controller
 
     public function edit(Recipe $recipe)
     {
-        return view('recipes.edit', ['fields' => $recipe]);
+        return view('recipes.edit')->with('recipe', $recipe);
     }
 
     public function update(Request $request, Recipe $recipe): RedirectResponse
@@ -62,15 +62,17 @@ class RecipeController extends Controller
         return redirect()->route('recipes.index');
     }
 
-    private function validateRecipe($request): array
+    private function validateRecipe(Request $request): array
     {
-        $validationValues = [
+        $values = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required|string',
-            'hours' => 'nullable|max:255',
-            'minutes' => 'nullable|max:255',
+            'duration' => 'required|string|min:5|max:5',
             'ingredients' => 'required|string',
-        ];
-        return $request->validate($validationValues);
+        ]);
+
+        $values['duration'] = DurationConverter::toMinutes($values['duration']);
+
+        return $values;
     }
 }

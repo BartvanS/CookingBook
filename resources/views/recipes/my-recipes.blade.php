@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        Mijn recepten
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Mijn recepten
+        </h2>
     </x-slot>
 
     <livewire:recipes :user="auth()->user()"/>
