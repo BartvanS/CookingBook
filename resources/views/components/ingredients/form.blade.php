@@ -1,3 +1,5 @@
+@props(['value'])
+
 {{--ingredient Input field--}}
 {{--IMPORTANT!!!! for this to work you need to make sure editForm.js is loaded in!--}}
 <div class="flex flex-col">
@@ -13,4 +15,4 @@
 </div>
 <div id="ingredientList" class="flex-grow"></div>
 {{-- old('ingredients') for create, $ingredients for edit--}}
-<input type="hidden" id="ingredients" name="ingredients" value="{{$value}}">
+<input type="hidden" id="ingredients" name="ingredients" value="{{ $value }}">
