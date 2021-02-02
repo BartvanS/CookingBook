@@ -1,3 +1,6 @@
+intro:
+	@echo "Recipesite"
+
 setup:
 	composer install
 	cp .env.example .env
@@ -27,3 +30,10 @@ do_ide_helper:
 	php artisan ide-helper:models --nowrite
 	php artisan ide-helper:eloquent
 	php artisan ide-helper:meta
+
+codestyle:
+		./vendor/bin/ecs --config=ecs-config.php check .
+
+codestyle-fix:
+		./vendor/bin/ecs --config=ecs-config.php check --fix .
+
