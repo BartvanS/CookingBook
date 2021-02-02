@@ -10,22 +10,49 @@
         @can('update', $recipe)
             <div class="flex justify-end mb-3">
                 <x-button href="{{ route('recipes.edit', $recipe) }}">
-                    Bewerken
+                    {{ __('Update') }}
                 </x-button>
             </div>
         @endcan
 
-        <div class="bg-white p-4 rounded-lg">
-            <x-user class="mb-3" :user="$recipe->user"/>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+            <div class="md:col-span-3">
+                <div class="bg-white p-4 rounded-lg">
+                    <div class="text-lg text-blue-900 font-bold">
+                        {{ __('Bereidingswijze') }}
+                    </div>
+                    <div>
+                        {{ $recipe->description }}
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg mt-5">
+                    <div class="px-4 pt-3 pb-2 text-lg text-blue-900 font-bold">
+                        {{ __('Ingredients') }}
+                    </div>
+                    @foreach($recipe->ingredients as $ingredient)
+                        <div class="px-4 py-2 text-md border-t border-gray-300">
+                            {{ $ingredient->name }}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
             <div>
-                <div class="text-bold text-blue-900 text-lg mb-1">
-                    Bereidingswijze
+                <div class="bg-white p-4 rounded-lg">
+                    <div class="text-blue-900 font-bold">
+                        Author
+                    </div>
+                    <x-user :user="$recipe->user"/>
+                    <div class="text-blue-900 font-bold mt-3">
+                        Bereidingstijd
+                    </div>
+                    {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
+                    <div class="text-blue-900 font-bold mt-3">
+                        Gepubliceerd
+                    </div>
+                    <div>
+                        {{ $recipe->created_at->format('j F, Y @ H:i') }}
+                    </div>
                 </div>
-                {{ $recipe->description }}
-                <div class="text-bold text-blue-900 text-lg mb-1">
-                    Bereidingstijd
-                </div>
-                {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
             </div>
         </div>
     </div>

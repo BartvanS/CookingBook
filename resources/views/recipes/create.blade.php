@@ -14,9 +14,8 @@
                      label="Beschrijving"/>
 
         {{--ingredient Input field--}}
-        <x-ingredients.form
-            value="{{old('ingredients')}}"
-        />
+        <x-text-area id="ingredients"
+                     label="Ingredients"/>
 
         {{--Time--}}
         <x-input type="time"

@@ -20,7 +20,7 @@
 
         <x-text-area id="ingredients"
                      label="Ingredienten"
-                     :default="$recipe->ingredients"/>
+                     :default="$ingredients"/>
 
         {{--Time--}}
         <x-input type="time"

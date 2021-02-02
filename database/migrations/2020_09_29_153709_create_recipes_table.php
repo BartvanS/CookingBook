@@ -15,7 +15,6 @@ final class CreateRecipesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->longText('description');
-            $table->json('ingredients');
             $table->unsignedInteger('duration');
             $table->foreignId('user_id')->constrained();
             $table->softDeletes();

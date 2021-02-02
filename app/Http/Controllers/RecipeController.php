@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 final class RecipeController extends Controller
 {
@@ -35,6 +38,8 @@ final class RecipeController extends Controller
         $recipe->user()->associate($request->user());
         $recipe->save();
 
+        $recipe->ingredients()->saveMany($validatedValues['ingredients']);
+
         return redirect()->route('recipes.show', $recipe);
     }
 
@@ -45,7 +50,12 @@ final class RecipeController extends Controller
 
     public function edit(Recipe $recipe)
     {
-        return view('recipes.edit')->with('recipe', $recipe);
+        return view('recipes.edit')->with([
+            'recipe' => $recipe,
+            'ingredients' => $recipe->ingredients->reduce(function ($value, Ingredient $ingredient) {
+                return $value . $ingredient->name . PHP_EOL;
+            }),
+        ]);
     }
 
     public function update(Request $request, Recipe $recipe): RedirectResponse
@@ -53,6 +63,9 @@ final class RecipeController extends Controller
         $validatedValues = $this->validateRecipe($request);
 
         $recipe->update($validatedValues);
+
+        $recipe->ingredients()->delete();
+        $recipe->ingredients()->saveMany($validatedValues['ingredients']);
 
         return redirect()->route('recipes.show', $recipe);
     }
@@ -74,6 +87,17 @@ final class RecipeController extends Controller
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
+
+        $values['ingredients'] = collect(explode(PHP_EOL, $values['ingredients']))
+            ->filter()
+            ->each(function (string $name, $index) {
+                if (Str::length($name) > 255) {
+                    throw ValidationException::withMessages([
+                        'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
+                    ]);
+                }
+            })
+            ->map(fn (string $name) => Ingredient::make(['name' => $name]));
 
         return $values;
     }

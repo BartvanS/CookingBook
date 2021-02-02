@@ -1,6 +1,6 @@
 @props(['id', 'label', 'default' => null])
 
-<label for="{{$id}}" class="mb-1">{{$label}}</label>
+<label for="{{$id}}" class="mb-1 mt-3">{{$label}}</label>
 <input name="{{$id}}"
        id="{{$id}}"
        value="{{ old($id, $default) }}"

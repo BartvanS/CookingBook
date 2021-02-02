@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -27,6 +28,15 @@ final class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
 
-        Recipe::factory(50)->create();
+        Recipe::factory()
+            ->count(50)
+            ->create()
+            ->each(function (Recipe $recipe) {
+                Ingredient::factory()
+                    ->count(random_int(1, 5))
+                    ->create([
+                        'recipe_id' => $recipe,
+                    ]);
+            });
     }
 }

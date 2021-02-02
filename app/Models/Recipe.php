@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Recipe extends Model
@@ -17,12 +18,16 @@ final class Recipe extends Model
     protected $fillable = [
         'title',
         'description',
-        'ingredients',
         'duration',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function ingredients(): HasMany
+    {
+        return $this->hasMany(Ingredient::class);
     }
 }

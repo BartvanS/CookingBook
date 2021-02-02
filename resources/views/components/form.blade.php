@@ -6,7 +6,7 @@
          style="margin-top: -25px">
         {{ $title }}
     </div>
-    <div class="flex flex-col p-5 pt-8">
+    <div class="flex flex-col p-5 pt-6">
         {{ $slot }}
     </div>
 </form>
