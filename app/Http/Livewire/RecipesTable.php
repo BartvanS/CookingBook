@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-final class Recipes extends Component
+final class RecipesTable extends Component
 {
     use WithPagination;
 
@@ -40,7 +40,10 @@ final class Recipes extends Component
                 $query->where(function (Builder $query) {
                     $query
                         ->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('description', 'like', '%' . $this->search . '%');
+                        ->orWhere('description', 'like', '%' . $this->search . '%')
+                        ->orWhereHas('user', function (Builder $query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        });
                 });
             })
             ->latest()

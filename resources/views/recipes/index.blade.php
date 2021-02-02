@@ -5,6 +5,6 @@
         </h2>
     </x-slot>
 
-    <livewire:recipes likeQuery=""/>
+    <livewire:recipes-table likeQuery=""/>
 
 </x-app-layout>

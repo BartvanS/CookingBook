@@ -5,5 +5,5 @@
         </h2>
     </x-slot>
 
-    <livewire:recipes :user="auth()->user()"/>
+    <livewire:recipes-table :user="auth()->user()"/>
 </x-app-layout>

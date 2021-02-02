@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Livewire;
 
-use App\Http\Livewire\Recipes;
+use App\Http\Livewire\RecipesTable;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -18,7 +18,7 @@ final class RecipesTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        Livewire::test(Recipes::class)
+        Livewire::test(RecipesTable::class)
             ->set('search', 'test');
     }
 }
