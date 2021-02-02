@@ -7,7 +7,7 @@ setup:
 	php artisan key:generate
 	php artisan storage:link
 
-update: do_composer do_assets migrate do_ide_helper
+update: do_composer do_assets migrate do_ide_helper do_clear_cache
 
 migrate:
 	php artisan migrate:fresh --seed
@@ -17,6 +17,12 @@ test:
 
 test-coverage:
 	php -d zend_extension="xdebug.so" -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-html ./public/coverage
+
+codestyle:
+		./vendor/bin/ecs --config=ecs-config.php check .
+
+codestyle-fix:
+		./vendor/bin/ecs --config=ecs-config.php check --fix .
 
 do_composer:
 	composer install
@@ -31,9 +37,5 @@ do_ide_helper:
 	php artisan ide-helper:eloquent
 	php artisan ide-helper:meta
 
-codestyle:
-		./vendor/bin/ecs --config=ecs-config.php check .
-
-codestyle-fix:
-		./vendor/bin/ecs --config=ecs-config.php check --fix .
-
+do_clear_cache:
+	php artisan optimize:clear
