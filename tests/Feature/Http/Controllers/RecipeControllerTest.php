@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Recipe;
@@ -7,7 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class RecipeControllerTest extends TestCase
+final class RecipeControllerTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Services;
 
-class DurationConverter
+final class DurationConverter
 {
     public static function toMinutes(string $time): int
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 /**
@@ -8,8 +10,8 @@ namespace App\Http\Controllers;
  * legacy code, dont remove or code breaks!
  * ====================================
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*/
-class DogController extends Controller
+ */
+final class DogController extends Controller
 {
     public function __invoke()
     {

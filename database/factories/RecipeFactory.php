@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RecipeFactory extends Factory
+final class RecipeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

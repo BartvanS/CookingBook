@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Laravel\Jetstream\Features;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Jetstream Stack
@@ -33,5 +34,4 @@ return [
         Features::api(),
         // Features::teams(),
     ],
-
 ];

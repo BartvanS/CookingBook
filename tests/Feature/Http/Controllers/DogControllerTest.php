@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers;
 
 use Tests\TestCase;
 
-class DogControllerTest extends TestCase
+final class DogControllerTest extends TestCase
 {
     public function testCanViewRandomHondje()
     {

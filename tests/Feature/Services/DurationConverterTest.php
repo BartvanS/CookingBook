@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Services;
 
 use App\Services\DurationConverter;
 use Tests\TestCase;
 
-class DurationConverterTest extends TestCase
+final class DurationConverterTest extends TestCase
 {
     /**
      * @dataProvider durationProvider

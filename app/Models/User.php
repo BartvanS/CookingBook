@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Model;
-class User extends Authenticatable
+
+final class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -59,7 +61,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function recipe(){
+    public function recipe()
+    {
         return $this->hasMany('App\Models\Recipe', 'id');
     }
 }

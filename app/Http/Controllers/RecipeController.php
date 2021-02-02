@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
@@ -7,7 +9,7 @@ use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class RecipeController extends Controller
+final class RecipeController extends Controller
 {
     public function __construct()
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Livewire;
 
 use App\Http\Livewire\Recipes;
@@ -8,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class RecipesTest extends TestCase
+final class RecipesTest extends TestCase
 {
     use RefreshDatabase;
 

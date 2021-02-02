@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components\Ingredients;
 
 use Illuminate\View\Component;
 
-class Form extends Component
+final class Form extends Component
 {
     public $value;
 

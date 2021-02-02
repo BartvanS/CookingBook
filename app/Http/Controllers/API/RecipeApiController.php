@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\RecipeController;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class RecipeApiController extends Controller
+final class RecipeApiController extends Controller
 {
     public function index(Request $request)
     {
-    $request->validate(['amount' => 'nullable|min:0|max:100']);
+        $request->validate(['amount' => 'nullable|min:0|max:100']);
+
         return response(Recipe::limit($request->input('amount', 10))->get());
     }
 
@@ -23,6 +24,7 @@ class RecipeApiController extends Controller
         $recipe->fill($validatedValues);
         $recipe->user()->associate($request->user());
         $recipe->save();
+
         return 'succes';
     }
 
@@ -35,6 +37,7 @@ class RecipeApiController extends Controller
             'minutes' => 'nullable|max:255',
             'ingredients' => 'required|string',
         ];
+
         return $request->validate($validationValues);
     }
 }
