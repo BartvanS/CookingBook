@@ -25,7 +25,7 @@ final class IngredientFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->sentence(2),
+            'name' => $this->faker->numberBetween(1, 10) . 'x ' . $this->faker->sentence(2),
             'recipe_id' => fn () => Recipe::factory(),
         ];
     }
