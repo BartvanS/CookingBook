@@ -6,14 +6,27 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex justify-end mb-3">
+            @can('delete', $recipe)
+                <form method="post"
+                      action="{{ route('recipes.destroy', $recipe) }}">
+                    @csrf
+                    @method('DELETE')
 
-        @can('update', $recipe)
-            <div class="flex justify-end mb-3">
+                    <x-button component="button"
+                              type="submit"
+                              class="mr-3"
+                              onclick="return confirmDeleteModel()">
+                        {{ __('Delete') }}
+                    </x-button>
+                </form>
+            @endcan
+            @can('update', $recipe)
                 <x-button href="{{ route('recipes.edit', $recipe) }}">
                     {{ __('Update') }}
                 </x-button>
-            </div>
-        @endcan
+            @endcan
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
             <div class="md:col-span-3">

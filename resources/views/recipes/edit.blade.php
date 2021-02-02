@@ -36,18 +36,6 @@
             value="Bijwerken"
         />
     </x-form>
-
-    <form class="deleteForm" method="post" action="{{ route('recipes.destroy', $recipe) }}">
-        @csrf
-        @method('DELETE')
-        <input onclick="return comfirmDelete()" type="submit" value="YEETUS DELETUS">
-    </form>
-    <script>
-        function comfirmDelete() {
-            return confirm("Weet je zeker of je dit recept wilt verwijderen?");
-        }
-
-    </script>
 </x-app-layout>
 <script>
 
