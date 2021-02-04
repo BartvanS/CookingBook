@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Ingredient;
+use App\Models\Instruction;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -34,6 +35,12 @@ final class DatabaseSeeder extends Seeder
             ->each(function (Recipe $recipe) {
                 Ingredient::factory()
                     ->count(random_int(1, 5))
+                    ->create([
+                        'recipe_id' => $recipe,
+                    ]);
+
+                Instruction::factory()
+                    ->count(random_int(1, 8))
                     ->create([
                         'recipe_id' => $recipe,
                     ]);

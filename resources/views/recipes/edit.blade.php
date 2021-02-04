@@ -22,6 +22,10 @@
                              label="Ingredienten"
                              :items="$ingredients"/>
 
+        <livewire:list-input name="instructions"
+                             label="Instructions"
+                             :items="$instructions"/>
+
         {{--Time--}}
         <x-input type="time"
                  id="duration"

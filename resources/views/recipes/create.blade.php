@@ -16,6 +16,9 @@
         <livewire:list-input name="ingredients"
                              label="Ingredients"/>
 
+        <livewire:list-input name="instructions"
+                             label="Instructions"/>
+
         {{--Time--}}
         <x-input type="time"
                  id="duration"

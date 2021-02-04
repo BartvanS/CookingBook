@@ -23,11 +23,16 @@ final class Recipe extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function ingredients(): HasMany
     {
         return $this->hasMany(Ingredient::class);
+    }
+
+    public function instructions(): HasMany
+    {
+        return $this->hasMany(Instruction::class);
     }
 }

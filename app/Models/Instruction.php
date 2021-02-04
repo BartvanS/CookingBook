@@ -6,20 +6,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class Ingredient extends Model
+final class Instruction extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
+        'instruction',
     ];
 
-    public function recipe(): HasOne
+    public function recipe(): BelongsTo
     {
-        return $this->hasOne(Recipe::class);
+        return $this->belongsTo(Recipe::class);
     }
 }

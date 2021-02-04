@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -61,8 +62,8 @@ final class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function recipe()
+    public function recipes(): HasMany
     {
-        return $this->hasMany('App\Models\Recipe', 'id');
+        return $this->hasMany(Recipe::class);
     }
 }

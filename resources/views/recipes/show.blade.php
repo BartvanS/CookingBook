@@ -32,7 +32,7 @@
             <div class="md:col-span-3">
                 <div class="bg-white p-4 rounded-lg">
                     <div class="text-lg text-blue-900 font-bold">
-                        {{ __('Bereidingswijze') }}
+                        {{ __('Description') }}
                     </div>
                     <div>
                         {{ $recipe->description }}
@@ -40,11 +40,12 @@
                 </div>
                 <div class="bg-white rounded-lg mt-5">
                     <div class="px-4 pt-3 pb-2 text-lg text-blue-900 font-bold">
-                        {{ __('Ingredients') }}
+                        {{ __('Instructions') }}
                     </div>
-                    @foreach($recipe->ingredients as $ingredient)
+                    @foreach($recipe->instructions as $instruction)
                         <div class="px-4 py-2 text-md border-t border-gray-300">
-                            {{ $ingredient->name }}
+                            <span class="text-blue-900 font-bold">{{ $loop->iteration }}.</span>
+                            {{ $instruction->instruction }}
                         </div>
                     @endforeach
                 </div>
@@ -65,6 +66,16 @@
                     <div>
                         {{ $recipe->created_at->format('j F, Y @ H:i') }}
                     </div>
+                </div>
+                <div class="bg-white rounded-lg mt-5">
+                    <div class="px-4 pt-3 pb-2 text-lg text-blue-900 font-bold">
+                        {{ __('Ingredients') }}
+                    </div>
+                    @foreach($recipe->ingredients as $ingredient)
+                        <div class="px-4 py-2 text-md border-t border-gray-300">
+                            {{ $ingredient->name }}
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

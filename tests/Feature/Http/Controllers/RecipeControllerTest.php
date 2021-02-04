@@ -44,6 +44,7 @@ final class RecipeControllerTest extends TestCase
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
             'ingredients' => "Kaas\nBroodje",
+            'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
         ]);
 
@@ -57,6 +58,7 @@ final class RecipeControllerTest extends TestCase
             'duration' => 30,
         ]);
         $this->assertDatabaseCount('ingredients', 2);
+        $this->assertDatabaseCount('instructions', 2);
     }
 
     public function testCannotStoreWithLongIngredients()
@@ -65,6 +67,7 @@ final class RecipeControllerTest extends TestCase
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
             'ingredients' => str_repeat('a', 260) . PHP_EOL . str_repeat('b', 50),
+            'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
         ]);
 
@@ -125,6 +128,7 @@ final class RecipeControllerTest extends TestCase
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
             'ingredients' => "Kaas\nBroodje",
+            'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
         ]);
 
@@ -138,6 +142,7 @@ final class RecipeControllerTest extends TestCase
             'duration' => 30,
         ]);
         $this->assertDatabaseCount('ingredients', 2);
+        $this->assertDatabaseCount('instructions', 2);
     }
 
     public function testCanUpdateToLessIngredients()
@@ -153,6 +158,7 @@ final class RecipeControllerTest extends TestCase
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
             'ingredients' => 'Kaas',
+            'instructions' => 'Bakken',
             'duration' => '00:30',
         ]);
 
@@ -161,6 +167,7 @@ final class RecipeControllerTest extends TestCase
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseCount('ingredients', 1);
+        $this->assertDatabaseCount('instructions', 1);
     }
 
     public function testCannotUpdateWithLongIngredients()
@@ -173,6 +180,7 @@ final class RecipeControllerTest extends TestCase
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
             'ingredients' => str_repeat('a', 260) . PHP_EOL . str_repeat('b', 50),
+            'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
         ]);
 

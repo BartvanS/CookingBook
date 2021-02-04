@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\Instruction;
 use App\Models\Recipe;
 use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,8 @@ final class RecipeController extends Controller
 
         $recipe->ingredients()->saveMany($validatedValues['ingredients']);
 
+        $recipe->instructions()->saveMany($validatedValues['instructions']);
+
         return redirect()->route('recipes.show', $recipe);
     }
 
@@ -53,6 +56,7 @@ final class RecipeController extends Controller
         return view('recipes.edit')->with([
             'recipe' => $recipe,
             'ingredients' => $recipe->ingredients->pluck('name')->toArray(),
+            'instructions' => $recipe->instructions()->pluck('instruction')->toArray(),
         ]);
     }
 
@@ -64,6 +68,9 @@ final class RecipeController extends Controller
 
         $recipe->ingredients()->delete();
         $recipe->ingredients()->saveMany($validatedValues['ingredients']);
+
+        $recipe->instructions()->delete();
+        $recipe->instructions()->saveMany($validatedValues['instructions']);
 
         return redirect()->route('recipes.show', $recipe);
     }
@@ -82,6 +89,7 @@ final class RecipeController extends Controller
             'description' => 'required|string',
             'duration' => 'required|string|min:5|max:5',
             'ingredients' => 'required|string',
+            'instructions' => 'required|string',
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
@@ -96,6 +104,10 @@ final class RecipeController extends Controller
                 }
             })
             ->map(fn (string $name) => Ingredient::make(['name' => $name]));
+
+        $values['instructions'] = collect(explode(PHP_EOL, $values['instructions']))
+            ->filter()
+            ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
 
         return $values;
     }
