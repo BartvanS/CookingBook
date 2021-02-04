@@ -18,9 +18,9 @@
                      label="Beschrijving"
                      :default="$recipe->description"/>
 
-        <x-text-area id="ingredients"
-                     label="Ingredienten"
-                     :default="$ingredients"/>
+        <livewire:list-input name="ingredients"
+                             label="Ingredienten"
+                             :items="$ingredients"/>
 
         {{--Time--}}
         <x-input type="time"

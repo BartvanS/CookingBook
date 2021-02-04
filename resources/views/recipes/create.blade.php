@@ -13,9 +13,8 @@
         <x-text-area id="description"
                      label="Beschrijving"/>
 
-        {{--ingredient Input field--}}
-        <x-text-area id="ingredients"
-                     label="Ingredients"/>
+        <livewire:list-input name="ingredients"
+                             label="Ingredients"/>
 
         {{--Time--}}
         <x-input type="time"

@@ -52,9 +52,7 @@ final class RecipeController extends Controller
     {
         return view('recipes.edit')->with([
             'recipe' => $recipe,
-            'ingredients' => $recipe->ingredients->reduce(function ($value, Ingredient $ingredient) {
-                return $value . $ingredient->name . PHP_EOL;
-            }),
+            'ingredients' => $recipe->ingredients->pluck('name')->toArray(),
         ]);
     }
 
