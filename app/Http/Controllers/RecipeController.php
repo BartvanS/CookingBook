@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use App\Repositories\RecipeRepository;
 
 final class RecipeController extends Controller
 {
@@ -32,19 +33,10 @@ final class RecipeController extends Controller
         return view('recipes.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, RecipeRepository $recipeRepository): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
-
-        $recipe = new Recipe();
-        $recipe->fill($validatedValues);
-        $recipe->user()->associate($request->user());
-        $recipe->save();
-
-        $recipe->ingredients()->saveMany($validatedValues['ingredients']);
-
-        $recipe->instructions()->saveMany($validatedValues['instructions']);
-
+        $recipe = $recipeRepository->store($request, $validatedValues, $validatedValues['ingredients'], $validatedValues['instructions']);
         return redirect()->route('recipes.show', $recipe);
     }
 

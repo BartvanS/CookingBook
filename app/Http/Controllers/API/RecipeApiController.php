@@ -35,7 +35,7 @@ final class RecipeApiController extends Controller
             'description' => 'required|string',
             'hours' => 'nullable|max:255',
             'minutes' => 'nullable|max:255',
-            'ingredients' => 'required|string',
+            'ingredients' => 'required|json',
         ];
 
         return $request->validate($validationValues);
