@@ -19,6 +19,7 @@ final class Recipe extends Model
         'title',
         'description',
         'duration',
+        'category'
     ];
 
     public function user(): BelongsTo

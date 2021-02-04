@@ -24,6 +24,7 @@
                 <thead>
                 <tr>
                     <th class="px-4 py-2 text-left">Titel</th>
+                    <th class="px-4 py-2 text-left">Category</th>
                     <th class="px-4 py-2 text-left">Beschrijving</th>
                     <th class="px-4 py-2 text-left">Duur</th>
                     <th class="px-4 py-2 text-left">Auteur</th>
@@ -38,6 +39,7 @@
                                 {{ $recipe->title }}
                             </a>
                         </td>
+                        <td class="border-t px-4 py-2">{{ $recipe->category }}</td>
                         <td class="border-t px-4 py-2">{{ Str::limit($recipe->description, 100) }}</td>
                         <td class="border-t px-4 py-2">{{ \App\Services\DurationConverter::toTime($recipe->duration) }}</td>
                         <td class="border-t px-4 py-2">

@@ -18,6 +18,10 @@
                      label="Beschrijving"
                      :default="$recipe->description"/>
 
+        <x-category-select id="category"
+                           label="Category"
+                           :default="$recipe->category"/>
+
         <livewire:list-input name="ingredients"
                              label="Ingredienten"
                              :items="$ingredients"/>

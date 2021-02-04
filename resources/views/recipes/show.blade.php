@@ -57,6 +57,12 @@
                     </div>
                     <x-user :user="$recipe->user"/>
                     <div class="text-blue-900 font-bold mt-3">
+                        Category
+                    </div>
+                    <div>
+                        {{ $recipe->category }}
+                    </div>
+                    <div class="text-blue-900 font-bold mt-3">
                         Bereidingstijd
                     </div>
                     {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}

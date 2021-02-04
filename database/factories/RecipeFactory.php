@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Dto\RecipeCategory;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,9 +27,10 @@ final class RecipeFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->realText(200),
+            'description' => $this->faker->realText(),
             'duration' => rand(1, 150),
             'user_id' => fn () => User::factory(),
+            'category' => $this->faker->randomElement(RecipeCategory::all()),
         ];
     }
 }

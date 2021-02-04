@@ -13,6 +13,9 @@
         <x-text-area id="description"
                      label="Beschrijving"/>
 
+        <x-category-select id="category"
+                           label="Category"/>
+
         <livewire:list-input name="ingredients"
                              label="Ingredients"/>
 
