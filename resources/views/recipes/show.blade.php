@@ -30,7 +30,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
             <div class="md:col-span-3">
-                <div class="bg-white p-4 rounded-lg">
+                <div class="bg-white p-4 rounded-lg shadow-md">
                     <div class="text-lg text-blue-900 font-bold">
                         {{ __('Description') }}
                     </div>
@@ -38,7 +38,7 @@
                         {{ $recipe->description }}
                     </div>
                 </div>
-                <div class="bg-white rounded-lg mt-5">
+                <div class="bg-white rounded-lg mt-5 shadow-md">
                     <div class="px-4 pt-3 pb-2 text-lg text-blue-900 font-bold">
                         {{ __('Instructions') }}
                     </div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div>
-                <div class="bg-white p-4 rounded-lg">
+                <div class="bg-white p-4 rounded-lg shadow-md">
                     <div class="text-blue-900 font-bold">
                         Author
                     </div>
@@ -73,7 +73,7 @@
                         {{ $recipe->created_at->format('j F, Y @ H:i') }}
                     </div>
                 </div>
-                <div class="bg-white rounded-lg mt-5">
+                <div class="bg-white rounded-lg mt-5 shadow-md">
                     <div class="px-4 pt-3 pb-2 text-lg text-blue-900 font-bold">
                         {{ __('Ingredients') }}
                     </div>

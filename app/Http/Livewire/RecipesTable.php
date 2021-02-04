@@ -47,7 +47,7 @@ final class RecipesTable extends Component
                 });
             })
             ->latest()
-            ->paginate(15);
+            ->paginate(9);
 
         return view('livewire.recipes', [
             'recipes' => $recipes,
