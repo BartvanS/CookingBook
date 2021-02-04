@@ -6,19 +6,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-final class CreateRecipesTable extends Migration
+final class CreateCommentsTable extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('title');
-            $table->longText('description');
-            $table->unsignedInteger('duration');
-            $table->string('category');
+            $table->longText('message');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ final class CreateRecipesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('comments');
     }
 }

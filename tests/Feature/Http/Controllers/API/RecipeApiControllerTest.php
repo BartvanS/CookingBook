@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\app\Http\API;
+namespace Tests\Feature\Http\Controllers\API;
 
 use App\Models\Recipe;
 use App\Models\User;

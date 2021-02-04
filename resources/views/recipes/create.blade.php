@@ -10,7 +10,7 @@
                  id="title"
                  label="Titel"/>
 
-        <x-text-area id="description"
+        <x-text-area name="description"
                      label="Beschrijving"/>
 
         <x-category-select id="category"

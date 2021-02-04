@@ -36,7 +36,8 @@ final class RecipeController extends Controller
     public function store(Request $request, RecipeRepository $recipeRepository): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
-        $recipe = $recipeRepository->store($request, $validatedValues, $validatedValues['ingredients'], $validatedValues['instructions']);
+
+        $recipe = $recipeRepository->store($validatedValues);
 
         return redirect()->route('recipes.show', $recipe);
     }
