@@ -12,6 +12,10 @@
            wire:keydown.enter="add()"
            autocomplete="off"/>
 
+    <div class="text-sm text-gray-500">
+        {{ __('Enter to add') }}
+    </div>
+
     <ul class="list-decimal pl-5">
         @foreach($items as $index => $item)
             <li class="py-1">
