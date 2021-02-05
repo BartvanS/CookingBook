@@ -34,7 +34,7 @@ final class Comment extends Model
         parent::boot();
 
         static::creating(function (Comment $comment) {
-            if (Auth::check()) {
+            if (is_null($comment->user_id) && Auth::check()) {
                 $comment->user_id = Auth::id();
             }
         });

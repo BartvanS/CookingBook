@@ -48,7 +48,7 @@ final class Recipe extends Model
         parent::boot();
 
         static::creating(function (Recipe $recipe) {
-            if (Auth::check()) {
+            if (is_null($recipe->user_id) && Auth::check()) {
                 $recipe->user_id = Auth::id();
             }
         });
