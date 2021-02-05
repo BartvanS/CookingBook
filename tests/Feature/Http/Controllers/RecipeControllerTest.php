@@ -108,9 +108,8 @@ final class RecipeControllerTest extends TestCase
 
     public function testCannotEditOtherRecipe()
     {
-        $recipe = Recipe::factory()->create();
-        Ingredient::factory()->count(3)->create([
-            'recipe_id' => $recipe,
+        $recipe = Recipe::factory()->create([
+            'user_id' => User::factory(),
         ]);
 
         $response = $this->get(route('recipes.edit', $recipe));

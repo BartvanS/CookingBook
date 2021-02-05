@@ -52,6 +52,12 @@ final class RecipesTable extends Component
                         ->orWhere('description', 'like', '%' . $this->search . '%')
                         ->orWhereHas('user', function (Builder $query) {
                             $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('ingredients', function (Builder $query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('instructions', function (Builder $query) {
+                            $query->where('instruction', 'like', '%' . $this->search . '%');
                         });
                 });
             })

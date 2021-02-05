@@ -6,7 +6,7 @@
     <x-input
         type="text"
         label="Ingredient"
-        id="ingredientInput"
+        name="ingredientInput"
         class="px-3 py-2 rounded-lg border border-gray-300-1"
         placeholder=""
         onchange=""

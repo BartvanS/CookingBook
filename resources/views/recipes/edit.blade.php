@@ -5,45 +5,48 @@
         </h2>
     </x-slot>
 
-    <x-form action="{{ route('recipes.update', $recipe) }}"
-            title="Edit recipe">
-        @method('put')
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col">
 
-        <x-input type="text"
-                 id="title"
-                 label="Titel"
-                 :default="$recipe->title"/>
+        <x-form action="{{ route('recipes.update', $recipe) }}"
+                title="{{ __('Edit recipe') }}">
+            @method('put')
 
-        <x-text-area name="description"
-                     label="Beschrijving"
-                     :default="$recipe->description"/>
+            <x-input type="text"
+                     name="title"
+                     label="{{ __('Title') }}"
+                     :default="$recipe->title"/>
 
-        <x-category-select id="category"
-                           label="Category"
-                           :default="$recipe->category"/>
+            <x-text-area name="description"
+                         label="{{ __('Description') }}"
+                         :default="$recipe->description"/>
 
-        <livewire:list-input name="ingredients"
-                             label="Ingredienten"
-                             :items="$ingredients"/>
+            <x-category-select id="category"
+                               label="{{ __('Category') }}"
+                               :default="$recipe->category"/>
 
-        <livewire:list-input name="instructions"
-                             label="Instructions"
-                             :items="$instructions"/>
+            <livewire:list-input name="ingredients"
+                                 label="{{ __('Ingredients') }}"
+                                 :items="$ingredients"/>
 
-        {{--Time--}}
-        <x-input type="time"
-                 id="duration"
-                 label="Bereidingstijd"
-                 :default="\App\Services\DurationConverter::toTime($recipe->duration)"
-                 min="0"/>
+            <livewire:list-input name="instructions"
+                                 label="{{ __('Instructions') }}"
+                                 :items="$instructions"/>
 
-        {{--submit--}}
-        <input
-            type="submit"
-            class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
-            value="Bijwerken"
-        />
-    </x-form>
+            {{--Time--}}
+            <x-input type="time"
+                     name="duration"
+                     label="{{ __('Cooking time') }}"
+                     :default="\App\Services\DurationConverter::toTime($recipe->duration)"
+                     min="0"/>
+
+            {{--submit--}}
+            <input
+                type="submit"
+                class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
+                value="{{ __('Update') }}"
+            />
+        </x-form>
+    </div>
 </x-app-layout>
 <script>
 

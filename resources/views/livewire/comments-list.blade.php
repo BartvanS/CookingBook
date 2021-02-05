@@ -2,7 +2,7 @@
     @can('create', \App\Models\Comment::class)
         <div class="surface p-5 mt-5">
             <div class="text-blue-900 font-bold text-lg">
-                Add comment
+                {{ __('Add comment') }}
             </div>
             <form wire:submit.prevent="submit"
                   class="flex flex-col">
@@ -23,7 +23,7 @@
     @if($comments->isNotEmpty())
         <div class="grid grid-cols-1 gap-5 mt-5">
             <div class="surface px-5 py-3 text-blue-900 font-bold text-lg">
-                Comments
+                {{ __('Comments') }}
             </div>
             @foreach($comments as $comment)
                 <div class="surface p-5">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                        {{ $comment->message }}
+                        {!! nl2br(e($comment->message)) !!}
                     </div>
                 </div>
             @endforeach

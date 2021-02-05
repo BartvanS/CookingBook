@@ -12,13 +12,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('recipes.index') }}" :active="request()->routeIs('recipes.index')">
-                        Recepten zoeken
+                    <x-jet-nav-link href="{{ route('recipes.index') }}" :active="Request::routeIs('recipes.index')">
+                        {{ __('Recipes') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('my-recipes') }}" :active="request()->routeIs('my-recipes')">
-                        Mijn recepten
+                    <x-jet-nav-link href="{{ route('author.show', Auth::user()) }}"
+                                    :active="Request::routeIs('author.show') && Auth::user()->is(Request::route('user'))">
+                        {{ __('My recipes') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -115,12 +116,6 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
-        </div>
-
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">

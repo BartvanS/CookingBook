@@ -13,7 +13,7 @@
            autocomplete="off"/>
 
     <div class="text-sm text-gray-500">
-        {{ __('Enter to add') }}
+        {{ __('Press enter to add') }}
     </div>
 
     <ul class="list-decimal pl-5">

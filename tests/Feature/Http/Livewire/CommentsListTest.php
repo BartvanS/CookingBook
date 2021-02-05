@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Livewire;
 
 use App\Http\Livewire\CommentsList;
@@ -9,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class CommentsListTest extends TestCase
+final class CommentsListTest extends TestCase
 {
     use RefreshDatabase;
 
