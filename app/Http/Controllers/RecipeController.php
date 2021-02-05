@@ -61,6 +61,7 @@ final class RecipeController extends Controller
     {
         $validatedValues = $this->validateRecipe($request);
         $recipe = $recipeRepository->update($recipe, $validatedValues);
+
         return redirect()->route('recipes.show', $recipe);
     }
 
@@ -75,7 +76,7 @@ final class RecipeController extends Controller
     {
         $values = $request->validate([
             'title' => 'required|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'category' => ['required', 'string', Rule::in(RecipeCategory::all())],
             'duration' => 'required|string|min:5|max:5',
             'ingredients' => 'required|string',
