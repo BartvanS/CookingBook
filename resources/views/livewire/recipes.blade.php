@@ -5,7 +5,6 @@
                name="search"
                aria-label="Zoeken"
                placeholder="{{ __('Search') }} ..."
-               autofocus
                class="px-3 py-2 rounded-lg border border-gray-300 shadow">
 
         @can('create', \App\Models\Recipe::class)
