@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
@@ -41,6 +42,12 @@ final class DatabaseSeeder extends Seeder
 
                 Instruction::factory()
                     ->count(random_int(1, 8))
+                    ->create([
+                        'recipe_id' => $recipe,
+                    ]);
+
+                Comment::factory()
+                    ->count(random_int(0, 5))
                     ->create([
                         'recipe_id' => $recipe,
                     ]);

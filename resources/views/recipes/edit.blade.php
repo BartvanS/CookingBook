@@ -14,7 +14,7 @@
                  label="Titel"
                  :default="$recipe->title"/>
 
-        <x-text-area id="description"
+        <x-text-area name="description"
                      label="Beschrijving"
                      :default="$recipe->description"/>
 

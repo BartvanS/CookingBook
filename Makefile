@@ -41,3 +41,10 @@ do_ide_helper:
 
 do_clear_cache:
 	php artisan optimize:clear
+
+# Aliases
+u: update
+t: test
+tc: test-coverage
+c: codestyle
+cf: codestyle-fix

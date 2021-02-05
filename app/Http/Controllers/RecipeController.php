@@ -36,7 +36,9 @@ final class RecipeController extends Controller
     public function store(Request $request, RecipeRepository $recipeRepository): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
-        $recipe = $recipeRepository->store($request, $validatedValues, $validatedValues['ingredients'], $validatedValues['instructions']);
+
+        $recipe = $recipeRepository->store($validatedValues);
+        // $recipe = $recipeRepository->store($request, $validatedValues, $validatedValues['ingredients'], $validatedValues['instructions']);
 
         return redirect()->route('recipes.show', $recipe);
     }
@@ -58,7 +60,7 @@ final class RecipeController extends Controller
     public function update(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
-        $recipe = $recipeRepository->update($request, $recipe, $validatedValues);
+        $recipe = $recipeRepository->update($recipe, $validatedValues);
         return redirect()->route('recipes.show', $recipe);
     }
 

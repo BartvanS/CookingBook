@@ -7,20 +7,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-final class Recipe extends Model
+final class Comment extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'title',
-        'description',
-        'duration',
-        'category',
+        'message',
     ];
 
     public function user(): BelongsTo
@@ -28,28 +24,18 @@ final class Recipe extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function ingredients(): HasMany
+    public function recipe(): BelongsTo
     {
-        return $this->hasMany(Ingredient::class);
-    }
-
-    public function instructions(): HasMany
-    {
-        return $this->hasMany(Instruction::class);
-    }
-
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Recipe::class);
     }
 
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function (Recipe $recipe) {
+        static::creating(function (Comment $comment) {
             if (Auth::check()) {
-                $recipe->user_id = Auth::id();
+                $comment->user_id = Auth::id();
             }
         });
     }

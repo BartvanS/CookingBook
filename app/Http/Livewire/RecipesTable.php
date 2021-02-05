@@ -32,7 +32,16 @@ final class RecipesTable extends Component
 
     public function render()
     {
-        $recipes = Recipe::with('user')
+        $recipes = $this->query()->paginate(9);
+
+        return view('livewire.recipes', [
+            'recipes' => $recipes,
+        ]);
+    }
+
+    public function query(): Builder
+    {
+        return Recipe::with('user')
             ->when($this->user instanceof User, function (Builder $query) {
                 $query->where('user_id', '=', $this->user->id);
             })
@@ -46,11 +55,6 @@ final class RecipesTable extends Component
                         });
                 });
             })
-            ->latest()
-            ->paginate(9);
-
-        return view('livewire.recipes', [
-            'recipes' => $recipes,
-        ]);
+            ->latest();
     }
 }

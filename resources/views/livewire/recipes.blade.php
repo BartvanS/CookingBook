@@ -17,13 +17,13 @@
             @endcan
         </div>
         @if($recipes->isEmpty())
-            <div class="flex justify-center items-center bg-white p-5 text-lg rounded-lg shadow-lg">
+            <div class="surface flex justify-center items-center p-5 text-lg">
                 Geen recepten gevonden
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 @foreach($recipes as $recipe)
-                    <a class="bg-white rounded-lg shadow-md hover:shadow-lg flex flex-col focus:ring ring-blue-600"
+                    <a class="surface hover:shadow-lg flex flex-col focus:ring ring-blue-600"
                        href="{{ route('recipes.show', $recipe) }}">
                         <div class="bg-gray-400 h-48 rounded-t-lg overflow-hidden bg-cover p-5 flex items-end"
                              style="background-image: url('https://static.ah.nl/static/recepten/img_RAM_PRD142996_890x_JPG.jpg')">

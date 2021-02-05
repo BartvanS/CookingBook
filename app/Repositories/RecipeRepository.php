@@ -8,11 +8,10 @@ use App\Models\Recipe;
 
 final class RecipeRepository
 {
-    public function store($request, $validatedValues)
+    public function store($validatedValues)
     {
         $recipe = new Recipe();
         $recipe->fill($validatedValues);
-        $recipe->user()->associate($request->user());
         $recipe->save();
 
         $recipe->ingredients()->saveMany($validatedValues['ingredients']);
@@ -22,7 +21,7 @@ final class RecipeRepository
         return $recipe;
     }
 
-    public function update($request, $recipe, $validatedValues)
+    public function update($recipe, $validatedValues)
     {
         $recipe->update($validatedValues);
 
