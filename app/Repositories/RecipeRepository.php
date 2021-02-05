@@ -1,8 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Repositories;
+
 use App\Models\Recipe;
 
-class RecipeRepository
+final class RecipeRepository
 {
     public function store($request, $validatedValues)
     {
@@ -14,9 +18,20 @@ class RecipeRepository
         $recipe->ingredients()->saveMany($validatedValues['ingredients']);
 
         $recipe->instructions()->saveMany($validatedValues['instructions']);
+
         return $recipe;
     }
-    public function update()
+
+    public function update($request, $recipe, $validatedValues)
     {
+        $recipe->update($validatedValues);
+
+        $recipe->ingredients()->delete();
+        $recipe->ingredients()->saveMany($validatedValues['ingredients']);
+
+        $recipe->instructions()->delete();
+        $recipe->instructions()->saveMany($validatedValues['instructions']);
+
+        return $recipe;
     }
 }

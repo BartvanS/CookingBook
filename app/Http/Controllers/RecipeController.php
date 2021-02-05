@@ -8,13 +8,13 @@ use App\Dto\RecipeCategory;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
+use App\Repositories\RecipeRepository;
 use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use App\Repositories\RecipeRepository;
 
 final class RecipeController extends Controller
 {
@@ -37,6 +37,7 @@ final class RecipeController extends Controller
     {
         $validatedValues = $this->validateRecipe($request);
         $recipe = $recipeRepository->store($request, $validatedValues, $validatedValues['ingredients'], $validatedValues['instructions']);
+
         return redirect()->route('recipes.show', $recipe);
     }
 
@@ -54,18 +55,10 @@ final class RecipeController extends Controller
         ]);
     }
 
-    public function update(Request $request, Recipe $recipe): RedirectResponse
+    public function update(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): RedirectResponse
     {
         $validatedValues = $this->validateRecipe($request);
-
-        $recipe->update($validatedValues);
-
-        $recipe->ingredients()->delete();
-        $recipe->ingredients()->saveMany($validatedValues['ingredients']);
-
-        $recipe->instructions()->delete();
-        $recipe->instructions()->saveMany($validatedValues['instructions']);
-
+        $recipe = $recipeRepository->update($request, $recipe, $validatedValues);
         return redirect()->route('recipes.show', $recipe);
     }
 
