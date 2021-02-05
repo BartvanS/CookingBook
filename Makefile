@@ -21,6 +21,8 @@ test-coverage:
 codestyle:
 		./vendor/bin/ecs --config=ecs-config.php check .
 
+cf: codestyle-fix
+
 codestyle-fix:
 		./vendor/bin/ecs --config=ecs-config.php check --fix .
 
