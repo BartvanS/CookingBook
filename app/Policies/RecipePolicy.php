@@ -13,6 +13,20 @@ final class RecipePolicy
     use HandlesAuthorization;
 
     /**
+     * Perform pre-authorization checks.
+     *
+     * @param string $ability
+     *
+     * @return void|bool
+     */
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @return mixed
@@ -69,7 +83,7 @@ final class RecipePolicy
      */
     public function restore(User $user, Recipe $recipe): bool
     {
-        return false;
+        return $user->is_admin;
     }
 
     /**
@@ -79,6 +93,6 @@ final class RecipePolicy
      */
     public function forceDelete(User $user, Recipe $recipe): bool
     {
-        return false;
+        return $user->is_admin;
     }
 }

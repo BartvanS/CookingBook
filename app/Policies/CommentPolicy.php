@@ -13,6 +13,20 @@ final class CommentPolicy
     use HandlesAuthorization;
 
     /**
+     * Perform pre-authorization checks.
+     *
+     * @param string $ability
+     *
+     * @return void|bool
+     */
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @return mixed
@@ -69,7 +83,7 @@ final class CommentPolicy
      */
     public function restore(User $user, Comment $comment): bool
     {
-        return false;
+        return $user->is_admin;
     }
 
     /**
@@ -79,6 +93,6 @@ final class CommentPolicy
      */
     public function forceDelete(User $user, Comment $comment): bool
     {
-        return false;
+        return $user->is_admin;
     }
 }

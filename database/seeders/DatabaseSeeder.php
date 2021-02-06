@@ -23,11 +23,13 @@ final class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'a@a',
             'password' => Hash::make('a'),
+            'is_admin' => true,
         ]);
 
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
+            'is_admin' => true,
         ]);
 
         Recipe::factory()
