@@ -6,6 +6,16 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-2">
+            <a class="hover:underline flex items-center"
+               href="{{ route('recipes.index') }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                {{ __('overview') }}
+            </a>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
             <div class="md:col-span-3 grid grid-cols-1 gap-5">
                 <div class="surface relative">
