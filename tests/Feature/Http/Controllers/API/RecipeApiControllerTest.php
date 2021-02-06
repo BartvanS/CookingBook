@@ -14,7 +14,7 @@ final class RecipeApiControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_index()
+    public function test_index_no_parameter()
     {
         Sanctum::actingAs(
             User::factory()->create()
@@ -23,5 +23,16 @@ final class RecipeApiControllerTest extends TestCase
         $response = $this->get('/api/recipes');
         $response->assertStatus(200);
         $response->assertJsonCount(10);
+    }
+    
+    public function test_index_custom_amount()
+    {
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        Recipe::factory()->count(50)->create();
+        $response = $this->get('/api/recipes?amount=50');
+        $response->assertStatus(200);
+        $response->assertJsonCount(50);
     }
 }

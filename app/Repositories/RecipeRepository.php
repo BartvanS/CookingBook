@@ -8,12 +8,12 @@ use App\Models\Recipe;
 
 final class RecipeRepository
 {
-
     /**
-     * store a new recipe in the database based on the 
+     * store a new recipe in the database based on the
      *
      * @param  array $validatedValues
-     * @return Recipe $recipe
+     *
+     * @return Recipe
      */
     public function store($validatedValues)
     {
@@ -33,7 +33,8 @@ final class RecipeRepository
      *
      * @param  Recipe $recipe
      * @param  array $validatedValues
-     * @return Recipe $recipe
+     *
+     * @return Recipe
      */
     public function update($recipe, $validatedValues)
     {
