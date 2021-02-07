@@ -18,7 +18,7 @@ final class RecipesTable extends Component
 
     public ?User $user = null;
 
-    public  $category = null;
+    public $category = null;
 
     public function mount(?User $user = null)
     {

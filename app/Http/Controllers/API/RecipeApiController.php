@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
-use App\Dto\RecipeCategory;
 use App\Http\Controllers\Controller;
+use App\Models\Ingredient;
+use App\Models\Instruction;
 use App\Models\Recipe;
 use App\Repositories\RecipeRepository;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Models\Ingredient;
-use App\Models\Instruction;
 
 /**
  * RecipeApiController
@@ -35,7 +33,7 @@ final class RecipeApiController extends Controller
     public function store(Request $request, RecipeRepository $recipeRepository)
     {
         $validatedValues = $this->validateRecipe($request);
-   
+
         $recipeRepository->store($validatedValues);
 
         return 'kaas';
@@ -48,26 +46,26 @@ final class RecipeApiController extends Controller
         $values = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required|string',
-            'category' => ['required', 'string', Rule::in(RecipeCategory::all())],
+            'category' => 'required|exists:categories',
             'duration' => 'digits_between:0,5',
             'ingredients' => 'required|json',
             'instructions' => 'required|json',
         ]);
 
-        return $values;
         $values['duration'] = $values['duration'] ?: '0';
         $values['ingredients'] = collect($values['ingredients'])->filter()
-        ->each(function (string $name, $index) {
-            if (Str::length($name) > 255) {
-                throw ValidationException::withMessages([
-                    'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
-                ]);
-            }
-        })
-        ->map(fn (string $name) => Ingredient::make(['name' => $name]));
+            ->each(function (string $name, $index) {
+                if (Str::length($name) > 255) {
+                    throw ValidationException::withMessages([
+                        'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
+                    ]);
+                }
+            })
+            ->map(fn (string $name) => Ingredient::make(['name' => $name]));
         $values['instructions'] = collect($values['instructions'])
             ->filter()
             ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
+
         return $values;
     }
 }
