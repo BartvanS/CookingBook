@@ -37,7 +37,7 @@ final class RecipeController extends Controller
     {
         $validatedValues = $this->validateRecipe($request);
 
-        $recipe = $recipeRepository->store($validatedValues);
+        $recipe = $recipeRepository->create($validatedValues);
 
         return redirect()->route('recipes.show', $recipe);
     }

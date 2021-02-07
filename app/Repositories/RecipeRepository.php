@@ -11,7 +11,7 @@ final class RecipeRepository
     /**
      * Store a new recipe in the database based on the
      */
-    public function store(array $validatedValues): Recipe
+    public function create(array $validatedValues): Recipe
     {
         $recipe = new Recipe();
         $recipe->fill($validatedValues);

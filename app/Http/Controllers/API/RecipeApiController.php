@@ -34,7 +34,7 @@ final class RecipeApiController extends Controller
     {
         $validatedValues = $this->validateRecipe($request);
 
-        $recipeRepository->store($validatedValues);
+        $recipeRepository->create($validatedValues);
 
         return 'kaas';
     }
