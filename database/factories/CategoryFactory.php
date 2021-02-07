@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Category;
-use App\Models\Recipe;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-final class RecipeFactory extends Factory
+final class CategoryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Recipe::class;
+    protected $model = Category::class;
 
     /**
      * Define the model's default state.
@@ -26,11 +24,7 @@ final class RecipeFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->realText(),
-            'duration' => rand(1, 150),
-            'user_id' => fn () => User::factory(),
-            'category_id' => fn () => Category::factory(),
+            'name' => $this->faker->randomElement(['Voorafje', 'Voorgerecht', 'Hoofdgerecht', 'Dessert']),
         ];
     }
 }

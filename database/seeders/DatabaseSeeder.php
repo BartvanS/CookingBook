@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Instruction;
@@ -19,6 +20,8 @@ final class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CategorySeeder::class);
+
         User::factory()->create([
             'name' => 'admin',
             'email' => 'a@a',
@@ -34,7 +37,9 @@ final class DatabaseSeeder extends Seeder
 
         Recipe::factory()
             ->count(50)
-            ->create()
+            ->create([
+                'category_id' => fn () => Category::inRandomOrder()->first(),
+            ])
             ->each(function (Recipe $recipe) {
                 Ingredient::factory()
                     ->count(random_int(1, 5))

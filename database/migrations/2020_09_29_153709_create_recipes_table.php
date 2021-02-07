@@ -16,7 +16,6 @@ final class CreateRecipesTable extends Migration
             $table->string('title');
             $table->longText('description')->nullable();
             $table->unsignedInteger('duration');
-            $table->string('category');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();
         });

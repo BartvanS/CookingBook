@@ -37,7 +37,7 @@
                             {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
                         </div>
                         <div class="py-0.5 px-2 rounded-lg bg-blue-600 text-sm text-white shadow">
-                            {{ $recipe->category }}
+                            {{ $recipe->category->name }}
                         </div>
                     </div>
                     <div class="p-5">

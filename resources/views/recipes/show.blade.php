@@ -97,7 +97,7 @@
                         {{ __('Category') }}
                     </div>
                     <div>
-                        {{ $recipe->category }}
+                        {{ $recipe->category->name }}
                     </div>
                     <div class="text-blue-900 font-bold mt-3">
                         {{ __('Cooking time') }}

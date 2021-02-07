@@ -9,16 +9,15 @@ use App\Models\Recipe;
 final class RecipeRepository
 {
     /**
-     * store a new recipe in the database based on the
-     *
-     * @param  array $validatedValues
-     *
-     * @return Recipe
+     * Store a new recipe in the database based on the
      */
-    public function store($validatedValues)
+    public function store(array $validatedValues): Recipe
     {
         $recipe = new Recipe();
         $recipe->fill($validatedValues);
+
+        $recipe->category()->associate($validatedValues['category']);
+
         $recipe->save();
 
         $recipe->ingredients()->saveMany($validatedValues['ingredients']);
@@ -29,18 +28,16 @@ final class RecipeRepository
     }
 
     /**
-     * update a recipe in the database
-     *
-     * @param  Recipe $recipe
-     * @param  array $validatedValues
-     *
-     * @return Recipe
+     * Update a recipe in the database
      */
-    public function update($recipe, $validatedValues)
+    public function update(Recipe $recipe, array $validatedValues): Recipe
     {
+        $recipe->category()->associate($validatedValues['category']);
         $recipe->update($validatedValues);
+
         $recipe->ingredients()->delete();
         $recipe->ingredients()->saveMany($validatedValues['ingredients']);
+
         $recipe->instructions()->delete();
         $recipe->instructions()->saveMany($validatedValues['instructions']);
 

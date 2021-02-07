@@ -22,7 +22,7 @@
 
             <x-category-select id="category"
                                label="{{ __('Category') }}"
-                               :default="$recipe->category"/>
+                               :default="$recipe->category->id"/>
 
             <livewire:list-input name="ingredients"
                                  label="{{ __('Ingredients') }}"

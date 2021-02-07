@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Dto\RecipeCategory;
+use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\User;
@@ -41,10 +41,12 @@ final class RecipeControllerTest extends TestCase
 
     public function testCanStoreRecipe()
     {
+        $category = Category::factory()->create();
+
         $response = $this->post(route('recipes.store'), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'category' => RecipeCategory::MAIN,
+            'category' => $category->id,
             'ingredients' => "Kaas\nBroodje",
             'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
@@ -58,6 +60,7 @@ final class RecipeControllerTest extends TestCase
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
             'duration' => 30,
+            'category_id' => $category->id,
         ]);
         $this->assertDatabaseCount('ingredients', 2);
         $this->assertDatabaseCount('instructions', 2);
@@ -65,10 +68,12 @@ final class RecipeControllerTest extends TestCase
 
     public function testCannotStoreWithLongIngredients()
     {
+        $category = Category::factory()->create();
+
         $response = $this->post(route('recipes.store'), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'category' => RecipeCategory::MAIN,
+            'category' => $category->id,
             'ingredients' => str_repeat('a', 260) . PHP_EOL . str_repeat('b', 50),
             'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
@@ -119,6 +124,8 @@ final class RecipeControllerTest extends TestCase
 
     public function testCanUpdateRecipe()
     {
+        $category = Category::factory()->create();
+
         $recipe = Recipe::factory()->create();
         $recipe->user()->associate($this->user);
         $recipe->save();
@@ -129,7 +136,7 @@ final class RecipeControllerTest extends TestCase
         $response = $this->put(route('recipes.update', $recipe), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'category' => RecipeCategory::MAIN,
+            'category' => $category->id,
             'ingredients' => "Kaas\nBroodje",
             'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
@@ -142,8 +149,8 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseHas('recipes', [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'category' => RecipeCategory::MAIN,
             'duration' => 30,
+            'category_id' => $category->id,
         ]);
         $this->assertDatabaseCount('ingredients', 2);
         $this->assertDatabaseCount('instructions', 2);
@@ -161,7 +168,7 @@ final class RecipeControllerTest extends TestCase
         $response = $this->put(route('recipes.update', $recipe), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'category' => RecipeCategory::MAIN,
+            'category' => Category::factory()->create()->id,
             'ingredients' => 'Kaas',
             'instructions' => 'Bakken',
             'duration' => '00:30',
@@ -184,7 +191,7 @@ final class RecipeControllerTest extends TestCase
         $response = $this->put(route('recipes.update', $recipe), [
             'title' => 'Kaasbroodje',
             'description' => 'Lekker eten',
-            'category' => RecipeCategory::MAIN,
+            'category' => Category::factory()->create()->id,
             'ingredients' => str_repeat('a', 260) . PHP_EOL . str_repeat('b', 50),
             'instructions' => "Bakken\nBraden",
             'duration' => '00:30',

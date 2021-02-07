@@ -41,7 +41,7 @@ final class RecipesTable extends Component
 
     public function query(): Builder
     {
-        return Recipe::with('user')
+        return Recipe::with('user', 'category')
             ->when($this->user instanceof User, function (Builder $query) {
                 $query->where('user_id', '=', $this->user->id);
             })

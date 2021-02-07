@@ -1,6 +1,8 @@
-@props(['id', 'label', 'default' => null])
+@props(['id', 'label' => null, 'default' => null])
 
-<label for="{{$id}}" class="mb-1 mt-3">{{$label}}</label>
+@if($label)
+    <label for="{{$id}}" class="mb-1 mt-3">{{$label}}</label>
+@endif
 <select name="{{$id}}"
         id="{{$id}}"
         class="px-3 py-2 rounded-lg border border-gray-300"
@@ -8,10 +10,10 @@
     <option>
         {{ __('Select')  }}
     </option>
-    @foreach(\App\Dto\RecipeCategory::all() as $category)
-        <option value="{{ $category }}"
-            {{ old($id, $default) === $category ? 'selected="selected"' :'' }}>
-            {{ $category }}
+    @foreach(\App\Models\Category::all() as $category)
+        <option value="{{ $category->id }}"
+            {{ intval(old($id, $default)) === $category->id ? 'selected="selected"' :'' }}>
+            {{ $category->name }}
         </option>
     @endforeach
 </select>
