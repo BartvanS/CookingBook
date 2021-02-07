@@ -27,7 +27,7 @@
                 <a class="surface hover:shadow-lg flex flex-col focus:ring ring-blue-600"
                    href="{{ route('recipes.show', $recipe) }}">
                     <div class="bg-gray-400 h-48 rounded-t-lg overflow-hidden bg-cover p-5 flex items-end"
-                         style="background-image: url('https://static.ah.nl/static/recepten/img_RAM_PRD142996_890x_JPG.jpg')">
+                         style="background-image: url('{{ $recipe->thumbnail ? Storage::url($recipe->thumbnail) : ''}}')">
                         <div
                             class="mr-2 py-0.5 px-2 rounded-lg bg-white text-sm text-black shadow flex items-center">
                             <svg class="w-4 h-4 mr-1"

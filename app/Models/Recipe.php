@@ -20,6 +20,8 @@ final class Recipe extends Model
         'title',
         'description',
         'duration',
+        'thumbnail',
+        'image',
     ];
 
     public function user(): BelongsTo

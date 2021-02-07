@@ -17,6 +17,8 @@ final class CreateRecipesTable extends Migration
             $table->longText('description')->nullable();
             $table->unsignedInteger('duration');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('thumbnail')->nullable();
+            $table->string('image')->nullable();
             $table->softDeletes();
         });
     }

@@ -7,7 +7,7 @@ setup:
 	php artisan key:generate
 	php artisan storage:link
 
-update: do_composer do_assets migrate do_ide_helper do_clear_cache
+update: do_composer do_assets migrate do_ide_helper do_clear_cache do_storage_link
 
 migrate:
 	php artisan migrate:fresh --seed
@@ -39,6 +39,9 @@ do_ide_helper:
 
 do_clear_cache:
 	php artisan optimize:clear
+
+do_storage_link:
+	php artisan storage:link
 
 # Aliases
 u: update

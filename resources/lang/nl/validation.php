@@ -185,6 +185,7 @@ return [
         'year' => 'jaar',
         'category' => 'categorie',
         'instructions' => 'instructies',
-        'ingredients' => 'ingrediënten'
+        'ingredients' => 'ingrediënten',
+        'image' => 'afbeelding',
     ],
 ];

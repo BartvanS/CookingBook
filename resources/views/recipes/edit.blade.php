@@ -32,14 +32,16 @@
                                  label="{{ __('Instructions') }}"
                                  :items="$instructions"/>
 
-            {{--Time--}}
             <x-input type="time"
                      name="duration"
                      label="{{ __('Cooking time') }}"
                      :default="\App\Services\DurationConverter::toTime($recipe->duration)"
                      min="0"/>
 
-            {{--submit--}}
+            <x-input type="file"
+                     name="image"
+                     label="{{ __('Image') }}"/>
+
             <input
                 type="submit"
                 class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"

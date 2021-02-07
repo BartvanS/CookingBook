@@ -18,38 +18,16 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
             <div class="md:col-span-3 grid grid-cols-1 gap-5">
-                <div class="surface relative">
-                    <img alt="{{ $recipe->title }}"
-                         class="w-full rounded-lg"
-                         src="https://static.ah.nl/static/recepten/img_RAM_PRD142996_890x_JPG.jpg"/>
-                    <div class="bg-white rounded-t-lg absolute top-0 left-0 w-full flex items-center justify-between">
-                        <div class="p-5 text-xl font-bold">
-                            {{ $recipe->title }}
-                        </div>
-                        <div class="flex px-5">
-                            @can('update', $recipe)
-                                <x-button href="{{ route('recipes.edit', $recipe) }}">
-                                    {{ __('Update') }}
-                                </x-button>
-                            @endcan
-                            @can('delete', $recipe)
-                                <form method="post"
-                                      action="{{ route('recipes.destroy', $recipe) }}">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <x-button component="button"
-                                              type="submit"
-                                              class="ml-3"
-                                              bg="bg-red-600"
-                                              onclick="return confirmDeleteModel()">
-                                        {{ __('Delete') }}
-                                    </x-button>
-                                </form>
-                            @endcan
-                        </div>
-                    </div>
+                <div
+                    class="surface p-5 text-xl font-bold">
+                    {{ $recipe->title }}
                 </div>
+
+                @if($recipe->image)
+                    <img alt="{{ $recipe->title }}"
+                         class="surface w-full"
+                         src="{{ Storage::url($recipe->image) }}"/>
+                @endif
 
                 <div class="flex flex-col md:flex-row">
                     @if($recipe->description)
@@ -108,6 +86,30 @@
                     </div>
                     <div>
                         {{ $recipe->created_at->format('j F, Y @ H:i') }}
+                    </div>
+                    <div class="flex flex-col items-start">
+                        @can('update', $recipe)
+                            <x-button href="{{ route('recipes.edit', $recipe) }}"
+                                      class="mt-2">
+                                {{ __('Update') }}
+                            </x-button>
+                        @endcan
+                        @can('delete', $recipe)
+                            <form method="post"
+                                  action="{{ route('recipes.destroy', $recipe) }}"
+                                  class="mt-2">
+                                @csrf
+                                @method('DELETE')
+
+                                <x-button component="button"
+                                          type="submit"
+                                          class=""
+                                          bg="bg-red-600"
+                                          onclick="return confirmDeleteModel()">
+                                    {{ __('Delete') }}
+                                </x-button>
+                            </form>
+                        @endcan
                     </div>
                 </div>
             </div>

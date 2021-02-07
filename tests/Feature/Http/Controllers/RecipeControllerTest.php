@@ -9,6 +9,8 @@ use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 final class RecipeControllerTest extends TestCase
@@ -41,6 +43,10 @@ final class RecipeControllerTest extends TestCase
 
     public function testCanStoreRecipe()
     {
+        Storage::fake();
+
+        $file = UploadedFile::fake()->image('image.jpg');
+
         $category = Category::factory()->create();
 
         $response = $this->post(route('recipes.store'), [
@@ -50,6 +56,7 @@ final class RecipeControllerTest extends TestCase
             'ingredients' => "Kaas\nBroodje",
             'instructions' => "Bakken\nBraden",
             'duration' => '00:30',
+            'image' => $file,
         ]);
 
         $response->assertRedirect();
@@ -64,6 +71,8 @@ final class RecipeControllerTest extends TestCase
         ]);
         $this->assertDatabaseCount('ingredients', 2);
         $this->assertDatabaseCount('instructions', 2);
+
+        Storage::assertExists($file->hashName('public'));
     }
 
     public function testCannotStoreWithLongIngredients()

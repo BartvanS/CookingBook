@@ -11,8 +11,10 @@ use App\Repositories\RecipeRepository;
 use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Intervention\Image\Facades\Image;
 
 final class RecipeController extends Controller
 {
@@ -79,6 +81,7 @@ final class RecipeController extends Controller
             'duration' => 'required|string|min:5|max:5',
             'ingredients' => 'required|string',
             'instructions' => 'required|string',
+            'image' => 'nullable|image|max:4096',
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
@@ -97,6 +100,23 @@ final class RecipeController extends Controller
         $values['instructions'] = collect(explode(PHP_EOL, $values['instructions']))
             ->filter()
             ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
+
+        // TODO: Move image processing into separate service
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = $image->storePublicly($image->hashName('public'));
+            $values['image'] = $filename;
+
+            $thumbnail_path = 'public/' . Str::random(40) . '.' . $image->extension();
+
+            Image::make(Storage::path($filename))
+                ->fit(900, 400)
+                ->save()
+                ->fit(400, 200)
+                ->save(Storage::path($thumbnail_path));
+
+            $values['thumbnail'] = $thumbnail_path;
+        }
 
         return $values;
     }
