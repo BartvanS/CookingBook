@@ -1,11 +1,15 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col">
     <div class="flex justify-between items-center mb-5">
-        <input wire:model="search"
-               type="text"
-               name="search"
-               aria-label="Zoeken"
-               placeholder="{{ __('Search') }} ..."
-               class="px-3 py-2 rounded-lg border border-gray-300 shadow">
+        <div>
+            <input wire:model="search"
+                   type="text"
+                   name="search"
+                   aria-label="Zoeken"
+                   placeholder="{{ __('Search') }} ..."
+                   class="px-3 py-2 rounded-lg border border-gray-300 shadow">
+            <x-category-select id="category"
+                               wire:model="category"/>
+        </div>
 
         @can('create', \App\Models\Recipe::class)
             <x-button href="{{route('recipes.create')}}">

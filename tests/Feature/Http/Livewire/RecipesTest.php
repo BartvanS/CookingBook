@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Livewire;
 
 use App\Http\Livewire\RecipesTable;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -18,7 +19,10 @@ final class RecipesTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
+        $category = Category::factory()->create();
+
         Livewire::test(RecipesTable::class)
-            ->set('search', 'test');
+            ->set('search', 'test')
+            ->set('category', $category->id);
     }
 }

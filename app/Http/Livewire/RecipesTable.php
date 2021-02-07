@@ -18,6 +18,8 @@ final class RecipesTable extends Component
 
     public ?User $user = null;
 
+    public  $category = null;
+
     public function mount(?User $user = null)
     {
         if ($user->exists) {
@@ -60,6 +62,9 @@ final class RecipesTable extends Component
                             $query->where('instruction', 'like', '%' . $this->search . '%');
                         });
                 });
+            })
+            ->when(intval($this->category) > 0, function (Builder $query) {
+                $query->where('category_id', '=', $this->category);
             })
             ->latest();
     }
