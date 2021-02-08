@@ -19,10 +19,14 @@ use Illuminate\Validation\ValidationException;
  *  Edit the recipe via these api routes.
  *  You need a bearer token to connect. You can get this token from the website header profile button.
  * make sure you have the right permissions for what you want to achieve
- *  base path is "url"/api/recipes
+ *  base path is "url"/api/recipes for mor info look at the docs for resource controllers
  */
 final class RecipeApiController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $request->validate(['amount' => 'nullable|min:0|max:100']);
@@ -30,18 +34,30 @@ final class RecipeApiController extends Controller
         return response(Recipe::limit($request->input('amount', 10))->get());
     }
 
+    /**
+     * @param Request $request
+     * @param RecipeRepository $recipeRepository
+     * @return string
+     * @throws ValidationException
+     */
     public function store(Request $request, RecipeRepository $recipeRepository)
     {
         $validatedValues = $this->validateRecipe($request);
 
         $recipeRepository->create($validatedValues);
 
-        return 'kaas';
+        return 'success';
     }
 
-    //todo: update
+    //todo: update && retrieve custom
 
-    private function validateRecipe($request): array
+
+    /**
+     * @param $request
+     * @return array
+     * @throws ValidationException
+     */
+    private function validateRecipe(Request $request): array
     {
         $values = $request->validate([
             'title' => 'required|max:255',
@@ -65,7 +81,7 @@ final class RecipeApiController extends Controller
         $values['instructions'] = collect($values['instructions'])
             ->filter()
             ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
-
+        $values['image'] = null;
         return $values;
     }
 }
