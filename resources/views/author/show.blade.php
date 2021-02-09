@@ -9,5 +9,8 @@
         </h2>
     </x-slot>
 
-    <livewire:recipes-table :user="$user"/>
+    <x-container>
+        <livewire:recipes-table :user="$user"/>
+    </x-container>
+
 </x-app-layout>

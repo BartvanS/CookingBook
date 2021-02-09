@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col">
+<div class="flex flex-col">
     <div class="flex justify-between items-center mb-5">
         <div>
             <input wire:model="search"
@@ -12,9 +12,10 @@
         </div>
 
         @can('create', \App\Models\Recipe::class)
-            <x-button href="{{route('recipes.create')}}">
+            <x-button-primary href="{{ route('recipes.create') }}">
+                <x-icons.plus class="-ml-1 mr-2 h-5 w-5"/>
                 {{ __('New recipe') }}
-            </x-button>
+            </x-button-primary>
         @endcan
     </div>
     @if($recipes->isEmpty())
