@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col">
+    <x-container>
 
         <x-form action="{{ route('recipes.update', $recipe) }}"
                 title="{{ __('Edit recipe') }}">
@@ -48,7 +48,9 @@
                 value="{{ __('Update') }}"
             />
         </x-form>
-    </div>
+
+    </x-container>
+
 </x-app-layout>
 <script>
 

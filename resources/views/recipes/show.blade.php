@@ -5,23 +5,56 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="mb-2">
-            <a class="hover:underline flex items-center"
-               href="{{ route('recipes.index') }}">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-                {{ __('overview') }}
-            </a>
+    <x-container>
+
+        {{-- Heading --}}
+        <div class="lg:flex lg:items-center lg:justify-between mb-5">
+            <div class="flex-1 min-w-0">
+                <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    {{ $recipe->title }}
+                </h2>
+                <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
+                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
+                    </div>
+                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 20 20" fill="currentColor">
+                            <path
+                                d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                        </svg>
+                        {{ $recipe->category->name }}
+                    </div>
+                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        {{ $recipe->created_at->formatLocalized('%e %B, %Y') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 flex lg:mt-0 lg:ml-4">
+                @can('update', $recipe)
+                    <x-button href="{{ route('recipes.edit', $recipe) }}">
+                        <x-icons.pencil class="-ml-1 mr-2 h-5 w-5 text-gray-500"/>
+                        {{ __('Edit') }}
+                    </x-button>
+                @endcan
+            </div>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
             <div class="md:col-span-3 grid grid-cols-1 gap-5">
-                <div
-                    class="surface p-5 text-xl font-bold">
-                    {{ $recipe->title }}
-                </div>
 
                 @if($recipe->image)
                     <img alt="{{ $recipe->title }}"
@@ -45,7 +78,7 @@
                             {{ __('Ingredients') }}
                         </div>
                         @foreach($recipe->ingredients as $ingredient)
-                            <div class="px-4 py-2 text-md border-t border-gray-300">
+                            <div class="px-4 py-2 text-md border-t border-gray-200">
                                 {{ $ingredient->name }}
                             </div>
                         @endforeach
@@ -57,7 +90,7 @@
                         {{ __('Instructions') }}
                     </div>
                     @foreach($recipe->instructions as $instruction)
-                        <div class="p-4 text-md border-t border-gray-300">
+                        <div class="p-4 text-md border-t border-gray-200">
                             <span class="font-bold">{{ $loop->iteration }}.</span>
                             {{ $instruction->instruction }}
                         </div>
@@ -66,51 +99,47 @@
             </div>
 
             <div>
-                <div class="surface p-4">
-                    <div class="text-blue-900 font-bold">
-                        {{ __('Author') }}
-                    </div>
-                    <x-user :user="$recipe->user"/>
-                    <div class="text-blue-900 font-bold mt-3">
-                        {{ __('Category') }}
-                    </div>
-                    <div>
-                        {{ $recipe->category->name }}
-                    </div>
-                    <div class="text-blue-900 font-bold mt-3">
-                        {{ __('Cooking time') }}
-                    </div>
-                    {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
-                    <div class="text-blue-900 font-bold mt-3">
-                        {{ __('Published at') }}
-                    </div>
-                    <div>
-                        {{ $recipe->created_at->format('j F, Y @ H:i') }}
-                    </div>
-                    <div class="flex flex-col items-start">
-                        @can('update', $recipe)
-                            <x-button href="{{ route('recipes.edit', $recipe) }}"
-                                      class="mt-2">
-                                {{ __('Update') }}
-                            </x-button>
-                        @endcan
-                        @can('delete', $recipe)
-                            <form method="post"
-                                  action="{{ route('recipes.destroy', $recipe) }}"
-                                  class="mt-2">
-                                @csrf
-                                @method('DELETE')
+                <div class="surface mb-5">
+                    <dl>
+                        <div class="px-4 py-5">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {{ __('Author') }}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                <a href="{{ route('author.show', $recipe->user) }}"
+                                   class="hover:underline">
+                                    {{ $recipe->user->name }}
+                                </a>
+                            </dd>
+                        </div>
 
-                                <x-button component="button"
-                                          type="submit"
-                                          class=""
-                                          bg="bg-red-600"
-                                          onclick="return confirmDeleteModel()">
-                                    {{ __('Delete') }}
-                                </x-button>
-                            </form>
-                        @endcan
-                    </div>
+                        <div class="px-4 py-5 border-t border-gray-200">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {{ __('Category') }}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {{ $recipe->category->name }}
+                            </dd>
+                        </div>
+
+                        <div class="px-4 py-5 border-t border-gray-200">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {{ __('Cooking time') }}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
+                            </dd>
+                        </div>
+
+                        <div class="px-4 py-5 border-t border-gray-200">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {{ __('Published at') }}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {{ $recipe->created_at->format('j F, Y @ H:i') }}
+                            </dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
         </div>
@@ -120,6 +149,6 @@
                 <livewire:comments-list :recipe="$recipe"/>
             </div>
         @endcan
-    </div>
+    </x-container>
 
 </x-app-layout>
