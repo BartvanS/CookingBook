@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
 use App\Repositories\RecipeRepository;
+use App\Services\DurationConverter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 /**
  * RecipeApiController
@@ -29,9 +32,8 @@ final class RecipeApiController extends Controller
      */
     public function index(Request $request)
     {
-        $request->validate(['amount' => 'nullable|min:0|max:100']);
-
-        return response(Recipe::limit($request->input('amount', 10))->get());
+        $values = $request->validate(['amount' => 'nullable']);
+        return response(Recipe::limit($values['amount'] ?? 10)->get());
     }
 
     /**
@@ -43,8 +45,8 @@ final class RecipeApiController extends Controller
     public function store(Request $request, RecipeRepository $recipeRepository)
     {
         $validatedValues = $this->validateRecipe($request);
-
-        $recipeRepository->create($validatedValues);
+        $recipe = $recipeRepository->create($validatedValues);
+        return response()->json($validatedValues);
 
         return 'success';
     }
@@ -62,25 +64,28 @@ final class RecipeApiController extends Controller
         $values = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required|string',
-            'category' => 'required|exists:categories',
-            'duration' => 'digits_between:0,5',
-            'ingredients' => 'required|json',
-            'instructions' => 'required|json',
+            'category' => 'required|exists:categories,id',
+            'duration' => 'required|string|min:5|max:5',
+            'ingredients' => 'string|string',
+            'instructions' => 'string|string',
         ]);
 
-        $values['duration'] = $values['duration'] ?: '0';
-        $values['ingredients'] = collect($values['ingredients'])->filter()
-            ->each(function (string $name, $index) {
-                if (Str::length($name) > 255) {
-                    throw ValidationException::withMessages([
-                        'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
-                    ]);
-                }
-            })
-            ->map(fn (string $name) => Ingredient::make(['name' => $name]));
-        $values['instructions'] = collect($values['instructions'])
-            ->filter()
-            ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
+        $values['duration'] = DurationConverter::toMinutes($values['duration']);
+        $values['ingredients'] = json_decode($values['ingredients'],true);
+        $values['instructions'] =json_decode($values['instructions'], true);
+
+//        $values['ingredients'] = collect($values['ingredients'])->filter()
+//            ->each(function (string $name, $index) {
+//                if (Str::length($name) > 255) {
+//                    throw ValidationException::withMessages([
+//                        'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
+//                    ]);
+//                }
+//            })
+//            ->map(fn (string $name) => Ingredient::make(['name' => $name]));
+//        $values['instructions'] = collect($values['instructions'])
+//            ->filter()
+//            ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
         $values['image'] = null;
         return $values;
     }
