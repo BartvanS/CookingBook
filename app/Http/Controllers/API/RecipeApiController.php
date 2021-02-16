@@ -66,26 +66,23 @@ final class RecipeApiController extends Controller
             'description' => 'required|string',
             'category' => 'required|exists:categories,id',
             'duration' => 'required|string|min:5|max:5',
-            'ingredients' => 'string|string',
-            'instructions' => 'string|string',
+            'ingredients' => 'array',
+            'instructions' => 'array',
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
-        $values['ingredients'] = json_decode($values['ingredients'],true);
-        $values['instructions'] =json_decode($values['instructions'], true);
-
-//        $values['ingredients'] = collect($values['ingredients'])->filter()
-//            ->each(function (string $name, $index) {
-//                if (Str::length($name) > 255) {
-//                    throw ValidationException::withMessages([
-//                        'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
-//                    ]);
-//                }
-//            })
-//            ->map(fn (string $name) => Ingredient::make(['name' => $name]));
-//        $values['instructions'] = collect($values['instructions'])
-//            ->filter()
-//            ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
+        $values['ingredients'] = collect($values['ingredients'])->filter()
+            ->each(function (string $name, $index) {
+                if (Str::length($name) > 255) {
+                    throw ValidationException::withMessages([
+                        'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
+                    ]);
+                }
+            })
+            ->map(fn (string $name) => Ingredient::make(['name' => $name]));
+        $values['instructions'] = collect($values['instructions'])
+            ->filter()
+            ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
         $values['image'] = null;
         return $values;
     }
