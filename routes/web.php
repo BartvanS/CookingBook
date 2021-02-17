@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/hondje', DogController::class)->name('hondje');
 
-//Route::middleware(['auth', 'verified'])->group(function () {
-//    });
-Route::get('/', DashboardController::class)->name('dashboard')->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', DashboardController::class)->name('dashboard');
 
-Route::resource('recipes', RecipeController::class)->middleware(['auth', 'verified']);
+    Route::resource('recipes', RecipeController::class);
 
-Route::get('author/{user}', [AuthorController::class, 'show'])->name('author.show')->middleware(['auth', 'verified']);
+    Route::get('author/{user}', [AuthorController::class, 'show'])->name('author.show');
+});
