@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Edit recipe') }}
         </h2>
     </x-slot>
@@ -48,6 +48,23 @@
                 value="{{ __('Update') }}"
             />
         </x-form>
+
+        @can('delete', $recipe)
+            <form method="post"
+                  action="{{ route('recipes.destroy', $recipe) }}"
+                  class="mt-2">
+                @csrf
+                @method('DELETE')
+
+                <x-button component="button"
+                          type="submit"
+                          class=""
+                          bg="bg-red-600"
+                          onclick="return confirmDeleteModel()">
+                    {{ __('Delete') }}
+                </x-button>
+            </form>
+        @endcan
 
     </x-container>
 

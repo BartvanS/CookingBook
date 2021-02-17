@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Recept toevoegen') }}
         </h2>
     </x-slot>
@@ -35,11 +35,13 @@
                      name="image"
                      label="{{ __('Image') }}"/>
 
+            <div class="">
             <input
                 type="submit"
                 class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
                 value="{{ __('Create') }}"
             />
+            </div>
         </x-form>
 
     </x-container>

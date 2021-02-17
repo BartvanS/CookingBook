@@ -8,10 +8,10 @@
        id="{{ $name }}"
        value="{{ old($name, $default) }}"
        {{ $attributes }}
-       class="px-3 py-2 rounded-lg border border-gray-300"/>
+       class="px-3 py-2 rounded-lg border border-gray-300 dark:bg-gray-600"/>
 
 @error($name)
-<div class="text-red-800 mt-1">
+<div class="text-red-800 dark:text-red-500 mt-1">
     {{ $message }}
 </div>
 @enderror

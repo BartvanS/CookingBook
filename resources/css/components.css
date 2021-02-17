@@ -1,0 +1,9 @@
+.surface {
+    @apply bg-white rounded-lg shadow-md;
+}
+
+@media (prefers-color-scheme: dark) {
+    .surface {
+        @apply bg-gray-800;
+    }
+}

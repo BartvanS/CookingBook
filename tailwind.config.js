@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 module.exports = {
     purge: [
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -7,9 +5,5 @@ module.exports = {
         './resources/views/**/*.blade.php',
     ],
 
-    variants: {
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
-    },
-
-    plugins: [require('@tailwindcss/ui')],
+    darkMode: 'media',
 };

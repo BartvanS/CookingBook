@@ -4,6 +4,7 @@
     "No recipes found": "Geen recepten gevonden",
     "New recipe": "Nieuw recept",
     "My recipes": "Mijn recepten",
+    "Edit recipe": "Recept bewerken",
     "Search": "Zoeken",
     "Author": "Auteur",
     "Category": "Categorie",
@@ -29,5 +30,6 @@
     "Published at": "Gepubliceerd op",
     "overview": "overzicht",
     "Image": "Afbeelding",
-    "Edit": "Bewerken"
+    "Edit": "Bewerken",
+    "Comments": "Opmerkingen"
 }

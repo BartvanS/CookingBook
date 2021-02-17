@@ -1,7 +1,4 @@
 @import 'tailwindcss/base';
+@import "components.css";
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-
-.surface {
-    @apply bg-white rounded-lg shadow-md;
-}

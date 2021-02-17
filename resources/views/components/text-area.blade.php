@@ -7,10 +7,10 @@
 @endif
 <textarea name="{{ $name }}"
           {{ $attributes }}
-          class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300"
+          class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300 dark:bg-gray-600"
           id="{{ $name }}">{{ old($name, $default) }}</textarea>
 @error($name)
-<div class="text-red-800 mt-1">
+<div class="text-red-800 dark:text-red-500 mt-1">
     {{ $message }}
 </div>
 @enderror

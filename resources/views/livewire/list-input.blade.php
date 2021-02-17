@@ -6,13 +6,13 @@
     <input type="text"
            name="{{ $name }}-input"
            id="{{ $name }}-input"
-           class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300 mb-1"
+           class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300 dark:bg-gray-600 mb-1"
            onkeydown="return event.key != 'Enter';"
            wire:model="value"
            wire:keydown.enter="add()"
            autocomplete="off"/>
 
-    <div class="text-sm text-gray-500">
+    <div class="text-sm text-gray-500 dark:text-gray-300">
         {{ __('Press enter to add') }}
     </div>
 
@@ -23,7 +23,7 @@
                     <div>
                         {{ $item }}
                     </div>
-                    <div class="text-blue-900 hover:text-red-500 cursor-pointer"
+                    <div class="text-blue-900 hover:text-red-500 dark:text-gray-400 cursor-pointer"
                          wire:click="remove({{ $index }})">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">

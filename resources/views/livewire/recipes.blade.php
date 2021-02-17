@@ -25,12 +25,12 @@
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             @foreach($recipes as $recipe)
-                <a class="surface hover:shadow-lg flex flex-col focus:ring ring-blue-600"
+                <a class="surface transform transition-transform hover:-translate-y-2 flex flex-col focus:ring ring-blue-600"
                    href="{{ route('recipes.show', $recipe) }}">
-                    <div class="bg-gray-400 h-48 rounded-t-lg overflow-hidden bg-cover p-5 flex items-end"
+                    <div class="bg-gray-400 dark:bg-gray-600 h-48 rounded-t-lg overflow-hidden bg-cover p-5 flex items-end"
                          style="background-image: url('{{ $recipe->thumbnail ? Storage::url($recipe->thumbnail) : ''}}')">
                         <div
-                            class="mr-2 py-0.5 px-2 rounded-lg bg-white text-sm text-black shadow flex items-center">
+                            class="mr-2 py-0.5 px-2 rounded-lg bg-white text-sm text-black shadow flex items-center dark:bg-gray-700 dark:text-white">
                             <svg class="w-4 h-4 mr-1"
                                  fill="none"
                                  stroke="currentColor"
@@ -46,11 +46,11 @@
                         </div>
                     </div>
                     <div class="p-5">
-                        <div class="text-black font-bold text-md">
+                        <div class="text-black dark:text-white font-bold text-md">
                             {{ $recipe->title }}
                         </div>
                         @if($recipe->description)
-                            <div class="truncate text-gray-600 text-sm">
+                            <div class="truncate text-gray-600 dark:text-gray-400 text-sm">
                                 {{ Str::limit($recipe->description) }}
                             </div>
                         @endif

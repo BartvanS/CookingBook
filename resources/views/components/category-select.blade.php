@@ -5,7 +5,7 @@
 @endif
 <select name="{{$id}}"
         id="{{$id}}"
-        class="px-3 py-2 rounded-lg border border-gray-300"
+        class="px-3 py-2 rounded-lg border border-gray-300 dark:bg-gray-600"
     {{$attributes}}>
     <option>
         {{ __('Select')  }}
