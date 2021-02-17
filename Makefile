@@ -49,6 +49,7 @@ do_setup_production:
 	php artisan route:cache
 	php artisan view:cache
 	echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' to 'production' IN .env!!!!"
+
 # Aliases
 u: update
 t: test
