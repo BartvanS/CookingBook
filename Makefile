@@ -43,12 +43,20 @@ do_clear_cache:
 do_storage_link:
 	php artisan storage:link
 
-do_setup_production:
+do_update_production_complete:
+	php artisan down
+	git reset --hard
+	git pull
+	php artisan migrate
+	npm i
+	npm run production
 	composer install --optimize-autoloader --no-dev
 	php artisan config:cache
 	php artisan route:cache
 	php artisan view:cache
+	php artisan optimize
 	echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' to 'production' IN .env!!!!"
+	php artisan up
 
 # Aliases
 u: update
