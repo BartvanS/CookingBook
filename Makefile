@@ -55,7 +55,7 @@ do_update_production_complete:
 	php artisan route:cache
 	php artisan view:cache
 	php artisan optimize
-	echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' to 'production' IN .env!!!!"
+	echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' TO 'production' IN .env!!!!"
 	php artisan up
 
 # Aliases
