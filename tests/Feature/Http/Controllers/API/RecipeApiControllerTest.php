@@ -48,8 +48,8 @@ final class RecipeApiControllerTest extends TestCase
             'description' => 'heel veel kaas',
             'category' => $category->id,
             'duration' => '00:30',
-            'ingredients' => ["gehakt", "kaas", "henk"],
-            'instructions' => ["gehakt", "kaas", "henk"],
+            'ingredients' => ['gehakt', 'kaas', 'henk'],
+            'instructions' => ['gehakt', 'kaas', 'henk'],
         ]);
         $response->assertOk();
         $this->assertDatabaseHas('recipes', [

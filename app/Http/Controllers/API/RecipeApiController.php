@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
@@ -14,7 +13,6 @@ use App\Services\DurationConverter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
 
 /**
  * RecipeApiController
@@ -27,25 +25,25 @@ use App\Models\User;
 final class RecipeApiController extends Controller
 {
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $values = $request->validate(['amount' => 'nullable']);
+
         return response(Recipe::limit($values['amount'] ?? 10)->get());
     }
 
     /**
-     * @param Request $request
-     * @param RecipeRepository $recipeRepository
      * @return string
+     *
      * @throws ValidationException
      */
     public function store(Request $request, RecipeRepository $recipeRepository)
     {
         $validatedValues = $this->validateRecipe($request);
         $recipe = $recipeRepository->create($validatedValues);
+
         return response()->json($validatedValues);
 
         return 'success';
@@ -53,10 +51,9 @@ final class RecipeApiController extends Controller
 
     //todo: update && retrieve custom
 
-
     /**
      * @param $request
-     * @return array
+     *
      * @throws ValidationException
      */
     private function validateRecipe(Request $request): array
@@ -84,6 +81,7 @@ final class RecipeApiController extends Controller
             ->filter()
             ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
         $values['image'] = null;
+
         return $values;
     }
 }

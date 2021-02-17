@@ -10,8 +10,6 @@ final class RecipeRepository
 {
     /**
      * Store a new recipe in the database based on the
-     * @param array $validatedValues
-     * @return Recipe
      */
     public function create(array $validatedValues): Recipe
     {
@@ -31,9 +29,6 @@ final class RecipeRepository
 
     /**
      * Update a recipe in the database
-     * @param Recipe $recipe
-     * @param array $validatedValues
-     * @return Recipe
      */
     public function update(Recipe $recipe, array $validatedValues): Recipe
     {
