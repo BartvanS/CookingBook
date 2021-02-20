@@ -22,7 +22,7 @@
                         {{ $slot }}
                     </div>
                     @isset($actions)
-                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 space-x-2">
                             {{ $actions }}
                         </div>
                     @endif

@@ -62,6 +62,9 @@
             </div>
 
             <x-slot name="actions">
+                <x-button href="{{ route('recipes.show', $recipe) }}">
+                    {{ __('Cancel') }}
+                </x-button>
                 <x-button-primary component="button" type="submit">
                     {{ __('Update') }}
                 </x-button-primary>
