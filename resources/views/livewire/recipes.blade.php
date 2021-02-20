@@ -27,8 +27,18 @@
             @foreach($recipes as $recipe)
                 <a class="surface hover:shadow-lg flex flex-col focus:ring ring-blue-600"
                    href="{{ route('recipes.show', $recipe) }}">
-                    <div class="bg-gray-400 h-48 rounded-t-lg overflow-hidden bg-cover p-5 flex items-end"
+                    <div class="bg-gray-400 h-48 rounded-t-lg overflow-hidden bg-cover p-5 flex items-end relative"
                          style="background-image: url('{{ $recipe->thumbnail ? Storage::url($recipe->thumbnail) : ''}}')">
+
+                        @if(!$recipe->thumbnail)
+                            <svg class="h-10 w-10 absolute inset-0 m-auto text-gray-600"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        @endif
+
                         <div
                             class="mr-2 py-0.5 px-2 rounded-lg bg-white text-sm text-black shadow flex items-center">
                             <svg class="w-4 h-4 mr-1"
