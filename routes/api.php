@@ -26,5 +26,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/recipes', [RecipeApiController::class, 'store'])->name('api.recipe.store');
     Route::put('/recipes/{recipe}', [RecipeApiController::class, 'update'])->name('api.recipe.update');
     Route::delete('/recipes/{recipe}', [RecipeApiController::class, 'destroy'])->name('api.recipe.destroy');
-
 });
