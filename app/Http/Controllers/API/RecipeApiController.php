@@ -42,7 +42,7 @@ final class RecipeApiController extends Controller
     public function store(Request $request, RecipeRepository $recipeRepository)
     {
         $validatedValues = $this->validateRecipe($request);
-        $recipe = $recipeRepository->create($validatedValues);
+        $recipeRepository->create($validatedValues);
 
         return response()->json($validatedValues);
 

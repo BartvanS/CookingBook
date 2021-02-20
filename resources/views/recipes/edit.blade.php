@@ -25,7 +25,7 @@
                              :default="$recipe->description"/>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 <div>
                     <x-category-select name="category"
                                        label="{{ __('Category') }}"
@@ -37,6 +37,12 @@
                              label="{{ __('Cooking time') }}"
                              :default="\App\Services\DurationConverter::toTime($recipe->duration)"
                              min="0"/>
+                </div>
+                <div>
+                    <x-input type="number"
+                             name="yield"
+                             label="{{ __('Number of servings') }}"
+                             :default="$recipe->yield"/>
                 </div>
             </div>
 

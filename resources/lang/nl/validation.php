@@ -187,5 +187,6 @@ return [
         'instructions' => 'instructies',
         'ingredients' => 'ingrediënten',
         'image' => 'afbeelding',
+        'yield' => 'porties',
     ],
 ];

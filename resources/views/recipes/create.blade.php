@@ -23,7 +23,7 @@
                              label="{{ __('Description') }}"/>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 <div>
                     <x-category-select name="category"
                                        label="{{ __('Category') }}"/>
@@ -32,8 +32,12 @@
                     <x-input type="time"
                              name="duration"
                              label="{{ __('Cooking time') }}"
-                             min="0"
-                    />
+                             min="0"/>
+                </div>
+                <div>
+                    <x-input type="number"
+                             name="yield"
+                             label="{{ __('Number of servings') }}"/>
                 </div>
             </div>
 

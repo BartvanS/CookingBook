@@ -79,6 +79,7 @@ final class RecipeController extends Controller
             'description' => 'nullable|string',
             'category' => 'required|exists:categories,id',
             'duration' => 'required|string|min:5|max:5',
+            'yield' => 'nullable|integer|min:1|max:100',
             'ingredients' => 'required|string',
             'instructions' => 'required|string',
             'image' => 'nullable|image|max:4096',

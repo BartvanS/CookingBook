@@ -131,6 +131,17 @@
                             </dd>
                         </div>
 
+                        @if($recipe->yield)
+                            <div class="px-4 py-5 border-t border-gray-200">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    {{ __('Number of servings') }}
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ $recipe->yield }}
+                                </dd>
+                            </div>
+                        @endif
+
                         <div class="px-4 py-5 border-t border-gray-200">
                             <dt class="text-sm font-medium text-gray-500">
                                 {{ __('Published at') }}
