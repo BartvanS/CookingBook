@@ -1,13 +1,13 @@
 <div class="flex flex-col">
     <div class="flex justify-between items-center mb-5">
-        <div>
+        <div class="flex space-x-4">
             <input wire:model="search"
                    type="text"
                    name="search"
                    aria-label="Zoeken"
                    placeholder="{{ __('Search') }} ..."
                    class="px-3 py-2 rounded-lg border border-gray-300 shadow">
-            <x-category-select id="category"
+            <x-category-select name="category"
                                wire:model="category"/>
         </div>
 

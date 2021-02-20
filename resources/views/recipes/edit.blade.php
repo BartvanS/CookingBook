@@ -7,47 +7,60 @@
 
     <x-container>
 
-        <x-form action="{{ route('recipes.update', $recipe) }}"
-                title="{{ __('Edit recipe') }}">
-            @method('put')
+        <x-form-section :title="__('Update recipe')"
+                        :description="__('This information will be displayed publicly so be careful what you share.')"
+                        :route="route('recipes.update', $recipe)"
+                        method="put">
 
-            <x-input type="text"
-                     name="title"
-                     label="{{ __('Title') }}"
-                     :default="$recipe->title"/>
+            <div class="md:w-2/3">
+                <x-input type="text"
+                         name="title"
+                         label="{{ __('Title') }}"
+                         :default="$recipe->title"/>
+            </div>
 
-            <x-text-area name="description"
-                         label="{{ __('Description') }}"
-                         :default="$recipe->description"/>
+            <div>
+                <x-text-area name="description"
+                             label="{{ __('Description') }}"
+                             :default="$recipe->description"/>
+            </div>
 
-            <x-category-select id="category"
-                               label="{{ __('Category') }}"
-                               :default="$recipe->category->id"/>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <x-category-select name="category"
+                                       label="{{ __('Category') }}"
+                                       :default="$recipe->category->id"/>
+                </div>
+                <div>
+                    <x-input type="time"
+                             name="duration"
+                             label="{{ __('Cooking time') }}"
+                             :default="\App\Services\DurationConverter::toTime($recipe->duration)"
+                             min="0"/>
+                </div>
+            </div>
 
-            <livewire:list-input name="ingredients"
-                                 label="{{ __('Ingredients') }}"
-                                 :items="$ingredients"/>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <livewire:list-input name="ingredients"
+                                     label="{{ __('Ingredients') }}"
+                                     :items="$ingredients"/>
 
-            <livewire:list-input name="instructions"
-                                 label="{{ __('Instructions') }}"
-                                 :items="$instructions"/>
+                <livewire:list-input name="instructions"
+                                     label="{{ __('Instructions') }}"
+                                     :items="$instructions"/>
+            </div>
 
-            <x-input type="time"
-                     name="duration"
-                     label="{{ __('Cooking time') }}"
-                     :default="\App\Services\DurationConverter::toTime($recipe->duration)"
-                     min="0"/>
+            <div>
+                <x-file-input name="image"
+                              label="{{ __('Image') }}"/>
+            </div>
 
-            <x-input type="file"
-                     name="image"
-                     label="{{ __('Image') }}"/>
-
-            <input
-                type="submit"
-                class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
-                value="{{ __('Update') }}"
-            />
-        </x-form>
+            <x-slot name="actions">
+                <x-button-primary component="button" type="submit">
+                    {{ __('Update') }}
+                </x-button-primary>
+            </x-slot>
+        </x-form-section>
 
     </x-container>
 

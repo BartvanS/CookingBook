@@ -1,18 +1,18 @@
 <div class="flex flex-col">
-    <label for="{{ $name }}-input" class="mb-1 mt-3">
+    <label for="{{ $name }}-input" class="block text-sm font-medium text-gray-700">
         {{ $label }}
     </label>
 
     <input type="text"
            name="{{ $name }}-input"
            id="{{ $name }}-input"
-           class="autoResizeTextArea px-3 py-2 rounded-lg border border-gray-300 mb-1"
+           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
            onkeydown="return event.key != 'Enter';"
            wire:model="value"
            wire:keydown.enter="add()"
            autocomplete="off"/>
 
-    <div class="text-sm text-gray-500">
+    <div class="mt-1 text-sm text-gray-500">
         {{ __('Press enter to add') }}
     </div>
 
@@ -42,7 +42,7 @@
            value="{{ implode(PHP_EOL, $items) }}"/>
 
     @error($name)
-    <div class="text-red-800 mt-1">
+    <div class="text-sm text-red-800 mt-1">
         {{ $message }}
     </div>
     @enderror

@@ -3,6 +3,9 @@
     "Recipe": "Recept",
     "No recipes found": "Geen recepten gevonden",
     "New recipe": "Nieuw recept",
+    "Create recipe": "Recept aanmaken",
+    "Edit recipe": "Recept bewerken",
+    "Update recipe": "Recept bijwerken",
     "My recipes": "Mijn recepten",
     "Search": "Zoeken",
     "Author": "Auteur",
@@ -29,5 +32,7 @@
     "Published at": "Gepubliceerd op",
     "overview": "overzicht",
     "Image": "Afbeelding",
-    "Edit": "Bewerken"
+    "Edit": "Bewerken",
+    "Upload a file": "Bestand uploaden",
+    "or drag and drop": "of slepen en neerzetten"
 }
