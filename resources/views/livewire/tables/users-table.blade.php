@@ -65,7 +65,11 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $user->is_admin ? __('Admin') : __('User') }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                                        <a href="{{ route('author.show', $user) }}"
+                                           class="text-indigo-600 hover:text-indigo-900">
+                                            {{ __('Profile') }}
+                                        </a>
                                         <a href="{{ route('users.edit', $user) }}"
                                            class="text-indigo-600 hover:text-indigo-900">
                                             {{ __('Edit') }}
