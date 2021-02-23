@@ -45,8 +45,6 @@ final class RecipeApiController extends Controller
         $recipeRepository->create($validatedValues);
 
         return response()->json($validatedValues);
-
-        return 'success';
     }
 
     //todo: update && retrieve custom
