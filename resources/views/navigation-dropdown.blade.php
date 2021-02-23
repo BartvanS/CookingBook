@@ -15,12 +15,17 @@
                     <x-jet-nav-link href="{{ route('recipes.index') }}" :active="Request::routeIs('recipes.index')">
                         {{ __('Recipes') }}
                     </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
                     <x-jet-nav-link href="{{ route('author.show', Auth::user()) }}"
                                     :active="Request::routeIs('author.show') && Auth::user()->is(Request::route('user'))">
                         {{ __('My recipes') }}
                     </x-jet-nav-link>
+
+                    @can('admin')
+                        <x-jet-nav-link href="{{ route('users.index') }}" :active="Request::routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-jet-nav-link>
+                    @endcan
                 </div>
             </div>
 

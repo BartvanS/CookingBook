@@ -32,4 +32,11 @@ final class UserFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
+
+    public function admin(): UserFactory
+    {
+        return $this->state([
+            'is_admin' => true,
+        ]);
+    }
 }

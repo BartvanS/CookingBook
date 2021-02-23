@@ -1,4 +1,4 @@
-@props(['title', 'description', 'route', 'method' => 'post'])
+@props(['title', 'description' => '', 'route', 'method' => 'post'])
 
 <div>
     <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -7,9 +7,11 @@
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
                     {{ $title }}
                 </h3>
-                <p class="mt-1 text-sm text-gray-600">
-                    {{ $description }}
-                </p>
+                @if($description)
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ $description }}
+                    </p>
+                @endif
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">

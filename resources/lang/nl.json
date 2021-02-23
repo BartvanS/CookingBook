@@ -36,5 +36,18 @@
     "Upload a file": "Bestand uploaden",
     "or drag and drop": "of slepen en neerzetten",
     "Number of servings": "Aantal porties",
-    "Cancel": "Annuleren"
+    "Cancel": "Annuleren",
+    "Users": "Gebruikers",
+    "Name": "Naam",
+    "Email": "E-mail",
+    "Password": "Wachtwoord",
+    "Confirm password": "Bevestig wachtwoord",
+    "New user": "Nieuwe gebruiker",
+    "Create user": "Gebruiker aanmaken",
+    "Create a new user.": "Maak een nieuwe gebruiker aan.",
+    "Delete user": "Verwijder gebruiker",
+    "Do you want to delete the user?": "Wil je de gebruiker verwijderen?",
+    "Role": "Rol",
+    "User": "Gebruiker",
+    "Admin": "Administrator"
 }
