@@ -49,5 +49,8 @@
     "Do you want to delete the user?": "Wil je de gebruiker verwijderen?",
     "Role": "Rol",
     "User": "Gebruiker",
-    "Admin": "Administrator"
+    "Admin": "Administrator",
+    "Update user": "Gebruiker bijwerken",
+    "Edit user": "Gebruiker bewerken",
+    "No users found": "Geen gebruikers gevonden"
 }
