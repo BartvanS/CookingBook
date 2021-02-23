@@ -52,5 +52,6 @@
     "Admin": "Administrator",
     "Update user": "Gebruiker bijwerken",
     "Edit user": "Gebruiker bewerken",
-    "No users found": "Geen gebruikers gevonden"
+    "No users found": "Geen gebruikers gevonden",
+    "Created at": "Aangemaakt op"
 }

@@ -31,13 +31,15 @@ final class UsersTable extends Component
 
     public function query(): Builder
     {
-        return User::when($this->search, function (Builder $query) {
-            $query->where(function (Builder $query) {
-                $query
-                    ->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%');
-            });
-        })
+        return User::withCount(['recipes', 'comments'])
+            ->orderByDesc('recipes_count')
+            ->when($this->search, function (Builder $query) {
+                $query->where(function (Builder $query) {
+                    $query
+                        ->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('email', 'like', '%' . $this->search . '%');
+                });
+            })
             ->latest();
     }
 }
