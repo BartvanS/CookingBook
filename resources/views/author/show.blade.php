@@ -10,7 +10,7 @@
     </x-slot>
 
     <x-container>
-        <livewire:recipes-table :user="$user"/>
+        <livewire:tables.recipes-table :user="$user"/>
     </x-container>
 
 </x-app-layout>

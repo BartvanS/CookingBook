@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Tables;
 
 use App\Models\Recipe;
 use App\Models\User;
