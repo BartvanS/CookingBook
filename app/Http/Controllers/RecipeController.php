@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
@@ -68,6 +69,8 @@ final class RecipeController extends Controller
     public function destroy(Recipe $recipe): RedirectResponse
     {
         $recipe->delete();
+
+        $recipe->comments->each(fn (Comment $comment) => $comment->delete());
 
         return redirect()->route('recipes.index');
     }
