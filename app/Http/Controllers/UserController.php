@@ -41,7 +41,7 @@ final class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.update')->with(['user' => $user]);
+        return view('users.edit')->with(['user' => $user]);
     }
 
     public function update(Request $request, User $user): RedirectResponse
