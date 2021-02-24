@@ -71,6 +71,31 @@
             </x-slot>
         </x-form-section>
 
+        @can('delete', $recipe)
+            <div class="hidden sm:block" aria-hidden="true">
+                <div class="py-5">
+                    <div class="border-t border-gray-200"></div>
+                </div>
+            </div>
+
+            <x-form-section :title="__('Delete recipe')"
+                            :route="route('recipes.destroy', $recipe)"
+                            method="delete">
+
+                <div>
+                    <div class="md:w-2/3">
+                        {{ __('Do you want to delete the recipe?') }}
+                    </div>
+                </div>
+
+                <div>
+                    <x-button-danger component="button" type="submit">
+                        {{ __('Delete') }}
+                    </x-button-danger>
+                </div>
+            </x-form-section>
+        @endcan
+
     </x-container>
 
 </x-app-layout>
