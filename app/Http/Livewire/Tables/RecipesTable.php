@@ -36,7 +36,7 @@ final class RecipesTable extends Component
     {
         $recipes = $this->query()->paginate(9);
 
-        return view('livewire.recipes', [
+        return view('livewire.tables.recipes-table', [
             'recipes' => $recipes,
         ]);
     }
