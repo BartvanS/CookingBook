@@ -17,7 +17,7 @@ final class CategoriesTableTest extends TestCase
     public function testCanViewTable()
     {
         Category::factory()->create([
-            'name' => 'Voorafje'
+            'name' => 'Voorafje',
         ]);
 
         Livewire::test(CategoriesTable::class)
@@ -27,7 +27,7 @@ final class CategoriesTableTest extends TestCase
     public function testCanSearchCategories()
     {
         Category::factory()->create([
-            'name' => 'Voorafje'
+            'name' => 'Voorafje',
         ]);
 
         Livewire::test(CategoriesTable::class)
