@@ -25,6 +25,10 @@
                         <x-jet-nav-link href="{{ route('users.index') }}" :active="Request::routeIs('users.index')">
                             {{ __('Users') }}
                         </x-jet-nav-link>
+
+                        <x-jet-nav-link href="{{ route('categories.index') }}" :active="Request::routeIs('categories.index')">
+                            {{ __('Categories') }}
+                        </x-jet-nav-link>
                     @endcan
                 </div>
             </div>

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\RecipeController;
@@ -20,5 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
-    Route::resource('users', UserController::class)->except(['show']);
+    Route::resource('users', UserController::class)->except('show');
+
+    Route::resource('categories', CategoryController::class)->except(['show', 'destroy']);
 });

@@ -13,7 +13,7 @@
     <option>
         {{ __('Select')  }}
     </option>
-    @foreach(\App\Models\Category::all() as $category)
+    @foreach(\App\Models\Category::orderBy('name')->get() as $category)
         <option value="{{ $category->id }}"
             {{ intval(old($name, $default)) === $category->id ? 'selected="selected"' : '' }}>
             {{ $category->name }}

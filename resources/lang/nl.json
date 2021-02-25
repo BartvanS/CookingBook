@@ -53,5 +53,10 @@
     "Update user": "Gebruiker bijwerken",
     "Edit user": "Gebruiker bewerken",
     "No users found": "Geen gebruikers gevonden",
-    "Created at": "Aangemaakt op"
+    "Created at": "Aangemaakt op",
+    "Categories": "Categorieën",
+    "New category": "Nieuwe categorie",
+    "Create category": "Categorie aanmaken",
+    "Create a new recipe category.": "Een nieuwe categorie toevoegen",
+    "No categories found": "Geen categorieën gevonden"
 }
