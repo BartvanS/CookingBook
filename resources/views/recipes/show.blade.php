@@ -23,6 +23,16 @@
                         </svg>
                         {{ \App\Services\DurationConverter::toHuman($recipe->duration) }}
                     </div>
+                    @if($recipe->yield)
+                        <div class="mt-2 flex items-center text-sm text-gray-500">
+                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor"
+                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                            {{ $recipe->yield }}
+                        </div>
+                    @endif
                     <div class="mt-2 flex items-center text-sm text-gray-500">
                         <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
                              viewBox="0 0 20 20" fill="currentColor">
