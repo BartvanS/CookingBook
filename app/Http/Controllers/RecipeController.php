@@ -52,8 +52,8 @@ final class RecipeController extends Controller
     {
         return view('recipes.edit')->with([
             'recipe' => $recipe,
-            'ingredients' => $recipe->ingredients->pluck('name')->toArray(),
-            'instructions' => $recipe->instructions()->pluck('instruction')->toArray(),
+            'ingredients' => $recipe->ingredients->pluck('name')->join(PHP_EOL),
+            'instructions' => $recipe->instructions()->pluck('instruction')->join(PHP_EOL),
         ]);
     }
 

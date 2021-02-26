@@ -47,13 +47,17 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <livewire:list-input name="ingredients"
-                                     label="{{ __('Ingredients') }}"
-                                     :items="$ingredients"/>
+                <div>
+                    <x-input-list label="{{ __('Ingredients') }}"
+                                  name="ingredients"
+                                  default="{{ $ingredients }}"/>
+                </div>
 
-                <livewire:list-input name="instructions"
-                                     label="{{ __('Instructions') }}"
-                                     :items="$instructions"/>
+                <div>
+                    <x-input-list label="{{ __('Instructions') }}"
+                                  name="instructions"
+                                  default="{{ $instructions }}"/>
+                </div>
             </div>
 
             <div>
