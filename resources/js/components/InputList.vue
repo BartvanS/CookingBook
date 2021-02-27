@@ -1,15 +1,19 @@
 <template>
     <div>
         <ul class="divide-y divide-gray-200 py-1">
-            <li class="py-1 flex justify-between" v-for="(item, index) in items" :key="index">
-                <div class="text-sm text-gray-500 cursor-move">
-                    {{ item }}
-                </div>
-                <div class="text-gray-200 hover:text-red-500 cursor-pointer"
-                     v-on:click="$delete(items, index)">
-                    <Times/>
-                </div>
-            </li>
+            <draggable v-model="items">
+                <transition-group>
+                    <li class="py-1 flex justify-between" v-for="(item, index) in items" :key="item.id">
+                        <div class="text-sm text-gray-500 cursor-move">
+                            {{ item.value }}
+                        </div>
+                        <div class="text-gray-200 hover:text-red-500 cursor-pointer"
+                             v-on:click="$delete(items, index)">
+                            <Times/>
+                        </div>
+                    </li>
+                </transition-group>
+            </draggable>
         </ul>
         <form v-on:submit="add" class="mt-1 flex rounded-md shadow-sm">
             <div class="relative flex items-stretch flex-grow focus-within:z-10">
@@ -32,15 +36,20 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import Times from "./Icons/Times";
 
 export default {
-    components: {Times},
+    components: {draggable, Times},
     props: ['label', 'name', 'value'],
     data() {
+        let counter = 1;
+        let items = this.value ? this.value.split('\n') : [];
+
         return {
             input: '',
-            items: this.value ? this.value.split('\n') : [],
+            items: items.map(item => ({value: item, id: counter++})),
+            counter: counter,
         }
     },
     methods: {
@@ -53,11 +62,14 @@ export default {
                 return;
             }
 
-            this.items.push(value);
+            this.items.push({
+                value: value,
+                id: this.counter++,
+            });
             this.input = '';
         },
         toValue() {
-            return this.items.join('\n');
+            return this.items.map(item => item.value).join('\n');
         }
     }
 };
