@@ -85,7 +85,7 @@ final class RecipeController extends Controller
             'yield' => 'nullable|integer|min:1|max:100',
             'ingredients' => 'required|string',
             'instructions' => 'required|string',
-            'image' => 'nullable|image|max:4096',
+            'image' => 'nullable|image|max:4096|mimes:jpg,jpeg,png',
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
