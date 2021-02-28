@@ -14,7 +14,7 @@
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100">
-    @livewire('navigation-dropdown')
+    @include('navigation-dropdown')
 
     @isset($header)
         <header class="bg-white shadow">
