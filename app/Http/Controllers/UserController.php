@@ -12,6 +12,11 @@ use Illuminate\Validation\Rule;
 
 final class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
     public function index()
     {
         return view('users.index');
@@ -56,10 +61,10 @@ final class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function destroy(Request $request, User $user)
+    public function destroy(User $user)
     {
-        $this->authorize('delete', $user);
-
+        $user->comments()->delete();
+        $user->recipes()->delete();
         $user->delete();
 
         return redirect()->route('users.index');

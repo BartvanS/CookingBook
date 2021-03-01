@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -97,12 +99,16 @@ final class UserControllerTest extends TestCase
         $this->actingAs(User::factory()->admin()->create());
 
         $user = User::factory()->create();
+        $recipe = Recipe::factory()->create(['user_id' => $user]);
+        $comment = Comment::factory()->create(['user_id' => $user]);
 
         $response = $this->delete(route('users.destroy', $user));
 
         $response->assertRedirect(route('users.index'));
 
         $this->assertSoftDeleted($user);
+        $this->assertSoftDeleted($recipe);
+        $this->assertSoftDeleted($comment);
     }
 
     public function testCannotDeleteSelf()
