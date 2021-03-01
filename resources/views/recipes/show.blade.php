@@ -41,15 +41,6 @@
                         </svg>
                         {{ $recipe->category->name }}
                     </div>
-                    <div class="mt-2 flex items-center text-sm text-gray-500">
-                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        {{ $recipe->created_at->formatLocalized('%e %B, %Y') }}
-                    </div>
                 </div>
             </div>
 
@@ -64,7 +55,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-            <div class="md:col-span-3 grid grid-cols-1 gap-5">
+            <div class="md:col-span-3 flex flex-col space-y-5">
 
                 @if($recipe->image)
                     <img alt="{{ $recipe->title }}"
@@ -72,9 +63,9 @@
                          src="{{ Storage::url($recipe->image) }}"/>
                 @endif
 
-                <div class="flex flex-col md:flex-row">
+                <div class="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5">
                     @if($recipe->description)
-                        <div class="surface p-4 w-full md:mr-5 md:w-1/2">
+                        <div class="surface p-4 w-full md:w-1/2">
                             <div class="text-lg text-blue-900 font-bold">
                                 {{ __('Description') }}
                             </div>
@@ -83,7 +74,7 @@
                             </div>
                         </div>
                     @endif
-                    <div class="surface w-full mt-5 md:mt-0 {{ $recipe->description ? 'md:w-1/2': '' }}">
+                    <div class="surface w-full {{ $recipe->description ? 'md:w-1/2': '' }}">
                         <div class="px-4 pt-3 pb-2 text-lg text-blue-900 font-bold">
                             {{ __('Ingredients') }}
                         </div>
@@ -109,7 +100,7 @@
             </div>
 
             <div>
-                <div class="surface mb-5">
+                <div class="surface">
                     <dl>
                         <div class="px-4 py-5">
                             <dt class="text-sm font-medium text-gray-500">
