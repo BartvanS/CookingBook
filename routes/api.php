@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\API\RecipeApiController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 Route::middleware('auth:sanctum')->group(function () {
-//    Route::resource('recipes', RecipeApiController::class);
-    Route::get('/recipes', [RecipeApiController::class, 'index'])->name('api.recipe.index');
-    Route::post('/recipes', [RecipeApiController::class, 'store'])->name('api.recipe.store');
-    Route::put('/recipes/{recipe}', [RecipeApiController::class, 'update'])->name('api.recipe.update');
-    Route::delete('/recipes/{recipe}', [RecipeApiController::class, 'destroy'])->name('api.recipe.destroy');
+    Route::get('/recipes', [RecipeApiController::class, 'index'])->name('api.recipes.index');
+    Route::post('/recipes', [RecipeApiController::class, 'create'])->name('api.recipes.create');
+    Route::get('/recipes/{recipe}', [RecipeApiController::class, 'show'])->name('api.recipes.show');
 });

@@ -15,35 +15,97 @@ final class RecipeApiControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_index_no_parameter()
+    protected function setUp(): void
     {
-        Sanctum::actingAs(
-            User::factory()->create()
-        );
+        parent::setUp();
+
+        Sanctum::actingAs(User::factory()->create());
+    }
+
+    public function test_index()
+    {
         Recipe::factory()->count(10)->create();
-        $response = $this->get('/api/recipes');
-        $response->assertStatus(200);
-        $response->assertJsonCount(10);
+
+        $response = $this->get(route('api.recipes.index'));
+
+        $response->assertOk();
+        $response->assertJsonCount(10, 'data');
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'title',
+                    'description',
+                    'author',
+                    'duration',
+                    'duration_human',
+                    'duration_time',
+                    'yield',
+                    'image',
+                    'instructions',
+                    'ingredients',
+                    'created_at',
+                ],
+            ],
+        ]);
     }
 
-    public function test_index_custom_amount()
+    public function test_index_limit()
     {
-        Sanctum::actingAs(
-            User::factory()->create()
-        );
-        Recipe::factory()->count(6)->create();
-        $response = $this->get('/api/recipes?amount=5');
-        $response->assertStatus(200);
-        $response->assertJsonCount(5);
+        Recipe::factory()->count(5)->create();
+
+        $response = $this->get(route('api.recipes.index', ['limit' => 2]));
+
+        $response->assertOk();
+        $response->assertJsonCount(2, 'data');
     }
 
-    public function test_insert()
+    public function test_index_search()
     {
-        Sanctum::actingAs(
-            User::factory()->create()
-        );
+        Recipe::factory()->create([
+            'title' => 'kaas',
+        ]);
+
+        $response = $this->get(route('api.recipes.index', ['search' => 'kaas']));
+
+        $response->assertOk();
+        $response->assertJsonCount(1, 'data');
+
+        $response = $this->get(route('api.recipes.index', ['search' => 'chocoladekaas']));
+
+        $response->assertOk();
+        $response->assertJsonCount(0, 'data');
+    }
+
+    public function test_show()
+    {
+        $recipe = Recipe::factory()->create();
+
+        $response = $this->get(route('api.recipes.show', $recipe));
+
+        $response->assertJsonStructure([
+            'data' => [
+                'id',
+                'title',
+                'description',
+                'author',
+                'duration',
+                'duration_human',
+                'duration_time',
+                'yield',
+                'image',
+                'instructions',
+                'ingredients',
+                'created_at',
+            ],
+        ]);
+    }
+
+    public function test_create()
+    {
         $category = Category::factory()->create();
-        $response = $this->post('/api/recipes', [
+
+        $response = $this->post(route('api.recipes.create'), [
             'title' => 'apitest',
             'description' => 'heel veel kaas',
             'category' => $category->id,
@@ -51,14 +113,37 @@ final class RecipeApiControllerTest extends TestCase
             'ingredients' => ['gehakt', 'kaas', 'henk'],
             'instructions' => ['gehakt', 'kaas', 'henk'],
         ]);
-        $response->assertOk();
+
+        $response->assertCreated();
+
         $this->assertDatabaseHas('recipes', [
             'title' => 'apitest',
             'description' => 'heel veel kaas',
             'category_id' => $category->id,
-            'duration' => '30',
+            'duration' => 30,
         ]);
         $this->assertDatabaseCount('ingredients', 3);
         $this->assertDatabaseCount('instructions', 3);
+    }
+
+    public function test_cannot_create_with_long_ingredient()
+    {
+        $category = Category::factory()->create();
+
+        $response = $this->post(route('api.recipes.create'), [
+            'title' => 'apitest',
+            'description' => 'heel veel kaas',
+            'category' => $category->id,
+            'duration' => '00:30',
+            'ingredients' => [str_repeat('a', 260), 'kaas', 'henk'],
+            'instructions' => ['gehakt', 'kaas', 'henk'],
+        ]);
+
+        $response->assertRedirect();
+
+        $response->assertSessionHasErrors('ingredients');
+
+        $this->assertDatabaseCount('recipes', 0);
+        $this->assertDatabaseCount('ingredients', 0);
     }
 }
