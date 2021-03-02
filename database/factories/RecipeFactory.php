@@ -22,6 +22,7 @@ final class RecipeFactory extends Factory
             'yield' => rand(1, 8),
             'user_id' => fn () => User::factory(),
             'category_id' => fn () => Category::factory(),
+            'created_at' => $this->faker->dateTimeBetween('-1 years'),
         ];
     }
 }

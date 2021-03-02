@@ -35,29 +35,35 @@ final class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-        Recipe::factory()
-            ->count(50)
-            ->create([
-                'category_id' => fn () => Category::inRandomOrder()->first(),
-            ])
-            ->each(function (Recipe $recipe) {
-                Ingredient::factory()
-                    ->count(random_int(1, 5))
-                    ->create([
-                        'recipe_id' => $recipe,
-                    ]);
+        User::factory()->count(20)->create();
 
-                Instruction::factory()
-                    ->count(random_int(1, 8))
-                    ->create([
-                        'recipe_id' => $recipe,
-                    ]);
+        User::get()->each(function (User $user) {
+            Recipe::factory()
+                ->count(random_int(2, 4))
+                ->create([
+                    'user_id' => $user->id,
+                    'category_id' => fn () => Category::inRandomOrder()->first(),
+                ])
+                ->each(function (Recipe $recipe) {
+                    Ingredient::factory()
+                        ->count(random_int(1, 5))
+                        ->create([
+                            'recipe_id' => $recipe,
+                        ]);
 
-                Comment::factory()
-                    ->count(random_int(0, 5))
-                    ->create([
-                        'recipe_id' => $recipe,
-                    ]);
-            });
+                    Instruction::factory()
+                        ->count(random_int(1, 8))
+                        ->create([
+                            'recipe_id' => $recipe,
+                        ]);
+
+                    Comment::factory()
+                        ->count(random_int(0, 5))
+                        ->create([
+                            'user_id' => fn () => random_int(1, 22),
+                            'recipe_id' => $recipe,
+                        ]);
+                });
+        });
     }
 }
