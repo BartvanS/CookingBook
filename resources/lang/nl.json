@@ -60,5 +60,7 @@
     "Create category": "Categorie aanmaken",
     "Create a new recipe category.": "Een nieuwe categorie toevoegen",
     "No categories found": "Geen categorieën gevonden",
-    "Latest comments": "Recente comments"
+    "Latest comments": "Recente comments",
+    "Delete recipe": "Verwijder recept",
+    "Do you want to delete the recipe?": "Wil je het recept verwijderen?"
 }
