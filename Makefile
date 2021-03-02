@@ -43,7 +43,7 @@ do_clear_cache:
 do_storage_link:
 	php artisan storage:link
 
-do_update_production_complete:
+deploy:
 	php artisan down
 	git reset --hard
 	git pull
@@ -55,7 +55,7 @@ do_update_production_complete:
 	php artisan route:cache
 	php artisan view:cache
 	php artisan optimize
-	echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' TO 'production' IN .env!!!!"
+	@echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' TO 'production' IN .env!!!!"
 	php artisan up
 
 # Aliases
