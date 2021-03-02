@@ -20,6 +20,7 @@ final class DashboardController extends Controller
             ->selectSub(
                 Recipe::select('thumbnail')
                     ->whereColumn('category_id', 'categories.id')
+                    ->whereNotNull('thumbnail')
                     ->latest()
                     ->limit(1),
                 'recipe_image'
