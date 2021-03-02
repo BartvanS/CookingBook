@@ -4,12 +4,37 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Recipe;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 final class DashboardController extends Controller
 {
-    public function __invoke(): RedirectResponse
+    public function __invoke(Request $request)
     {
-        return redirect()->route('recipes.index');
+        $user = $request->user();
+
+        $categories = Category::withCount('recipes')
+            ->selectSub(
+                Recipe::select('thumbnail')
+                    ->whereColumn('category_id', 'categories.id')
+                    ->latest()
+                    ->limit(1),
+                'recipe_image'
+            )
+            ->orderByDesc('recipes_count')
+            ->limit(3)
+            ->get();
+
+        $comments = Comment::with('recipe', 'user')
+            ->where('user_id', '!=', $user->id)
+            ->whereHas('recipe', fn (Builder $query) => $query->where('user_id', '=', $user->id))
+            ->latest()
+            ->limit(3)
+            ->get();
+
+        return view('dashboard', compact('categories', 'comments'));
     }
 }

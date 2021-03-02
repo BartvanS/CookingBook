@@ -20,6 +20,8 @@ final class RecipesTable extends Component
 
     public $category = null;
 
+    public $queryString = ['category' => ['except' => '']];
+
     public function mount(?User $user = null)
     {
         if ($user->exists) {
