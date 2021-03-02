@@ -31,11 +31,13 @@ final class CategoriesTable extends Component
 
     public function query(): Builder
     {
-        return Category::orderBy('name')->when($this->search, function (Builder $query) {
-            $query->where(function (Builder $query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            });
-        })
+        return Category::withCount('recipes')
+            ->when($this->search, function (Builder $query) {
+                $query->where(function (Builder $query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->orderBy('name')
             ->latest();
     }
 }

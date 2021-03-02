@@ -37,6 +37,10 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {{ __('Recipes') }}
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     {{ __('Created at') }}
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
@@ -52,6 +56,12 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $category->name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <a href="{{ route('recipes.index', ['category' => $category->id]) }}"
+                                           class="text-indigo-600 hover:text-indigo-900">
+                                            {{ $category->recipes_count }}
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $category->created_at }}
