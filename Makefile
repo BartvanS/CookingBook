@@ -55,6 +55,7 @@ deploy:
 	php artisan route:cache
 	php artisan view:cache
 	php artisan optimize
+	php artisan storage:link
 	@echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' TO 'production' IN .env!!!!"
 	php artisan up
 
