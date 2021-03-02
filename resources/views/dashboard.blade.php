@@ -22,7 +22,7 @@
 
             @if($comments->isNotEmpty())
                 <h2 class="text-xl font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate">
-                    {{ __('Latests comments') }}
+                    {{ __('Latest comments') }}
                 </h2>
 
                 @foreach($comments as $comment)
