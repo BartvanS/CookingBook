@@ -119,7 +119,10 @@
                                 {{ __('Category') }}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{ $recipe->category->name }}
+                                <a href="{{ route('recipes.index', ['category' => $recipe->category_id]) }}"
+                                   class="hover:underline">
+                                    {{ $recipe->category->name }}
+                                </a>
                             </dd>
                         </div>
 
