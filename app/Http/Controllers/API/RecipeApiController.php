@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecipeResource;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
 use App\Repositories\RecipeRepository;
 use App\Services\DurationConverter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -24,29 +27,49 @@ use Illuminate\Validation\ValidationException;
  */
 final class RecipeApiController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function index(Request $request): ResourceCollection
     {
-        $values = $request->validate(['amount' => 'nullable']);
+        $this->authorize('viewAny', Recipe::class);
 
-        return response(Recipe::limit($values['amount'] ?? 10)->get());
+        $values = $request->validate([
+            'search' => ['nullable', 'string'],
+            'limit' => ['nullable', 'integer', 'min:1', 'max:100'],
+        ]);
+
+        $recipes = Recipe::with('instructions', 'ingredients', 'user')
+            ->when($values['search'] ?? false, function (Builder $query, string $search) {
+                $query->where(function (Builder $query) use ($search) {
+                    $search = '%' . $search . '%';
+                    $query
+                        ->where('title', 'like', $search)
+                        ->orWhere('description', 'like', $search)
+                        ->orWhereHas('ingredients', fn (Builder $query) => $query->where('name', 'like', $search))
+                        ->orWhereHas('instructions', fn (Builder $query) => $query->where('instruction', 'like', $search));
+                });
+            })
+            ->limit($values['limit'] ?? 10)
+            ->latest()
+            ->get();
+
+        return RecipeResource::collection($recipes);
     }
 
-    /**
-     * @return string
-     *
-     * @throws ValidationException
-     */
-    public function store(Request $request, RecipeRepository $recipeRepository)
+    public function create(Request $request, RecipeRepository $recipeRepository): RecipeResource
     {
+        $this->authorize('create', Recipe::class);
+
         $validatedValues = $this->validateRecipe($request);
+
         $recipe = $recipeRepository->create($validatedValues);
 
-        return response()->json($validatedValues);
+        return RecipeResource::make($recipe);
+    }
 
-        return 'success';
+    public function show(Recipe $recipe): RecipeResource
+    {
+        $this->authorize('view', $recipe);
+
+        return RecipeResource::make($recipe);
     }
 
     //todo: update && retrieve custom
@@ -63,11 +86,12 @@ final class RecipeApiController extends Controller
             'description' => 'required|string',
             'category' => 'required|exists:categories,id',
             'duration' => 'required|string|min:5|max:5',
-            'ingredients' => 'array',
-            'instructions' => 'array',
+            'ingredients' => 'required|array|min:1',
+            'instructions' => 'required|array|min:1',
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
+
         $values['ingredients'] = collect($values['ingredients'])->filter()
             ->each(function (string $name, $index) {
                 if (Str::length($name) > 255) {
@@ -77,9 +101,11 @@ final class RecipeApiController extends Controller
                 }
             })
             ->map(fn (string $name) => Ingredient::make(['name' => $name]));
+
         $values['instructions'] = collect($values['instructions'])
             ->filter()
             ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
+
         $values['image'] = null;
 
         return $values;

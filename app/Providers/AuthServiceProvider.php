@@ -6,9 +6,12 @@ namespace App\Providers;
 
 use App\Models\Comment;
 use App\Models\Recipe;
+use App\Models\User;
 use App\Policies\CommentPolicy;
 use App\Policies\RecipePolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 final class AuthServiceProvider extends ServiceProvider
 {
@@ -18,6 +21,7 @@ final class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        User::class => UserPolicy::class,
         Recipe::class => RecipePolicy::class,
         Comment::class => CommentPolicy::class,
     ];
@@ -28,5 +32,9 @@ final class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('admin', function (User $user) {
+            return $user->is_admin;
+        });
     }
 }

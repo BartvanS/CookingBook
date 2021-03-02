@@ -20,6 +20,7 @@ final class Recipe extends Model
         'title',
         'description',
         'duration',
+        'yield',
         'thumbnail',
         'image',
     ];

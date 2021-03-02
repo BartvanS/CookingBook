@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-container>
-        <livewire:recipes-table/>
+        <livewire:tables.recipes-table/>
     </x-container>
 
 </x-app-layout>

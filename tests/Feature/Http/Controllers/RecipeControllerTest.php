@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\User;
@@ -215,9 +216,15 @@ final class RecipeControllerTest extends TestCase
 
     public function testCanDestroyRecipe()
     {
+        /** @var Recipe $recipe */
         $recipe = Recipe::factory()->create();
         $recipe->user()->associate($this->user);
         $recipe->save();
+
+        $comment = Comment::factory()->create([
+            'recipe_id' => $recipe,
+        ]);
+
         Ingredient::factory()->count(3)->create([
             'recipe_id' => $recipe,
         ]);
@@ -227,6 +234,9 @@ final class RecipeControllerTest extends TestCase
         $response->assertRedirect();
 
         $this->assertSoftDeleted($recipe);
+
+        $this->assertSoftDeleted($comment);
+
         $this->assertDatabaseCount('ingredients', 3);
     }
 }

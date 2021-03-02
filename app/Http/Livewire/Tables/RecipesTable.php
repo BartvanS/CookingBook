@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Tables;
 
 use App\Models\Recipe;
 use App\Models\User;
@@ -20,6 +20,8 @@ final class RecipesTable extends Component
 
     public $category = null;
 
+    public $queryString = ['category' => ['except' => '']];
+
     public function mount(?User $user = null)
     {
         if ($user->exists) {
@@ -36,7 +38,7 @@ final class RecipesTable extends Component
     {
         $recipes = $this->query()->paginate(9);
 
-        return view('livewire.recipes', [
+        return view('livewire.tables.recipes-table', [
             'recipes' => $recipes,
         ]);
     }

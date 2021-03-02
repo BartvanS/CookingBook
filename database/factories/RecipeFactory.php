@@ -11,26 +11,18 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class RecipeFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Recipe::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->realText(),
             'duration' => rand(1, 150),
+            'yield' => rand(1, 8),
             'user_id' => fn () => User::factory(),
             'category_id' => fn () => Category::factory(),
+            'created_at' => $this->faker->dateTimeBetween('-1 years'),
         ];
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
@@ -51,8 +52,8 @@ final class RecipeController extends Controller
     {
         return view('recipes.edit')->with([
             'recipe' => $recipe,
-            'ingredients' => $recipe->ingredients->pluck('name')->toArray(),
-            'instructions' => $recipe->instructions()->pluck('instruction')->toArray(),
+            'ingredients' => $recipe->ingredients->pluck('name')->join(PHP_EOL),
+            'instructions' => $recipe->instructions()->pluck('instruction')->join(PHP_EOL),
         ]);
     }
 
@@ -69,6 +70,8 @@ final class RecipeController extends Controller
     {
         $recipe->delete();
 
+        $recipe->comments->each(fn (Comment $comment) => $comment->delete());
+
         return redirect()->route('recipes.index');
     }
 
@@ -79,9 +82,10 @@ final class RecipeController extends Controller
             'description' => 'nullable|string',
             'category' => 'required|exists:categories,id',
             'duration' => 'required|string|min:5|max:5',
+            'yield' => 'nullable|integer|min:1|max:100',
             'ingredients' => 'required|string',
             'instructions' => 'required|string',
-            'image' => 'nullable|image|max:4096',
+            'image' => 'nullable|image|max:4096|mimes:jpg,jpeg,png',
         ]);
 
         $values['duration'] = DurationConverter::toMinutes($values['duration']);

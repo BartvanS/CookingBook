@@ -31,8 +31,16 @@
                         <div class="mr-2">
                             <x-user :user="$comment->user"/>
                         </div>
-                        <div class="text-gray-600 text-sm">
-                            {{ $comment->created_at->format('j F, Y @ H:i') }}
+                        <div class="space-x-2 flex">
+                            @can('delete', $comment)
+                                <button class="text-gray-600 hover:text-red-700 text-sm"
+                                    wire:click="delete({{ $comment->id }})">
+                                    {{ __('Delete') }}
+                                </button>
+                            @endcan
+                            <div class="text-gray-600 text-sm">
+                                {{ $comment->created_at->format('j F, Y @ H:i') }}
+                            </div>
                         </div>
                     </div>
                     <div class="mt-2">

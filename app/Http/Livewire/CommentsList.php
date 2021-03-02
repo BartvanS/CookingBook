@@ -7,12 +7,14 @@ namespace App\Http\Livewire;
 use App\Models\Comment;
 use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 final class CommentsList extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
 
     public ?Recipe $recipe = null;
@@ -47,6 +49,19 @@ final class CommentsList extends Component
         $comments = $this->query()->paginate(3);
 
         return view('livewire.comments-list')->with('comments', $comments);
+    }
+
+    public function delete(int $comment_id)
+    {
+        $comment = $this->recipe->comments()->find($comment_id);
+
+        if (! $comment) {
+            return;
+        }
+
+        $this->authorize('delete', $comment);
+
+        $comment->delete();
     }
 
     protected function query(): Builder

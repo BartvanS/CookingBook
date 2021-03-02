@@ -1,46 +1,69 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Recept toevoegen') }}
+            {{ __('New recipe') }}
         </h2>
     </x-slot>
 
     <x-container>
 
-        <x-form action="{{ route('recipes.store') }}"
-                title="{{ __('New recipe') }}">
+        <x-form-section :title="__('Create recipe')"
+                        :description="__('This information will be displayed publicly so be careful what you share.')"
+                        :route="route('recipes.store')">
+            <div>
+                <div class="md:w-2/3">
+                    <x-input name="title"
+                             type="text"
+                             label="{{ __('Title') }}"/>
+                </div>
+            </div>
 
-            <x-input name="title"
-                     label="{{ __('Title') }}"/>
+            <div>
+                <x-text-area name="description"
+                             label="{{ __('Description') }}"/>
+            </div>
 
-            <x-text-area name="description"
-                         label="{{ __('Description') }}"/>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                <div>
+                    <x-category-select name="category"
+                                       label="{{ __('Category') }}"/>
+                </div>
+                <div>
+                    <x-input type="time"
+                             name="duration"
+                             label="{{ __('Cooking time') }}"
+                             min="0"/>
+                </div>
+                <div>
+                    <x-input type="number"
+                             name="yield"
+                             label="{{ __('Number of servings') }}"/>
+                </div>
+            </div>
 
-            <x-category-select id="category"
-                               label="{{ __('Category') }}"/>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <x-input-list label="{{ __('Ingredients') }}"
+                                  name="ingredients"/>
+                </div>
 
-            <livewire:list-input name="ingredients"
-                                 label="{{ __('Ingredients') }}"/>
+                <div>
+                    <x-input-list label="{{ __('Instructions') }}"
+                                  name="instructions"/>
+                </div>
+            </div>
 
-            <livewire:list-input name="instructions"
-                                 label="{{ __('Instructions') }}"/>
+            <div>
+                <x-file-input name="image"
+                              label="{{ __('Image') }}"/>
+            </div>
 
-            <x-input type="time"
-                     name="duration"
-                     label="{{ __('Cooking time') }}"
-                     min="0"
-            />
-
-            <x-input type="file"
-                     name="image"
-                     label="{{ __('Image') }}"/>
-
-            <input
-                type="submit"
-                class="px-3 py-2 rounded-lg bg-blue-600 text-white font-bold text-xl mt-5 hover:bg-blue-800 transition transition-colors duration-100"
-                value="{{ __('Create') }}"
-            />
-        </x-form>
+            <x-slot name="actions">
+                <x-button-primary component="button" type="submit">
+                    {{ __('Create') }}
+                </x-button-primary>
+            </x-slot>
+        </x-form-section>
 
     </x-container>
 
