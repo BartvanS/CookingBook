@@ -128,6 +128,20 @@
 
                         <div class="px-4 py-5 border-t border-gray-200">
                             <dt class="text-sm font-medium text-gray-500">
+                                {{ __('Tags') }}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                @foreach($recipe->tags as $tag)
+                                    <a href="{{ route('recipes.index', ['tag' => $tag->slug]) }}"
+                                       class="hover:underline px-2 py-1 rounded-lg bg-gray-300">
+                                        {{ $tag->name }}
+                                    </a>
+                                @endforeach
+                            </dd>
+                        </div>
+
+                        <div class="px-4 py-5 border-t border-gray-200">
+                            <dt class="text-sm font-medium text-gray-500">
                                 {{ __('Cooking time') }}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
