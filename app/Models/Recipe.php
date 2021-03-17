@@ -25,6 +25,11 @@ final class Recipe extends Model
         'image',
     ];
 
+    protected $casts = [
+        'duration' => 'integer',
+        'yield' => 'integer',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

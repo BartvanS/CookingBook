@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -15,39 +16,54 @@ final class RecipeApiControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private ?User $user = null;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user = User::factory()->create());
     }
 
     public function test_index()
     {
-        Recipe::factory()->count(10)->create();
+        /** @var Recipe $recipe */
+        $recipe = Recipe::factory()->create([
+            'title' => 'Recipe title',
+            'description' => 'Recipe description',
+            'duration' => 60,
+            'yield' => 2,
+            'created_at' => now()->addHour(),
+        ]);
+
+        Recipe::factory()->create();
 
         $response = $this->get(route('api.recipes.index'));
 
         $response->assertOk();
-        $response->assertJsonCount(10, 'data');
-        $response->assertJsonStructure([
-            'data' => [
-                '*' => [
-                    'id',
-                    'title',
-                    'description',
-                    'author',
-                    'duration',
-                    'duration_human',
-                    'duration_time',
-                    'yield',
-                    'image',
-                    'instructions',
-                    'ingredients',
-                    'created_at',
-                ],
-            ],
-        ]);
+
+        $response->assertJson(
+            fn (AssertableJson $json) => $json
+                ->has('data', 2)
+                ->has(
+                    'data.0',
+                    fn (AssertableJson $json) => $json
+                        ->whereAll([
+                            'id' => 1,
+                            'title' => 'Recipe title',
+                            'description' => 'Recipe description',
+                            'duration' => 60,
+                            'duration_human' => '1 uur',
+                            'duration_time' => '01:00',
+                            'author' => $recipe->user_id,
+                            'yield' => 2,
+                            'instructions' => [],
+                            'ingredients' => [],
+                            'image' => null,
+                        ])
+                        ->has('created_at')
+                )
+        );
     }
 
     public function test_index_limit()
@@ -79,26 +95,37 @@ final class RecipeApiControllerTest extends TestCase
 
     public function test_show()
     {
-        $recipe = Recipe::factory()->create();
+        /** @var Recipe $recipe */
+        $recipe = Recipe::factory()->create([
+            'title' => 'Recipe title',
+            'description' => 'Recipe description',
+            'duration' => 60,
+            'yield' => 2,
+            'created_at' => now()->addHour(),
+        ]);
 
         $response = $this->get(route('api.recipes.show', $recipe));
 
-        $response->assertJsonStructure([
-            'data' => [
-                'id',
-                'title',
-                'description',
-                'author',
-                'duration',
-                'duration_human',
-                'duration_time',
-                'yield',
-                'image',
-                'instructions',
-                'ingredients',
-                'created_at',
-            ],
-        ]);
+        $response->assertJson(
+            fn (AssertableJson $json) => $json
+                ->has(
+                    'data',
+                    fn (AssertableJson $json) => $json->whereAll([
+                        'id' => 1,
+                        'title' => 'Recipe title',
+                        'description' => 'Recipe description',
+                        'duration' => 60,
+                        'duration_human' => '1 uur',
+                        'duration_time' => '01:00',
+                        'author' => $recipe->user_id,
+                        'yield' => 2,
+                        'instructions' => [],
+                        'ingredients' => [],
+                        'image' => null,
+                    ])
+                        ->has('created_at')
+                )
+        );
     }
 
     public function test_create()
@@ -106,10 +133,10 @@ final class RecipeApiControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $response = $this->post(route('api.recipes.create'), [
-            'title' => 'apitest',
-            'description' => 'heel veel kaas',
+            'title' => 'Recipe title',
+            'description' => 'Recipe description',
             'category' => $category->id,
-            'duration' => '00:30',
+            'duration' => '01:00',
             'ingredients' => ['gehakt', 'kaas', 'henk'],
             'instructions' => ['gehakt', 'kaas', 'henk'],
         ]);
@@ -117,13 +144,34 @@ final class RecipeApiControllerTest extends TestCase
         $response->assertCreated();
 
         $this->assertDatabaseHas('recipes', [
-            'title' => 'apitest',
-            'description' => 'heel veel kaas',
+            'title' => 'Recipe title',
+            'description' => 'Recipe description',
             'category_id' => $category->id,
-            'duration' => 30,
+            'duration' => 60,
         ]);
         $this->assertDatabaseCount('ingredients', 3);
         $this->assertDatabaseCount('instructions', 3);
+
+        $response->assertJson(
+            fn (AssertableJson $json) => $json
+                ->has(
+                    'data',
+                    fn (AssertableJson $json) => $json->whereAll([
+                        'id' => 1,
+                        'title' => 'Recipe title',
+                        'description' => 'Recipe description',
+                        'duration' => 60,
+                        'duration_human' => '1 uur',
+                        'duration_time' => '01:00',
+                        'author' => $this->user->id,
+                        'yield' => null,
+                        'instructions' => ['gehakt', 'kaas', 'henk'],
+                        'ingredients' => ['gehakt', 'kaas', 'henk'],
+                        'image' => null,
+                    ])
+                        ->has('created_at')
+                )
+        );
     }
 
     public function test_cannot_create_with_long_ingredient()
