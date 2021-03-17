@@ -33,7 +33,8 @@
                 </div>
                 <div>
                     <x-tags name="tags"
-                            label="{{ __('Tags') }}"/>
+                            label="{{ __('Tags') }}"
+                            :default="$recipe->tags->pluck('name')->join(PHP_EOL)"/>
                 </div>
                 <div>
                     <x-input type="time"

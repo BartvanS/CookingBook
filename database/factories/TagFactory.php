@@ -14,8 +14,8 @@ final class TagFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence(3),
-            'slug' => $this->faker->unique()->slug,
+            'name' => fn () => $this->faker->sentence(3),
+            'slug' => fn () => $this->faker->unique()->slug,
         ];
     }
 }

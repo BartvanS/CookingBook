@@ -1,13 +1,15 @@
 <template>
     <div>
-        <v-select multiple
-                  taggable
-                  name="name"
-                  :options="options"
-                  v-model="selected"
-                  v-on:change="onChange"
-        />
-        <input type="hidden" :value="toString()"/>
+        <v-select
+            class="mt-1 block bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            multiple
+            taggable
+            :id="id"
+            :options="options"
+            v-model="selected"/>
+        <input type="hidden"
+               :name="name"
+               :value="toString()"/>
     </div>
 </template>
 
@@ -16,18 +18,15 @@ import vSelect from 'vue-select';
 
 export default {
     comments: {vSelect},
-    props: ['name', 'options'],
+    props: ['id', 'name', 'options', 'value'],
     data() {
         return {
-            selected: [],
+            selected: this.value ? this.value.split('\n') : [],
         }
     },
     methods: {
-        onChange() {
-            this.selected = this.selected.map(value => value.replaceAll(';', ''));
-        },
         toString() {
-            return this.selected.join(';');
+            return this.selected.join('\n');
         }
     }
 };

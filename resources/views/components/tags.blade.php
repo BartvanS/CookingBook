@@ -6,9 +6,12 @@
     </label>
 @endif
 
-<tag-select id="{{ $name }}"
-            name="{{ $name }}"
-            :options="{{ json_encode(\App\Models\Tag::get()->pluck('name')->toArray()) }}"/>
+<div>
+    <tag-select id="{{ $name }}"
+                name="{{ $name }}"
+                value="{{ old($name, $default) }}"
+                :options="{{ json_encode(\App\Models\Tag::get()->pluck('name')->toArray()) }}"/>
+</div>
 
 @error($name)
 <div class="text-sm text-red-800 mt-1">

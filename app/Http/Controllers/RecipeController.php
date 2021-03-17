@@ -12,6 +12,7 @@ use App\Repositories\RecipeRepository;
 use App\Services\DurationConverter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -81,7 +82,7 @@ final class RecipeController extends Controller
             'title' => 'required|max:255',
             'description' => 'nullable|string',
             'category' => 'required|exists:categories,id',
-            'tags' => 'nullable|array',
+            'tags' => 'nullable|string',
             'duration' => 'required|string|min:5|max:5',
             'yield' => 'nullable|integer|min:1|max:100',
             'ingredients' => 'required|string',
@@ -105,6 +106,25 @@ final class RecipeController extends Controller
         $values['instructions'] = collect(explode(PHP_EOL, $values['instructions']))
             ->filter()
             ->map(fn (string $name) => Instruction::make(['instruction' => $name]));
+
+        $values['tags'] = collect(explode(PHP_EOL, $values['tags'] ?? ''))
+            ->filter()
+            ->mapWithKeys(fn (string $tag) => [Str::slug($tag) => trim($tag)])
+            ->each(function (string $tag) {
+                if (Str::length($tag) > 255) {
+                    throw ValidationException::withMessages([
+                        'tags' => sprintf(__('Tag name cannot be longer than %s characters'), 255),
+                    ]);
+                }
+            })
+            ->tap(function (Collection $tags) {
+                if ($tags->count() > 5) {
+                    throw ValidationException::withMessages([
+                        'tags' => sprintf(__('Cannot add more than %s tags to the recipe'), 5),
+                    ]);
+                }
+            })
+            ->toArray();
 
         // TODO: Move image processing into separate service
         if ($request->hasFile('image')) {
