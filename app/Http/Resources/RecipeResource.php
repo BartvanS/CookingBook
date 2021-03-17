@@ -30,7 +30,7 @@ final class RecipeResource extends JsonResource
             'ingredients' => $this->ingredients->pluck('name'),
             'category' => $this->category->name,
             'tags' => $this->tags->pluck('name'),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->toIso8601String(),
         ];
     }
 }
