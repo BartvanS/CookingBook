@@ -19,6 +19,8 @@ final class Kernel extends ConsoleKernel
 
     /**
      * Define the application's command schedule.
+     *
+     * @codeCoverageIgnore
      */
     protected function schedule(Schedule $schedule)
     {
