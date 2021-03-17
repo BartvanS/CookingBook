@@ -59,6 +59,8 @@ final class RecipeApiControllerTest extends TestCase
                             'yield' => 2,
                             'instructions' => [],
                             'ingredients' => [],
+                            'category' => $recipe->category->name,
+                            'tags' => [],
                             'image' => null,
                         ])
                         ->has('created_at')
@@ -121,6 +123,8 @@ final class RecipeApiControllerTest extends TestCase
                         'yield' => 2,
                         'instructions' => [],
                         'ingredients' => [],
+                        'category' => $recipe->category->name,
+                        'tags' => [],
                         'image' => null,
                     ])
                         ->has('created_at')
@@ -167,6 +171,8 @@ final class RecipeApiControllerTest extends TestCase
                         'yield' => null,
                         'instructions' => ['gehakt', 'kaas', 'henk'],
                         'ingredients' => ['gehakt', 'kaas', 'henk'],
+                        'category' => $category->name,
+                        'tags' => [],
                         'image' => null,
                     ])
                         ->has('created_at')

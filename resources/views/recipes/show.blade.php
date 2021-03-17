@@ -126,6 +126,22 @@
                             </dd>
                         </div>
 
+                        @if($recipe->tags->isNotEmpty())
+                            <div class="px-4 py-5 border-t border-gray-200">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    {{ __('Tags') }}
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900 space-x-1 space-y-1">
+                                    @foreach($recipe->tags as $tag)
+                                        <a href="{{ route('recipes.index', ['tag' => $tag->slug]) }}"
+                                           class="inline-block hover:underline px-2 py-1 rounded-lg bg-gray-300">
+                                            {{ $tag->name }}
+                                        </a>
+                                    @endforeach
+                                </dd>
+                            </div>
+                        @endif
+
                         <div class="px-4 py-5 border-t border-gray-200">
                             <dt class="text-sm font-medium text-gray-500">
                                 {{ __('Cooking time') }}

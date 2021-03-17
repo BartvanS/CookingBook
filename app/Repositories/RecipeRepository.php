@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Recipe;
+use App\Models\Tag;
 
 final class RecipeRepository
 {
@@ -24,6 +25,10 @@ final class RecipeRepository
 
         $recipe->instructions()->saveMany($validatedValues['instructions']);
 
+        if (isset($validatedValues['tags'])) {
+            $this->tags($recipe, $validatedValues['tags']);
+        }
+
         return $recipe;
     }
 
@@ -41,6 +46,40 @@ final class RecipeRepository
         $recipe->instructions()->delete();
         $recipe->instructions()->saveMany($validatedValues['instructions']);
 
+        if (isset($validatedValues['tags'])) {
+            $this->tags($recipe, $validatedValues['tags']);
+        }
+
         return $recipe;
+    }
+
+    private function tags(Recipe $recipe, array $rawTags)
+    {
+        $original = collect($rawTags);
+
+        if ($original->isEmpty()) {
+            $recipe->tags()->detach();
+
+            return;
+        }
+
+        $tags = Tag::whereIn('slug', $original->keys())->get();
+
+        // Not all tags are found
+        if ($original->count() !== $tags->count()) {
+            foreach ($original as $slug => $name) {
+                if ($tags->contains(fn (Tag $tag) => $tag->slug === $slug)) {
+                    continue;
+                }
+
+                // Add new tag to the collection
+                $tags->add(Tag::create([
+                    'name' => $name,
+                    'slug' => $slug,
+                ]));
+            }
+        }
+
+        $recipe->tags()->sync($tags);
     }
 }

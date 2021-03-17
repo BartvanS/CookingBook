@@ -11,12 +11,12 @@
         {{ $attributes }}
         class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
     <option value="">
-        {{ __('Category')  }}
+        {{ __('Tag')  }}
     </option>
-    @foreach(\App\Models\Category::orderBy('name')->get() as $category)
-        <option value="{{ $category->id }}"
-            {{ intval(old($name, $default)) === $category->id ? 'selected="selected"' : '' }}>
-            {{ $category->name }}
+    @foreach(\App\Models\Tag::orderBy('name')->get() as $tag)
+        <option value="{{ $tag->slug }}"
+            {{ intval(old($name, $default)) === $tag->slug ? 'selected="selected"' : '' }}>
+            {{ $tag->name }}
         </option>
     @endforeach
 </select>

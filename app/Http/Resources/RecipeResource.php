@@ -28,7 +28,9 @@ final class RecipeResource extends JsonResource
             'image' => $this->image ? Storage::url($this->image) : null,
             'instructions' => $this->instructions->pluck('instruction'),
             'ingredients' => $this->ingredients->pluck('name'),
-            'created_at' => $this->created_at,
+            'category' => $this->category->name,
+            'tags' => $this->tags->pluck('name'),
+            'created_at' => $this->created_at->toIso8601String(),
         ];
     }
 }

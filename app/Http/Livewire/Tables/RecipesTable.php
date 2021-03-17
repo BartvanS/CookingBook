@@ -20,7 +20,12 @@ final class RecipesTable extends Component
 
     public $category = null;
 
-    public $queryString = ['category' => ['except' => '']];
+    public ?string $tag = null;
+
+    public $queryString = [
+        'category' => ['except' => ''],
+        'tag' => ['except' => ''],
+    ];
 
     public function mount(?User $user = null)
     {
@@ -67,6 +72,11 @@ final class RecipesTable extends Component
             })
             ->when(intval($this->category) > 0, function (Builder $query) {
                 $query->where('category_id', '=', $this->category);
+            })
+            ->when(! empty($this->tag), function (Builder $query) {
+                $query->whereHas('tags', function (Builder $query) {
+                    $query->where('slug', '=', $this->tag);
+                });
             })
             ->latest();
     }

@@ -20,7 +20,10 @@ final class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CategorySeeder::class);
+        $this->call([
+            CategorySeeder::class,
+            TagSeeder::class,
+        ]);
 
         User::factory()->create([
             'name' => 'admin',
@@ -63,6 +66,8 @@ final class DatabaseSeeder extends Seeder
                             'user_id' => fn () => random_int(1, 22),
                             'recipe_id' => $recipe,
                         ]);
+
+                    $recipe->tags()->save(Category::inRandomOrder()->first());
                 });
         });
     }
