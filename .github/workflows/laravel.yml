@@ -1,4 +1,4 @@
-name: Laravel
+name: run-tests
 
 on:
   push:
@@ -7,28 +7,30 @@ on:
     branches: [ master ]
 
 jobs:
-  laravel-tests:
+  test:
 
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: recipesite
         ports:
-          - 33306:3306
+          - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
-
-      - uses: actions/checkout@v2
 
       - name: Cache dependencies
         uses: actions/cache@v1
@@ -51,9 +53,8 @@ jobs:
       - name: Execute tests
         env:
           DB_CONNECTION: mysql
-          DB_HOST: mysql
-          DB_PORT: 3306
-          DB_DATABASE: test
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
-          DB_PASSWORD: password
-        run: vendor/bin/phpunit
+          DB_DATABASE: recipesite
+          DB_PASSWORD: ""
+        run: php artisan test --parallel

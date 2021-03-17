@@ -49,7 +49,7 @@ final class RecipeApiControllerTest extends TestCase
                     'data.0',
                     fn (AssertableJson $json) => $json
                         ->whereAll([
-                            'id' => 1,
+                            'id' => $recipe->id,
                             'title' => 'Recipe title',
                             'description' => 'Recipe description',
                             'duration' => 60,
@@ -113,7 +113,7 @@ final class RecipeApiControllerTest extends TestCase
                 ->has(
                     'data',
                     fn (AssertableJson $json) => $json->whereAll([
-                        'id' => 1,
+                        'id' => $recipe->id,
                         'title' => 'Recipe title',
                         'description' => 'Recipe description',
                         'duration' => 60,
@@ -161,7 +161,7 @@ final class RecipeApiControllerTest extends TestCase
                 ->has(
                     'data',
                     fn (AssertableJson $json) => $json->whereAll([
-                        'id' => 1,
+                        'id' => Recipe::latest()->first()->id,
                         'title' => 'Recipe title',
                         'description' => 'Recipe description',
                         'duration' => 60,
