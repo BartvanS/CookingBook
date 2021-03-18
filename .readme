@@ -1,8 +1,0 @@
-art = php artisan
-step 1: setup .env file
-step 2: npm i
-step 3: art migrate:fresh --seed
-
-elke keer voor gebruik terminals starten met:
-npm run watch
-php artisan serve (art serve)
