@@ -141,6 +141,7 @@ final class RecipeApiControllerTest extends TestCase
             'description' => 'Recipe description',
             'category' => $category->id,
             'duration' => '01:00',
+            'yield' => 4,
             'ingredients' => ['gehakt', 'kaas', 'henk'],
             'instructions' => ['gehakt', 'kaas', 'henk'],
         ]);
@@ -152,6 +153,7 @@ final class RecipeApiControllerTest extends TestCase
             'description' => 'Recipe description',
             'category_id' => $category->id,
             'duration' => 60,
+            'yield' => 4,
         ]);
         $this->assertDatabaseCount('ingredients', 3);
         $this->assertDatabaseCount('instructions', 3);
@@ -168,7 +170,7 @@ final class RecipeApiControllerTest extends TestCase
                         'duration_human' => '1 uur',
                         'duration_time' => '01:00',
                         'author' => $this->user->id,
-                        'yield' => null,
+                        'yield' => 4,
                         'instructions' => ['gehakt', 'kaas', 'henk'],
                         'ingredients' => ['gehakt', 'kaas', 'henk'],
                         'category' => $category->name,

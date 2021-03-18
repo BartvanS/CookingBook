@@ -1,0 +1,48 @@
+//
+// GET /recipes
+//
+// Retrieve a list of recipes
+//
+GET {{url}}/api/recipes?limit=2
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+//
+// POST /recipes
+//
+// Create a new recipe
+//
+POST {{url}}/api/recipes
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Cheese bread",
+    "description": "",
+    "duration": "01:00",
+    "ingredients": [
+        "Cheese",
+        "Bread"
+    ],
+    "instructions": [
+        "Make the bread"
+    ],
+    "yield": 2,
+    "category": 1
+}
+
+###
+
+//
+// GET /recipes/{recipe}
+//
+// Get single recipe by ID
+//
+GET {{url}}/api/recipes/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###

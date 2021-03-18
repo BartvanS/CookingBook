@@ -17,14 +17,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-/**
- * RecipeApiController
- *
- *  Edit the recipe via these api routes.
- *  You need a bearer token to connect. You can get this token from the website header profile button.
- * make sure you have the right permissions for what you want to achieve
- *  base path is "url"/api/recipes for mor info look at the docs for resource controllers
- */
 final class RecipeApiController extends Controller
 {
     public function index(Request $request): ResourceCollection
@@ -72,20 +64,14 @@ final class RecipeApiController extends Controller
         return RecipeResource::make($recipe);
     }
 
-    //todo: update && retrieve custom
-
-    /**
-     * @param $request
-     *
-     * @throws ValidationException
-     */
     private function validateRecipe(Request $request): array
     {
         $values = $request->validate([
             'title' => 'required|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'category' => 'required|exists:categories,id',
             'duration' => 'required|string|min:5|max:5',
+            'yield' => 'nullable|integer|min:1|max:100',
             'ingredients' => 'required|array|min:1',
             'instructions' => 'required|array|min:1',
         ]);

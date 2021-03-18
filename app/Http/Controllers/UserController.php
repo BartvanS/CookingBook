@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Laravel\Jetstream\Contracts\DeletesUsers;
 
 final class UserController extends Controller
 {
@@ -61,11 +62,9 @@ final class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user, DeletesUsers $action)
     {
-        $user->comments()->delete();
-        $user->recipes()->delete();
-        $user->delete();
+        $action->delete($user);
 
         return redirect()->route('users.index');
     }
