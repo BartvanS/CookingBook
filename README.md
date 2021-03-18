@@ -1,8 +1,10 @@
-# Laravel recepe website
+# <p align=center>Recipes</p>
 
-This is very basic crud recipe website to learn the basics of laravel 8
+<p align="center">Simple website for posting recipes created with Laravel.</p>
 
-In dit website you can manage recipes as you please.
+- [Installation](#installation)
+- [Development](#development)
+- [License](#license)
 
 ## Installation
 
@@ -22,6 +24,8 @@ Done!
 
 ## Development
 
-Elke keer voor gebruik terminals starten met:
-npm run watch
-php artisan serve (art serve)
+Every time your pull in changes make sure to run.
+
+```
+make update
+```
