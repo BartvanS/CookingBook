@@ -4,7 +4,6 @@
 
 - [Installation](#installation)
 - [Development](#development)
-- [License](#license)
 
 ## Installation
 
