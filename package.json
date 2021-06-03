@@ -25,7 +25,8 @@
     },
     "dependencies": {
         "autoprefixer": "^10.2.4",
-        "postcss": "^8.2.6",
+        "postcss": "^8.3.0",
+        "turbolinks": "^5.2.0",
         "vue-select": "^3.11.2",
         "vuedraggable": "^2.24.3"
     }
