@@ -27,5 +27,5 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-var Turbolinks = require("turbolinks")
-Turbolinks.start()
+// var Turbolinks = require("turbolinks")
+// Turbolinks.start()
