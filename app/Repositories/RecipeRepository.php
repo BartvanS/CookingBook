@@ -53,7 +53,7 @@ final class RecipeRepository
         return $recipe;
     }
 
-    private function tags(Recipe $recipe, array $rawTags)
+    private function tags(Recipe $recipe, array $rawTags): void
     {
         $original = collect($rawTags);
 

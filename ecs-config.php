@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\Alias\MbStrFunctionsFixer;
-use PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer;
 use PhpCsFixer\Fixer\CastNotation\CastSpacesFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\ClassNotation\FinalClassFixer;
@@ -11,7 +11,9 @@ use PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer;
 use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer;
 use PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer;
+use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
+use PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
@@ -20,9 +22,9 @@ use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
+use PhpCsFixer\Fixer\PhpTag\EchoTagSyntaxFixer;
 use PhpCsFixer\Fixer\PhpTag\LinebreakAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer;
-use PhpCsFixer\Fixer\PhpTag\NoShortEchoTagFixer;
 use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
@@ -30,20 +32,22 @@ use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
-use SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(MbStrFunctionsFixer::class);
 
-    $services->set(TrailingCommaInMultilineArrayFixer::class);
+    $services->set(TrailingCommaInMultilineFixer::class);
 
     $services->set(OrderedClassElementsFixer::class);
 
     $services->set(ReturnTypeDeclarationFixer::class);
+
+    $services->set(VoidReturnFixer::class);
 
     $services->set(BlankLineAfterNamespaceFixer::class);
 
@@ -92,7 +96,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(NoClosingTagFixer::class);
 
-    $services->set(NoShortEchoTagFixer::class);
+    $services->set(EchoTagSyntaxFixer::class);
 
     $services->set(NoExtraBlankLinesFixer::class)
         ->call('configure', [
@@ -110,25 +114,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::SETS, ['clean-code', 'psr12', 'docblock']);
+    $containerConfigurator->import(SetList::PSR_12);
+    $containerConfigurator->import(SetList::CLEAN_CODE);
+    $containerConfigurator->import(SetList::DOCBLOCK);
 
-    $parameters->set(Option::EXCLUDE_PATHS, [
-        '.docker-sync/*',
-        '.gitlab/*',
-        'bootstrap/*',
-        'dev/*',
-        'node_modules/*',
-        'public/*',
-        'resources/js/*',
-        'resources/sass/*',
-        'storage/*',
-        'tests/data',
-        'vendor/*',
-        '.phpstorm.meta.php',
-        '.phpunit.result.cache',
-        '_ide_helper.php',
-        '_ide_helper_models.php',
-        'resources/lang/*',
+    $parameters->set(Option::PATHS, [
+        __DIR__ . '/app',
+        __DIR__ . '/config',
+        __DIR__ . '/database',
+        __DIR__ . '/routes',
+        __DIR__ . '/tests',
     ]);
 
     $parameters->set(Option::SKIP, [

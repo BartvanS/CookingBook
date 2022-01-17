@@ -29,8 +29,8 @@ final class RecipeApiController extends Controller
         ]);
 
         $recipes = Recipe::with('instructions', 'ingredients', 'user')
-            ->when($values['search'] ?? false, function (Builder $query, string $search) {
-                $query->where(function (Builder $query) use ($search) {
+            ->when($values['search'] ?? false, function (Builder $query, string $search): void {
+                $query->where(function (Builder $query) use ($search): void {
                     $search = '%' . $search . '%';
                     $query
                         ->where('title', 'like', $search)
@@ -79,7 +79,7 @@ final class RecipeApiController extends Controller
         $values['duration'] = DurationConverter::toMinutes($values['duration']);
 
         $values['ingredients'] = collect($values['ingredients'])->filter()
-            ->each(function (string $name, $index) {
+            ->each(function (string $name, $index): void {
                 if (Str::length($name) > 255) {
                     throw ValidationException::withMessages([
                         'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),

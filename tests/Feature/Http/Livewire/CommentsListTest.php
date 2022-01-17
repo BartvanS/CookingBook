@@ -16,7 +16,7 @@ final class CommentsListTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCanSubmitComment()
+    public function testCanSubmitComment(): void
     {
         $this->actingAs(User::factory()->create());
 
@@ -31,7 +31,7 @@ final class CommentsListTest extends TestCase
         ]);
     }
 
-    public function testCanDeleteOwnComment()
+    public function testCanDeleteOwnComment(): void
     {
         $user = User::factory()->create();
 
@@ -51,7 +51,7 @@ final class CommentsListTest extends TestCase
         $this->assertSoftDeleted($comment);
     }
 
-    public function testCannotDeleteNonExistingComment()
+    public function testCannotDeleteNonExistingComment(): void
     {
         $user = User::factory()->create();
 
@@ -64,7 +64,7 @@ final class CommentsListTest extends TestCase
             ->call('submit');
     }
 
-    public function testCannotDeleteComment()
+    public function testCannotDeleteComment(): void
     {
         $user = User::factory()->create();
 
@@ -85,7 +85,7 @@ final class CommentsListTest extends TestCase
         $this->assertNull($comment->deleted_at);
     }
 
-    public function testAdminCanDeleteComment()
+    public function testAdminCanDeleteComment(): void
     {
         $user = User::factory()->create([
             'is_admin' => true,

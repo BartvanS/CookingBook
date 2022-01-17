@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\Schema;
 
 final class CreateTagsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique()->index();
@@ -21,10 +18,7 @@ final class CreateTagsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tags');
     }

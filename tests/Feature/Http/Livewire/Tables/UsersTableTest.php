@@ -14,7 +14,7 @@ final class UsersTableTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCanViewTable()
+    public function testCanViewTable(): void
     {
         User::factory()->create([
             'name' => 'Henk Steen',
@@ -26,7 +26,7 @@ final class UsersTableTest extends TestCase
             ->assertSee('Henk Steen');
     }
 
-    public function testCanSearchUser()
+    public function testCanSearchUser(): void
     {
         User::factory()->create([
             'name' => 'Henk Steen',

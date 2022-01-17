@@ -27,14 +27,14 @@ final class RecipesTable extends Component
         'tag' => ['except' => ''],
     ];
 
-    public function mount(?User $user = null)
+    public function mount(?User $user = null): void
     {
         if ($user->exists) {
             $this->user = $user;
         }
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
@@ -51,30 +51,30 @@ final class RecipesTable extends Component
     public function query(): Builder
     {
         return Recipe::with('user', 'category')
-            ->when($this->user instanceof User, function (Builder $query) {
+            ->when($this->user instanceof User, function (Builder $query): void {
                 $query->where('user_id', '=', $this->user->id);
             })
-            ->when($this->search, function (Builder $query) {
-                $query->where(function (Builder $query) {
+            ->when($this->search, function (Builder $query): void {
+                $query->where(function (Builder $query): void {
                     $query
                         ->where('title', 'like', '%' . $this->search . '%')
                         ->orWhere('description', 'like', '%' . $this->search . '%')
-                        ->orWhereHas('user', function (Builder $query) {
+                        ->orWhereHas('user', function (Builder $query): void {
                             $query->where('name', 'like', '%' . $this->search . '%');
                         })
-                        ->orWhereHas('ingredients', function (Builder $query) {
+                        ->orWhereHas('ingredients', function (Builder $query): void {
                             $query->where('name', 'like', '%' . $this->search . '%');
                         })
-                        ->orWhereHas('instructions', function (Builder $query) {
+                        ->orWhereHas('instructions', function (Builder $query): void {
                             $query->where('instruction', 'like', '%' . $this->search . '%');
                         });
                 });
             })
-            ->when(intval($this->category) > 0, function (Builder $query) {
+            ->when(intval($this->category) > 0, function (Builder $query): void {
                 $query->where('category_id', '=', $this->category);
             })
-            ->when(! empty($this->tag), function (Builder $query) {
-                $query->whereHas('tags', function (Builder $query) {
+            ->when(! empty($this->tag), function (Builder $query): void {
+                $query->whereHas('tags', function (Builder $query): void {
                     $query->where('slug', '=', $this->tag);
                 });
             })

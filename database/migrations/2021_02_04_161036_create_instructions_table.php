@@ -8,22 +8,16 @@ use Illuminate\Support\Facades\Schema;
 
 final class CreateInstructionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('instructions', function (Blueprint $table) {
+        Schema::create('instructions', function (Blueprint $table): void {
             $table->id();
             $table->longText('instruction');
             $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('instructions');
     }

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('recipes', [RecipeApiController::class, 'index'])->name('api.recipes.index');
     Route::post('recipes', [RecipeApiController::class, 'create'])->name('api.recipes.create');
     Route::get('recipes/{recipe}', [RecipeApiController::class, 'show'])->name('api.recipes.show');

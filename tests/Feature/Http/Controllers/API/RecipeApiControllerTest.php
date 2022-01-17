@@ -25,7 +25,7 @@ final class RecipeApiControllerTest extends TestCase
         Sanctum::actingAs($this->user = User::factory()->create());
     }
 
-    public function test_index()
+    public function test_index(): void
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::factory()->create([
@@ -68,7 +68,7 @@ final class RecipeApiControllerTest extends TestCase
         );
     }
 
-    public function test_index_limit()
+    public function test_index_limit(): void
     {
         Recipe::factory()->count(5)->create();
 
@@ -78,7 +78,7 @@ final class RecipeApiControllerTest extends TestCase
         $response->assertJsonCount(2, 'data');
     }
 
-    public function test_index_search()
+    public function test_index_search(): void
     {
         Recipe::factory()->create([
             'title' => 'kaas',
@@ -95,7 +95,7 @@ final class RecipeApiControllerTest extends TestCase
         $response->assertJsonCount(0, 'data');
     }
 
-    public function test_show()
+    public function test_show(): void
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::factory()->create([
@@ -132,7 +132,7 @@ final class RecipeApiControllerTest extends TestCase
         );
     }
 
-    public function test_create()
+    public function test_create(): void
     {
         $category = Category::factory()->create();
 
@@ -182,7 +182,7 @@ final class RecipeApiControllerTest extends TestCase
         );
     }
 
-    public function test_cannot_create_with_long_ingredient()
+    public function test_cannot_create_with_long_ingredient(): void
     {
         $category = Category::factory()->create();
 

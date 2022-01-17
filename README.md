@@ -2,8 +2,15 @@
 
 <p align="center">Simple website for posting recipes created with Laravel.</p>
 
+- [Features](#features)
 - [Installation](#installation)
 - [Development](#development)
+
+## Features
+
+- Manage your own recipes.
+- View other recipes.
+- Comment on recipes.
 
 ## Installation
 

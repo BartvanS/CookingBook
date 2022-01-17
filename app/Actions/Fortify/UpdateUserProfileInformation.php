@@ -14,7 +14,7 @@ final class UpdateUserProfileInformation implements UpdatesUserProfileInformatio
     /**
      * Validate and update the given user's profile information.
      */
-    public function update($user, array $input)
+    public function update($user, array $input): void
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -40,7 +40,7 @@ final class UpdateUserProfileInformation implements UpdatesUserProfileInformatio
     /**
      * Update the given verified user's profile information.
      */
-    private function updateVerifiedUser($user, array $input)
+    private function updateVerifiedUser($user, array $input): void
     {
         $user->forceFill([
             'name' => $input['name'],

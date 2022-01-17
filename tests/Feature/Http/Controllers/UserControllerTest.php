@@ -14,7 +14,7 @@ final class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUserCannotViewUsersIndex()
+    public function testUserCannotViewUsersIndex(): void
     {
         $this->actingAs(User::factory()->create());
 
@@ -23,7 +23,7 @@ final class UserControllerTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function testAdminCanViewUsersIndex()
+    public function testAdminCanViewUsersIndex(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -34,7 +34,7 @@ final class UserControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testAdminCanViewCreate()
+    public function testAdminCanViewCreate(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -43,7 +43,7 @@ final class UserControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCanStoreUser()
+    public function testCanStoreUser(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -64,7 +64,7 @@ final class UserControllerTest extends TestCase
         ]);
     }
 
-    public function testCanViewEdit()
+    public function testCanViewEdit(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -73,7 +73,7 @@ final class UserControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCanUpdateUser()
+    public function testCanUpdateUser(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -94,7 +94,7 @@ final class UserControllerTest extends TestCase
         ]);
     }
 
-    public function testCanDeleteUser()
+    public function testCanDeleteUser(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -111,7 +111,7 @@ final class UserControllerTest extends TestCase
         $this->assertSoftDeleted($comment);
     }
 
-    public function testCannotDeleteSelf()
+    public function testCannotDeleteSelf(): void
     {
         $user = User::factory()->admin()->create();
 

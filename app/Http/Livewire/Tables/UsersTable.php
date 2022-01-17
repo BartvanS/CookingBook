@@ -15,7 +15,7 @@ final class UsersTable extends Component
 
     public ?string $search = null;
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
@@ -33,8 +33,8 @@ final class UsersTable extends Component
     {
         return User::withCount(['recipes', 'comments'])
             ->orderByDesc('recipes_count')
-            ->when($this->search, function (Builder $query) {
-                $query->where(function (Builder $query) {
+            ->when($this->search, function (Builder $query): void {
+                $query->where(function (Builder $query): void {
                     $query
                         ->where('name', 'like', '%' . $this->search . '%')
                         ->orWhere('email', 'like', '%' . $this->search . '%');

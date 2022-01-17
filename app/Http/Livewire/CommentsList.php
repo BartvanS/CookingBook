@@ -15,20 +15,21 @@ use Livewire\WithPagination;
 final class CommentsList extends Component
 {
     use AuthorizesRequests;
+
     use WithPagination;
 
     public ?Recipe $recipe = null;
 
     public ?string $message = null;
 
-    public function mount(?Recipe $recipe = null)
+    public function mount(?Recipe $recipe = null): void
     {
         if ($recipe->exists) {
             $this->recipe = $recipe;
         }
     }
 
-    public function submit()
+    public function submit(): void
     {
         Gate::authorize('create', Comment::class);
 
@@ -51,7 +52,7 @@ final class CommentsList extends Component
         return view('livewire.comments-list')->with('comments', $comments);
     }
 
-    public function delete(int $comment_id)
+    public function delete(int $comment_id): void
     {
         $comment = $this->recipe->comments()->find($comment_id);
 
@@ -67,7 +68,7 @@ final class CommentsList extends Component
     protected function query(): Builder
     {
         return Comment::with('user')
-            ->when($this->recipe instanceof Recipe, function (Builder $query) {
+            ->when($this->recipe instanceof Recipe, function (Builder $query): void {
                 $query->where('recipe_id', '=', $this->recipe->id);
             })
             ->latest();

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 final class Comment extends Model
 {
     use HasFactory;
+
     use SoftDeletes;
 
     protected $fillable = [
@@ -29,11 +30,11 @@ final class Comment extends Model
         return $this->belongsTo(Recipe::class);
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        static::creating(function (Comment $comment) {
+        static::creating(function (Comment $comment): void {
             if (is_null($comment->user_id) && Auth::check()) {
                 $comment->user_id = Auth::id();
             }

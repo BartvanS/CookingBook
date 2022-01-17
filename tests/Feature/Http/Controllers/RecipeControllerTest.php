@@ -29,21 +29,21 @@ final class RecipeControllerTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    public function testCanViewIndex()
+    public function testCanViewIndex(): void
     {
         $response = $this->get(route('recipes.index'));
 
         $response->assertOk();
     }
 
-    public function testCanViewCreate()
+    public function testCanViewCreate(): void
     {
         $response = $this->get(route('recipes.create'));
 
         $response->assertOk();
     }
 
-    public function testCanStoreRecipe()
+    public function testCanStoreRecipe(): void
     {
         Storage::fake();
 
@@ -77,7 +77,7 @@ final class RecipeControllerTest extends TestCase
         Storage::assertExists($file->hashName('public'));
     }
 
-    public function testCanStoreRecipeWithTags()
+    public function testCanStoreRecipeWithTags(): void
     {
         $category = Category::factory()->create();
         $tag = Tag::factory()->create([
@@ -107,7 +107,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertTrue(Recipe::first()->tags->contains($tag));
     }
 
-    public function testCannotStoreRecipeWithLongTagName()
+    public function testCannotStoreRecipeWithLongTagName(): void
     {
         $category = Category::factory()->create();
 
@@ -128,7 +128,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('tags', 0);
     }
 
-    public function testCannotStoreRecipeWithTooManyTags()
+    public function testCannotStoreRecipeWithTooManyTags(): void
     {
         $category = Category::factory()->create();
 
@@ -149,7 +149,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('tags', 0);
     }
 
-    public function testCannotStoreWithLongIngredients()
+    public function testCannotStoreWithLongIngredients(): void
     {
         $category = Category::factory()->create();
 
@@ -170,7 +170,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('ingredients', 0);
     }
 
-    public function testCanViewDetail()
+    public function testCanViewDetail(): void
     {
         $recipe = Recipe::factory()->create();
 
@@ -180,7 +180,7 @@ final class RecipeControllerTest extends TestCase
         $response->assertSee($recipe->title);
     }
 
-    public function testCanEditOwnRecipe()
+    public function testCanEditOwnRecipe(): void
     {
         $recipe = Recipe::factory()->create();
         $recipe->user()->associate($this->user);
@@ -194,7 +194,7 @@ final class RecipeControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCannotEditOtherRecipe()
+    public function testCannotEditOtherRecipe(): void
     {
         $recipe = Recipe::factory()->create([
             'user_id' => User::factory(),
@@ -205,7 +205,7 @@ final class RecipeControllerTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function testCanUpdateRecipe()
+    public function testCanUpdateRecipe(): void
     {
         $category = Category::factory()->create();
 
@@ -239,7 +239,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('instructions', 2);
     }
 
-    public function testCanUpdateRecipeWithTags()
+    public function testCanUpdateRecipeWithTags(): void
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::factory()->create([
@@ -274,7 +274,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertTrue(Recipe::first()->tags->contains($tag));
     }
 
-    public function testCanUpdateToLessIngredients()
+    public function testCanUpdateToLessIngredients(): void
     {
         $recipe = Recipe::factory()->create();
         $recipe->user()->associate($this->user);
@@ -300,7 +300,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('instructions', 1);
     }
 
-    public function testCannotUpdateWithLongIngredients()
+    public function testCannotUpdateWithLongIngredients(): void
     {
         $recipe = Recipe::factory()->create();
         $recipe->user()->associate($this->user);
@@ -322,7 +322,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('ingredients', 0);
     }
 
-    public function testCanDestroyRecipe()
+    public function testCanDestroyRecipe(): void
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::factory()->create();

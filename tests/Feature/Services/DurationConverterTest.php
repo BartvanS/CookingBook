@@ -12,7 +12,7 @@ final class DurationConverterTest extends TestCase
     /**
      * @dataProvider durationProvider
      */
-    public function testToMinutes(string $time, int $minutes)
+    public function testToMinutes(string $time, int $minutes): void
     {
         $this->assertEquals(DurationConverter::toMinutes($time), $minutes);
     }
@@ -20,7 +20,7 @@ final class DurationConverterTest extends TestCase
     /**
      * @dataProvider durationProvider
      */
-    public function testToTime(string $time, int $minutes)
+    public function testToTime(string $time, int $minutes): void
     {
         $this->assertEquals(DurationConverter::toTime($minutes), $time);
     }
@@ -28,7 +28,7 @@ final class DurationConverterTest extends TestCase
     /**
      * @dataProvider durationProvider
      */
-    public function testToHuman(string $time, int $minutes, string $human)
+    public function testToHuman(string $time, int $minutes, string $human): void
     {
         $this->assertEquals(DurationConverter::toHuman($minutes), $human);
     }

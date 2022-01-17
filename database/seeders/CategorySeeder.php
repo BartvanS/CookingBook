@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 
 final class CategorySeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         $list = ['Voorafje', 'Voorgerecht', 'Hoofdgerecht', 'Dessert'];
 

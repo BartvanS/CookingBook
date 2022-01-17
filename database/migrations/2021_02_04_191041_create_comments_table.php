@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\Schema;
 
 final class CreateCommentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table): void {
             $table->id();
             $table->longText('message');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
@@ -23,10 +20,7 @@ final class CreateCommentsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('comments');
     }

@@ -94,7 +94,7 @@ final class RecipeController extends Controller
 
         $values['ingredients'] = collect(explode(PHP_EOL, $values['ingredients']))
             ->filter()
-            ->each(function (string $name, $index) {
+            ->each(function (string $name, $index): void {
                 if (Str::length($name) > 255) {
                     throw ValidationException::withMessages([
                         'ingredients' => sprintf('Ingredient %s cannot be longer than %s characters', $index + 1, 255),
@@ -110,14 +110,14 @@ final class RecipeController extends Controller
         $values['tags'] = collect(explode(PHP_EOL, $values['tags'] ?? ''))
             ->filter()
             ->mapWithKeys(fn (string $tag) => [Str::slug($tag) => trim($tag)])
-            ->each(function (string $tag) {
+            ->each(function (string $tag): void {
                 if (Str::length($tag) > 255) {
                     throw ValidationException::withMessages([
                         'tags' => sprintf(__('Tag name cannot be longer than %s characters'), 255),
                     ]);
                 }
             })
-            ->tap(function (Collection $tags) {
+            ->tap(function (Collection $tags): void {
                 if ($tags->count() > 5) {
                     throw ValidationException::withMessages([
                         'tags' => sprintf(__('Cannot add more than %s tags to the recipe'), 5),

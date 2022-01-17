@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/hondje', DogController::class)->name('hondje');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::resource('recipes', RecipeController::class);
@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('author/{user}', [AuthorController::class, 'show'])->name('author.show');
 });
 
-Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function (): void {
     Route::resource('users', UserController::class)->except('show');
 
     Route::resource('categories', CategoryController::class)->except(['show', 'destroy']);

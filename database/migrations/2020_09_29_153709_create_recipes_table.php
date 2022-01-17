@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Schema;
 
 final class CreateRecipesTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('recipes', function (Blueprint $table): void {
             $table->id();
             $table->timestamps();
             $table->string('title');
@@ -23,10 +23,7 @@ final class CreateRecipesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('recipes');
     }

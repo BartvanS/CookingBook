@@ -18,7 +18,7 @@ final class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
         $this->call([
             CategorySeeder::class,
@@ -40,14 +40,14 @@ final class DatabaseSeeder extends Seeder
 
         User::factory()->count(20)->create();
 
-        User::get()->each(function (User $user) {
+        User::get()->each(function (User $user): void {
             Recipe::factory()
                 ->count(random_int(2, 4))
                 ->create([
                     'user_id' => $user->id,
                     'category_id' => fn () => Category::inRandomOrder()->first(),
                 ])
-                ->each(function (Recipe $recipe) {
+                ->each(function (Recipe $recipe): void {
                     Ingredient::factory()
                         ->count(random_int(1, 5))
                         ->create([

@@ -8,30 +8,24 @@ use Illuminate\Support\Facades\Schema;
 
 final class CreateCategoriesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::table('recipes', function (Blueprint $table) {
+        Schema::table('recipes', function (Blueprint $table): void {
             $table->foreignId('category_id')
                 ->after('duration')
                 ->constrained();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
-        Schema::table('recipes', function (Blueprint $table) {
+        Schema::table('recipes', function (Blueprint $table): void {
             $table->dropColumn('category_id');
         });
 

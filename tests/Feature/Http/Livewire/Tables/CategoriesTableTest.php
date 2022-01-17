@@ -14,7 +14,7 @@ final class CategoriesTableTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCanViewTable()
+    public function testCanViewTable(): void
     {
         Category::factory()->create([
             'name' => 'Voorafje',
@@ -24,7 +24,7 @@ final class CategoriesTableTest extends TestCase
             ->assertSee('Voorafje');
     }
 
-    public function testCanSearchCategories()
+    public function testCanSearchCategories(): void
     {
         Category::factory()->create([
             'name' => 'Voorafje',

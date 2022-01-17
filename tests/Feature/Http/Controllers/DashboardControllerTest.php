@@ -14,7 +14,7 @@ final class DashboardControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCanViewDashboard()
+    public function testCanViewDashboard(): void
     {
         $this->actingAs(User::factory()->create());
 
@@ -23,7 +23,7 @@ final class DashboardControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCanViewLatestComments()
+    public function testCanViewLatestComments(): void
     {
         $user = User::factory()->create();
         $this->actingAs($user);

@@ -19,10 +19,10 @@ test-coverage:
 	php -d zend_extension="xdebug.so" -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-html ./public/coverage
 
 codestyle:
-		./vendor/bin/ecs --config=ecs-config.php check .
+		./vendor/bin/ecs --config=ecs-config.php check
 
 codestyle-fix:
-		./vendor/bin/ecs --config=ecs-config.php check --fix .
+		./vendor/bin/ecs --config=ecs-config.php check --fix
 
 do_composer:
 	composer install
@@ -63,5 +63,7 @@ deploy:
 u: update
 t: test
 tc: test-coverage
+coverage: test-coverage
+format: codestyle-fix
 c: codestyle
 cf: codestyle-fix

@@ -14,7 +14,7 @@ final class DeleteUser implements DeletesUsers
      *
      * @param User $user
      */
-    public function delete($user)
+    public function delete($user): void
     {
         $user->comments()->delete();
 

@@ -13,7 +13,7 @@ final class CategoryControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCanViewIndex()
+    public function testCanViewIndex(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -22,7 +22,7 @@ final class CategoryControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCanViewCreate()
+    public function testCanViewCreate(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -31,7 +31,7 @@ final class CategoryControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCanStoreCategory()
+    public function testCanStoreCategory(): void
     {
         $this->actingAs(User::factory()->admin()->create());
 
@@ -48,7 +48,7 @@ final class CategoryControllerTest extends TestCase
         ]);
     }
 
-    public function testCanViewEdit()
+    public function testCanViewEdit(): void
     {
         $category = Category::factory()->create();
 
@@ -59,7 +59,7 @@ final class CategoryControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCanUpdateCategory()
+    public function testCanUpdateCategory(): void
     {
         $category = Category::factory()->create();
 

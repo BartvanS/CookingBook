@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 final class Recipe extends Model
 {
     use HasFactory;
+
     use SoftDeletes;
 
     protected $fillable = [
@@ -61,11 +62,11 @@ final class Recipe extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        static::creating(function (Recipe $recipe) {
+        static::creating(function (Recipe $recipe): void {
             if (is_null($recipe->user_id) && Auth::check()) {
                 $recipe->user_id = Auth::id();
             }

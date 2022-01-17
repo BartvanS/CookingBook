@@ -15,7 +15,7 @@ final class RecipesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_example()
+    public function test_example(): void
     {
         $this->actingAs(User::factory()->create());
 

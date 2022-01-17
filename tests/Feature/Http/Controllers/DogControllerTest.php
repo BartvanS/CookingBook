@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 final class DogControllerTest extends TestCase
 {
-    public function testCanViewRandomHondje()
+    public function testCanViewRandomHondje(): void
     {
         $response = $this->get(route('hondje'));
 

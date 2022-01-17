@@ -8,22 +8,16 @@ use Illuminate\Support\Facades\Schema;
 
 final class AddYieldToRecipesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::table('recipes', function (Blueprint $table) {
+        Schema::table('recipes', function (Blueprint $table): void {
             $table->unsignedSmallInteger('yield')->nullable()->after('duration');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
-        Schema::table('recipes', function (Blueprint $table) {
+        Schema::table('recipes', function (Blueprint $table): void {
             $table->dropColumn('yield');
         });
     }

@@ -8,22 +8,16 @@ use Illuminate\Support\Facades\Schema;
 
 final class CreateRecipeTagTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('recipe_tag', function (Blueprint $table) {
+        Schema::create('recipe_tag', function (Blueprint $table): void {
             $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
             $table->foreignId('tag_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('recipe_tag');
     }
