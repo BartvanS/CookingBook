@@ -11,7 +11,7 @@ final class CategoryFactory extends Factory
 {
     protected $model = Category::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->randomElement(['Voorafje', 'Voorgerecht', 'Hoofdgerecht', 'Dessert']),

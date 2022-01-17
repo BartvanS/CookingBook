@@ -12,7 +12,7 @@ final class InstructionFactory extends Factory
 {
     protected $model = Instruction::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'instruction' => $this->faker->realText(),

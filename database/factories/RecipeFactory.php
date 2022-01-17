@@ -13,7 +13,7 @@ final class RecipeFactory extends Factory
 {
     protected $model = Recipe::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => $this->faker->sentence,

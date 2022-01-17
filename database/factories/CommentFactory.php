@@ -13,7 +13,7 @@ final class CommentFactory extends Factory
 {
     protected $model = Comment::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'message' => $this->faker->paragraph,

@@ -12,7 +12,7 @@ final class IngredientFactory extends Factory
 {
     protected $model = Ingredient::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->numberBetween(1, 10) . 'x ' . $this->faker->sentence(2),

@@ -16,6 +16,5 @@ mix.js('resources/js/app.js', 'public/js')
     .version()
     .disableNotifications()
     .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
         require('tailwindcss'),
     ]);
