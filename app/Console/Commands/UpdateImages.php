@@ -17,13 +17,10 @@ final class UpdateImages extends Command
         $recipes = Recipe::all();
 
         foreach ($recipes as $recipe) {
-            $path = Storage::path($recipe->image);
-
-            if (Storage::exists($path)) {
+            if (Storage::exists($recipe->image)) {
+                $path = Storage::path($recipe->image);
                 $image = basename($path);
-                $newPath = Storage::disk('recipes')->path(basename($path));
-
-                Storage::copy($path, $newPath);
+                Storage::disk('recipes')->put(basename($path), Storage::get($recipe->image));
 
                 $recipe->update([
                     'image' => $image,
@@ -32,16 +29,13 @@ final class UpdateImages extends Command
                 $this->info(sprintf('Updated recipe #%s image', $recipe->id));
             }
 
-            $path = Storage::path($recipe->thumbnail);
-
-            if (Storage::exists($path)) {
-                $image = basename($path);
-                $newPath = Storage::disk('recipes')->path(basename($path));
-
-                Storage::copy($path, $newPath);
+            if (Storage::exists($recipe->thumbnail)) {
+                $path = Storage::path($recipe->thumbnail);
+                $thumbnail = basename($path);
+                Storage::disk('recipes')->put(basename($path), Storage::get($recipe->thumbnail));
 
                 $recipe->update([
-                    'thumbnail' => $image,
+                    'thumbnail' => $thumbnail,
                 ]);
 
                 $this->info(sprintf('Updated recipe #%s thumbnail', $recipe->id));
