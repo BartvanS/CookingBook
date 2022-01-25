@@ -22,9 +22,12 @@ final class RecipesTable extends Component
 
     public ?string $tag = null;
 
+    public bool $list = false;
+
     public $queryString = [
         'category' => ['except' => ''],
         'tag' => ['except' => ''],
+        'list' => ['except' => false],
     ];
 
     public function mount(?User $user = null): void

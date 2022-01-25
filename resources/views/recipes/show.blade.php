@@ -60,7 +60,7 @@
                 @if($recipe->image)
                     <img alt="{{ $recipe->title }}"
                          class="surface w-full"
-                         src="{{ Storage::url($recipe->image) }}"/>
+                         src="{{ Storage::disk('recipes')->url($recipe->image) }}"/>
                 @endif
 
                 <div class="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5">
