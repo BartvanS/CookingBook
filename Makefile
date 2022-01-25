@@ -28,8 +28,8 @@ do_composer:
 	composer install
 
 do_assets:
-	npm install
-	npm run dev
+	yarn install
+	yarn dev
 
 do_ide_helper:
 	php artisan ide-helper:generate
@@ -48,8 +48,8 @@ deploy:
 	git reset --hard
 	git pull
 	php artisan migrate
-	npm i
-	npm run production
+	yarn install
+	yarn production
 	composer install --optimize-autoloader --no-dev
 	php artisan config:cache
 	php artisan route:cache
