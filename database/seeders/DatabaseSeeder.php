@@ -11,12 +11,15 @@ use App\Models\Instruction;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 
 final class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        Artisan::call('image:copy');
+
         $this->call([
             CategorySeeder::class,
             TagSeeder::class,
