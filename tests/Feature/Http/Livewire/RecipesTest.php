@@ -7,14 +7,11 @@ namespace Tests\Feature\Http\Livewire;
 use App\Http\Livewire\Tables\RecipesTable;
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 final class RecipesTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_example(): void
     {
         $this->actingAs(User::factory()->create());

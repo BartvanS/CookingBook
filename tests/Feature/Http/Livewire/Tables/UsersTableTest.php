@@ -6,14 +6,11 @@ namespace Tests\Feature\Http\Livewire\Tables;
 
 use App\Http\Livewire\Tables\UsersTable;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 final class UsersTableTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testCanViewTable(): void
     {
         User::factory()->create([

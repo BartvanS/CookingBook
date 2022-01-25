@@ -6,14 +6,11 @@ namespace Tests\Feature\Http\Livewire\Tables;
 
 use App\Http\Livewire\Tables\CategoriesTable;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 final class CategoriesTableTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testCanViewTable(): void
     {
         Category::factory()->create([

@@ -7,13 +7,10 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Recipe;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 final class DashboardControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testCanViewDashboard(): void
     {
         $this->actingAs(User::factory()->create());

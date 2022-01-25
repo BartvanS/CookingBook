@@ -8,14 +8,11 @@ use App\Http\Livewire\CommentsList;
 use App\Models\Comment;
 use App\Models\Recipe;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 final class CommentsListTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testCanSubmitComment(): void
     {
         $this->actingAs(User::factory()->create());

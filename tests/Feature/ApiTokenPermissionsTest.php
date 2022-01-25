@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;
@@ -14,8 +13,6 @@ use Tests\TestCase;
 
 final class ApiTokenPermissionsTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_api_token_permissions_can_be_updated()
     {
         if (! Features::hasApiFeatures()) {

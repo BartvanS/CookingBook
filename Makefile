@@ -16,7 +16,7 @@ test:
 	php artisan test --parallel
 
 test-coverage:
-	php -d zend_extension="xdebug.so" -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-html ./public/coverage
+	php -d zend_extension="xdebug.so" -d xdebug.mode=coverage ./vendor/bin/pest --coverage-html ./public/coverage
 
 codestyle:
 		./vendor/bin/ecs --config=ecs-config.php check

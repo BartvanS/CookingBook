@@ -10,15 +10,12 @@ use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\Tag;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 final class RecipeControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     private $user;
 
     protected function setUp(): void

@@ -42,6 +42,7 @@ final class DatabaseSeeder extends Seeder
 
         User::get()->each(function (User $user): void {
             Recipe::factory()
+                ->images()
                 ->count(random_int(2, 4))
                 ->create([
                     'user_id' => $user->id,

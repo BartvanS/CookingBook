@@ -6,13 +6,10 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 final class CategoryControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testCanViewIndex(): void
     {
         $this->actingAs(User::factory()->admin()->create());

@@ -7,15 +7,12 @@ namespace Tests\Feature;
 use App\Models\Comment;
 use App\Models\Recipe;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Jetstream\Http\Livewire\DeleteUserForm;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 final class DeleteAccountTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_user_accounts_can_be_deleted(): void
     {
         $this->actingAs($user = User::factory()->create());
