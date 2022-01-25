@@ -129,16 +129,16 @@ final class RecipeController extends Controller
         // TODO: Move image processing into separate service
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = $image->storePublicly($image->hashName('public'));
+            $filename = $image->storePublicly($image->hashName('public'), ['disk' => 'recipes']);
             $values['image'] = $filename;
 
-            $thumbnail_path = 'public/' . Str::random(40) . '.' . $image->extension();
+            $thumbnail_path = Str::random(40) . '.' . $image->extension();
 
-            Image::make(Storage::path($filename))
+            Image::make(Storage::disk('recipes')->path($filename))
                 ->fit(900, 400)
                 ->save()
                 ->fit(400, 200)
-                ->save(Storage::path($thumbnail_path));
+                ->save(Storage::disk('recipes')->path($thumbnail_path));
 
             $values['thumbnail'] = $thumbnail_path;
         }
