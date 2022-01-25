@@ -71,7 +71,7 @@ final class RecipeControllerTest extends TestCase
         $this->assertDatabaseCount('ingredients', 2);
         $this->assertDatabaseCount('instructions', 2);
 
-        Storage::assertExists($file->hashName('public'));
+        Storage::disk('recipes')->assertExists($file->hashName('public'));
     }
 
     public function testCanStoreRecipeWithTags(): void
