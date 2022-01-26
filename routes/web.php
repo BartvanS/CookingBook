@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -10,18 +11,18 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/hondje', DogController::class)->name('hondje');
-
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/', DashboardController::class)->name('dashboard');
-
     Route::resource('recipes', RecipeController::class);
-
     Route::get('author/{user}', [AuthorController::class, 'show'])->name('author.show');
+
+    Route::middleware(['can:admin'])
+        ->prefix('admin')
+        ->group(function (): void {
+            Route::get('/', AdminController::class)->name('admin.index');
+            Route::resource('users', UserController::class)->except('show');
+            Route::resource('categories', CategoryController::class)->except(['show', 'destroy']);
+        });
 });
 
-Route::middleware(['auth', 'can:admin'])->prefix('admin')->group(function (): void {
-    Route::resource('users', UserController::class)->except('show');
-
-    Route::resource('categories', CategoryController::class)->except(['show', 'destroy']);
-});
+Route::get('/hondje', DogController::class)->name('hondje');

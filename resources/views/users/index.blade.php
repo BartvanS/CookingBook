@@ -6,9 +6,6 @@
     </x-slot>
 
     <x-container>
-
         <livewire:tables.users-table/>
-
     </x-container>
-
 </x-app-layout>

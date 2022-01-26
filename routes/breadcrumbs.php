@@ -40,13 +40,8 @@ Breadcrumbs::for('author.show', function ($trail, User $user): void {
     $trail->push($title, route('author.show', $user));
 });
 
-Breadcrumbs::for('admin', function ($trail): void {
-    $trail->parent('dashboard');
-    $trail->push(__('Admin'));
-});
-
 Breadcrumbs::for('users.index', function ($trail): void {
-    $trail->parent('admin');
+    $trail->parent('admin.index');
     $trail->push(__('Users'), route('users.index'));
 });
 
@@ -61,8 +56,13 @@ Breadcrumbs::for('users.edit', function ($trail, User $user): void {
     $trail->push(__('Edit'), route('users.edit', $user));
 });
 
+Breadcrumbs::for('admin.index', function ($trail): void {
+    $trail->parent('dashboard');
+    $trail->push(__('Admin'), route('admin.index'));
+});
+
 Breadcrumbs::for('categories.index', function ($trail): void {
-    $trail->parent('admin');
+    $trail->parent('admin.index');
     $trail->push(__('Categories'), route('categories.index'));
 });
 
