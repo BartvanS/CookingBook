@@ -16,7 +16,7 @@ test:
 	php artisan test --parallel
 
 test-coverage:
-	php -d zend_extension="xdebug.so" -d xdebug.mode=coverage ./vendor/bin/pest --coverage-html ./public/coverage
+	php -d xdebug.mode=coverage ./vendor/bin/pest --coverage-html ./public/coverage
 
 codestyle:
 		./vendor/bin/ecs --config=ecs-config.php check
@@ -42,22 +42,6 @@ do_clear_cache:
 
 do_storage_link:
 	php artisan storage:link
-
-deploy:
-	php artisan down
-	git reset --hard
-	git pull
-	php artisan migrate
-	yarn install
-	yarn production
-	composer install --optimize-autoloader --no-dev
-	php artisan config:cache
-	php artisan route:cache
-	php artisan view:cache
-	php artisan optimize
-	php artisan storage:link
-	@echo "DONT FORGET TO SET 'APP_DEBUG' TO 'false' AND 'APP_ENV' TO 'production' IN .env!!!!"
-	php artisan up
 
 # Aliases
 u: update

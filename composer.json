@@ -12,6 +12,7 @@
         "ext-json": "*",
         "diglactic/laravel-breadcrumbs": "^6.1",
         "fideloper/proxy": "^4.2",
+        "filament/filament": "^2.9",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
