@@ -10,6 +10,7 @@ use App\Http\Controllers\DogController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/', DashboardController::class)->name('dashboard');
@@ -23,6 +24,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::resource('users', UserController::class)->except('show');
             Route::resource('categories', CategoryController::class)->except(['show', 'destroy']);
         });
+
+    Route::middleware('can:admin')
+        ->get('health', HealthCheckResultsController::class);
 });
 
 Route::get('/hondje', DogController::class)->name('hondje');
