@@ -13,8 +13,7 @@
                         {{ __('Recipes') }}
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('author.show', Auth::user()) }}"
-                                    :active="Request::routeIs('author.show') && Auth::user()->is(Request::route('user'))">
+                    <x-jet-nav-link href="{{ route('my-recipes') }}" :active="Request::routeIs('my-recipes')">
                         {{ __('My recipes') }}
                     </x-jet-nav-link>
 
