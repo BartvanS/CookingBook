@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 final class Recipe extends Model
 {
     use HasFactory;
-
     use SoftDeletes;
 
     protected $fillable = [

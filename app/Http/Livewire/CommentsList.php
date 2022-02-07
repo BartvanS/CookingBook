@@ -15,7 +15,6 @@ use Livewire\WithPagination;
 final class CommentsList extends Component
 {
     use AuthorizesRequests;
-
     use WithPagination;
 
     public ?Recipe $recipe = null;

@@ -9,9 +9,13 @@ use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\ClassNotation\FinalClassFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer;
 use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
+use PhpCsFixer\Fixer\ClassNotation\OrderedTraitsFixer;
+use PhpCsFixer\Fixer\ClassNotation\SingleTraitInsertPerStatementFixer;
+use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer;
 use PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer;
 use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
+use PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
 use PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer;
@@ -40,64 +44,38 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(MbStrFunctionsFixer::class);
-
     $services->set(TrailingCommaInMultilineFixer::class);
-
     $services->set(OrderedClassElementsFixer::class);
-
     $services->set(ReturnTypeDeclarationFixer::class);
-
     $services->set(VoidReturnFixer::class);
-
     $services->set(BlankLineAfterNamespaceFixer::class);
-
     $services->set(SingleBlankLineBeforeNamespaceFixer::class);
-
     $services->set(DeclareStrictTypesFixer::class);
-
     $services->set(StrictComparisonFixer::class);
-
     $services->set(StrictParamFixer::class);
-
     $services->set(SingleQuoteFixer::class);
-
     $services->set(FinalClassFixer::class);
-
     $services->set(AssignmentInConditionSniff::class);
-
     $services->set(NoSuperfluousPhpdocTagsFixer::class);
-
     $services->set(ClassAttributesSeparationFixer::class);
-
+    $services->set(SingleTraitInsertPerStatementFixer::class);
+    $services->set(OrderedTraitsFixer::class);
+    $services->set(VisibilityRequiredFixer::class);
     $services->set(PhpdocLineSpanFixer::class);
-
-    $services->set(SingleLineCommentStyleFixer::class)
-        ->call('configure', [['comment_types' => ['hash']]]);
-
+    $services->set(SingleLineCommentStyleFixer::class)->call('configure', [['comment_types' => ['hash']]]);
     $services->set(BlankLineBeforeStatementFixer::class);
-
     $services->set(CastSpacesFixer::class);
-
     $services->set(NoBlankLinesAfterClassOpeningFixer::class);
-
     $services->set(NoBlankLinesAfterPhpdocFixer::class);
-
     $services->set(NoEmptyCommentFixer::class);
-
     $services->set(PhpdocSeparationFixer::class);
-
     $services->set(NoEmptyStatementFixer::class);
-
     $services->set(NotOperatorWithSuccessorSpaceFixer::class);
-
     $services->set(BlankLineAfterOpeningTagFixer::class);
-
     $services->set(LinebreakAfterOpeningTagFixer::class);
-
     $services->set(NoClosingTagFixer::class);
-
     $services->set(EchoTagSyntaxFixer::class);
-
+    $services->set(NoSpacesAfterFunctionNameFixer::class);
     $services->set(NoExtraBlankLinesFixer::class)
         ->call('configure', [
             [
@@ -108,6 +86,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'square_brace_block',
                     'throw',
                     'use',
+                    'use_trait'
                 ],
             ],
         ]);

@@ -16,15 +16,10 @@ use Laravel\Sanctum\HasApiTokens;
 final class User extends Authenticatable
 {
     use HasApiTokens;
-
     use HasFactory;
-
     use HasProfilePhoto;
-
     use Notifiable;
-
     use SoftDeletes;
-
     use TwoFactorAuthenticatable;
 
     protected $fillable = [

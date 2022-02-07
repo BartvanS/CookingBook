@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 final class Comment extends Model
 {
     use HasFactory;
-
     use SoftDeletes;
 
     protected $fillable = [
