@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :title="__('Dashboard')">
     <x-container>
         <div class="space-y-5">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
