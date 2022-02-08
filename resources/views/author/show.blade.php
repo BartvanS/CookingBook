@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :title="Auth::user()->is($user) ? __('My recipes') : $user->name">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             @if(Auth::user()->is($user))

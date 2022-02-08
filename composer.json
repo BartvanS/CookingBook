@@ -21,6 +21,8 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.0",
+        "spatie/cpu-load-health-check": "^1.0",
+        "spatie/laravel-health": "^1.8",
         "spatie/laravel-robots-middleware": "^1.3"
     },
     "require-dev": {
@@ -35,6 +37,7 @@
         "pestphp/pest-plugin-laravel": "^1.2",
         "pestphp/pest-plugin-parallel": "^1.0",
         "phpunit/phpunit": "^9.3",
+        "spatie/laravel-stubs": "^2.4",
         "symplify/easy-coding-standard": "^9.4.70"
     },
     "config": {
@@ -57,7 +60,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -76,6 +82,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan spatie-stub:publish --force"
         ]
     }
 }

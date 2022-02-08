@@ -1,6 +1,6 @@
-# <p align=center>Recipes</p>
+# <p align=center>CookingBook</p>
 
-<p align="center">Simple website for posting recipes created with Laravel.</p>
+<p align=center>Simple Laravel app made for fun!<p>
 
 - [Features](#features)
 - [Installation](#installation)

@@ -32,12 +32,13 @@ Breadcrumbs::for('recipes.edit', function ($trail, Recipe $recipe): void {
 });
 
 Breadcrumbs::for('author.show', function ($trail, User $user): void {
-    $trail->parent('dashboard');
-    $title = Str::limit($user->name, 30);
-    if ($user->is(Auth::user())) {
-        $title = __('My recipes');
-    }
-    $trail->push($title, route('author.show', $user));
+    $trail->parent('recipes.index');
+    $trail->push(Str::limit($user->name, 30), route('author.show', $user));
+});
+
+Breadcrumbs::for('my-recipes', function ($trail): void {
+    $trail->parent('recipes.index');
+    $trail->push(__('My recipes'), route('my-recipes'));
 });
 
 Breadcrumbs::for('users.index', function ($trail): void {
