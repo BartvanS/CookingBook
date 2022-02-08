@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommentResource\Pages;
-use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
-use App\Models\Recipe;
-use App\Models\User;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 
-class CommentResource extends Resource
+final class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
@@ -24,7 +23,6 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                //
             ]);
     }
 
@@ -37,14 +35,12 @@ class CommentResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')->limit(30),
             ])
             ->filters([
-                //
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 
