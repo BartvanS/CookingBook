@@ -110,7 +110,7 @@
                     @foreach($recipes as $recipe)
                         <a class="surface hover:shadow-lg flex flex-col focus:ring ring-blue-600"
                            href="{{ route('recipes.show', $recipe) }}">
-                            <div class="bg-gray-400 h-48 rounded-t-lg overflow-hidden bg-cover flex items-end relative"
+                            <div class="bg-gray-400 aspect-video rounded-t-lg overflow-hidden bg-cover flex items-end relative"
                                  style="background-image: url('{{ $recipe->thumbnail ? Storage::disk('recipes')->url($recipe->thumbnail) : ''}}')">
 
                                 @if(!$recipe->thumbnail)

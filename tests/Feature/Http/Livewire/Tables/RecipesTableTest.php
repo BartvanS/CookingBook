@@ -6,9 +6,8 @@ use App\Http\Livewire\Tables\RecipesTable;
 use App\Models\Category;
 use App\Models\Recipe;
 use App\Models\Tag;
-use App\Models\User;
 
-it('can see recipes', function () {
+it('can see recipes', function (): void {
     Recipe::factory()->create([
         'title' => 'Lasagne',
     ]);
@@ -18,7 +17,7 @@ it('can see recipes', function () {
         ->set('search', '');
 });
 
-it('can search recipes', function () {
+it('can search recipes', function (): void {
     Recipe::factory()->create([
         'title' => 'Lasagne',
     ]);
@@ -31,7 +30,7 @@ it('can search recipes', function () {
         ->assertSeeText('Lasagne');
 });
 
-it('can see recipes with category', function () {
+it('can see recipes with category', function (): void {
     $category = Category::factory()->create();
     Recipe::factory()->create([
         'title' => 'Lasagne',
@@ -43,7 +42,7 @@ it('can see recipes with category', function () {
         ->assertDontSeeText('Lasagne');
 });
 
-it('can see recipes with tag', function () {
+it('can see recipes with tag', function (): void {
     Recipe::factory()->create([
         'title' => 'Lasagne',
     ]);
