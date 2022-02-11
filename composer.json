@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0|^8.1",
+        "php": "^8.1",
         "ext-json": "*",
         "diglactic/laravel-breadcrumbs": "^v7.1",
         "filament/filament": "^2.9",
@@ -37,7 +37,8 @@
         "pestphp/pest-plugin-parallel": "^1.0",
         "phpunit/phpunit": "^9.3",
         "spatie/laravel-stubs": "^2.4",
-        "symplify/easy-coding-standard": "^9.4.70"
+        "symplify/easy-coding-standard": "^9.4.70",
+        "xammie/make-commands": "^0.1"
     },
     "config": {
         "optimize-autoloader": true,

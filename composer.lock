@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76ef75c89740e0242c1e2388d1f87570",
+    "content-hash": "f33413e727d0841ce6483e60292e5337",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1040,16 +1040,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.10.4",
+            "version": "v2.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/admin.git",
-                "reference": "12cd3ab285d04dc70164bd2907d7de751a98f1ce"
+                "reference": "addfc33a8d396f06317c733726822d2e0e7f98e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/12cd3ab285d04dc70164bd2907d7de751a98f1ce",
-                "reference": "12cd3ab285d04dc70164bd2907d7de751a98f1ce",
+                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/addfc33a8d396f06317c733726822d2e0e7f98e7",
+                "reference": "addfc33a8d396f06317c733726822d2e0e7f98e7",
                 "shasum": ""
             },
             "require": {
@@ -1096,20 +1096,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-02-09T08:52:05+00:00"
+            "time": "2022-02-10T12:51:18+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.10.4",
+            "version": "v2.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/forms.git",
-                "reference": "92d67ce5f02524df59b7acca69bbf740e14664b8"
+                "reference": "420802f053eec4475f9d494c128c810976c687b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/92d67ce5f02524df59b7acca69bbf740e14664b8",
-                "reference": "92d67ce5f02524df59b7acca69bbf740e14664b8",
+                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/420802f053eec4475f9d494c128c810976c687b7",
+                "reference": "420802f053eec4475f9d494c128c810976c687b7",
                 "shasum": ""
             },
             "require": {
@@ -1152,20 +1152,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-02-09T08:51:58+00:00"
+            "time": "2022-02-10T12:51:12+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.10.4",
+            "version": "v2.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/tables.git",
-                "reference": "1c9de89e681e8a7b2b981135c8b6c2199e203d7f"
+                "reference": "9a2859b439864399cfa1949b5b52ceb67f11a294"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/1c9de89e681e8a7b2b981135c8b6c2199e203d7f",
-                "reference": "1c9de89e681e8a7b2b981135c8b6c2199e203d7f",
+                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/9a2859b439864399cfa1949b5b52ceb67f11a294",
+                "reference": "9a2859b439864399cfa1949b5b52ceb67f11a294",
                 "shasum": ""
             },
             "require": {
@@ -1205,7 +1205,7 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-02-09T08:51:58+00:00"
+            "time": "2022-02-10T12:51:12+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -1957,16 +1957,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.0.0",
+            "version": "v9.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fbe7ed828819eadabb3cb9f95847a2ffe8846fd6"
+                "reference": "4c7cd8c4e95d161c0c6ada6efa0a5af4d0d487c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fbe7ed828819eadabb3cb9f95847a2ffe8846fd6",
-                "reference": "fbe7ed828819eadabb3cb9f95847a2ffe8846fd6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4c7cd8c4e95d161c0c6ada6efa0a5af4d0d487c9",
+                "reference": "4c7cd8c4e95d161c0c6ada6efa0a5af4d0d487c9",
                 "shasum": ""
             },
             "require": {
@@ -2132,7 +2132,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-02-08T15:48:31+00:00"
+            "time": "2022-02-10T15:07:46+00:00"
         },
         {
             "name": "laravel/jetstream",
@@ -2579,16 +2579,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "9f8b4260031bfef5497477da53dd57b2aaff0e06"
+                "reference": "aef771741948595bfbed8e0342dd340695a368ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/9f8b4260031bfef5497477da53dd57b2aaff0e06",
-                "reference": "9f8b4260031bfef5497477da53dd57b2aaff0e06",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/aef771741948595bfbed8e0342dd340695a368ff",
+                "reference": "aef771741948595bfbed8e0342dd340695a368ff",
                 "shasum": ""
             },
             "require": {
@@ -2648,7 +2648,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.0.3"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.0.4"
             },
             "funding": [
                 {
@@ -2664,7 +2664,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-31T19:41:04+00:00"
+            "time": "2022-02-10T16:14:03+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -9898,16 +9898,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
                 "shasum": ""
             },
             "require": {
@@ -9950,7 +9950,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.4"
             },
             "funding": [
                 {
@@ -9958,7 +9958,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-11T13:31:12+00:00"
+            "time": "2022-02-10T07:01:19+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
@@ -10555,16 +10555,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "68250225a9f83b086462c2af1b1139dfde48fbd2"
+                "reference": "ca49c7f74022de49910715e8f1ac5ce52123eb3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/68250225a9f83b086462c2af1b1139dfde48fbd2",
-                "reference": "68250225a9f83b086462c2af1b1139dfde48fbd2",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/ca49c7f74022de49910715e8f1ac5ce52123eb3e",
+                "reference": "ca49c7f74022de49910715e8f1ac5ce52123eb3e",
                 "shasum": ""
             },
             "require": {
@@ -10638,7 +10638,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-04T15:25:56+00:00"
+            "time": "2022-02-10T08:50:40+00:00"
         },
         {
             "name": "spatie/laravel-stubs",
@@ -10877,6 +10877,80 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "xammie/make-commands",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Xammie/make-commands.git",
+                "reference": "8376ab2e0480e7af66475774d1dd5dc901a2b08f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Xammie/make-commands/zipball/8376ab2e0480e7af66475774d1dd5dc901a2b08f",
+                "reference": "8376ab2e0480e7af66475774d1dd5dc901a2b08f",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^8.0 || ^9.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^5.10",
+                "nunomaduro/larastan": "^1.0",
+                "orchestra/testbench": "^6.22",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Xammie\\MakeCommands\\MakeCommandsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Xammie\\MakeCommands\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Max Hoogenbosch",
+                    "email": "make-commands@hoogenbos.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Extended make commands for laravel",
+            "homepage": "https://github.com/xammie/make-commands",
+            "keywords": [
+                "Xammie",
+                "laravel",
+                "make-commands"
+            ],
+            "support": {
+                "issues": "https://github.com/Xammie/make-commands/issues",
+                "source": "https://github.com/Xammie/make-commands/tree/v0.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Xammie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-11T12:19:39+00:00"
         }
     ],
     "aliases": [],
@@ -10885,7 +10959,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0|^8.1",
+        "php": "^8.1",
         "ext-json": "*"
     },
     "platform-dev": [],
