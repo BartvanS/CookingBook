@@ -16,16 +16,38 @@ final class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     protected static ?int $navigationSort = 2;
+
+    public static function getLabel(): string
+    {
+        return __('Tag');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('Tags');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('slug')->unique()->required(),
+                Forms\Components\TextInput::make('name')->required()->maxLength(255),
+                Forms\Components\TextInput::make('slug')->required()->maxLength(255)->unique(),
+                Forms\Components\DatePicker::make('created_at')
+                    ->label(__('Created at'))
+                    ->displayFormat('d-m-Y H:i')
+                    ->when(fn ($state) => $state)
+                    ->disabled(),
+                Forms\Components\DatePicker::make('updated_at')
+                    ->label(__('Updated at'))
+                    ->displayFormat('d-m-Y H:i')
+                    ->when(fn ($state) => $state)
+                    ->disabled(),
             ]);
     }
 
@@ -33,16 +55,13 @@ final class TagResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->limit(30),
-                Tables\Columns\TextColumn::make('slug')->limit(30),
-                Tables\Columns\TextColumn::make('created_at')->dateTime('d-m-Y H:i')->sortable(),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-        ];
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name')),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('Created at'))
+                    ->dateTime('d-m-Y H:i')
+                    ->sortable(),
+                ]);
     }
 
     public static function getPages(): array

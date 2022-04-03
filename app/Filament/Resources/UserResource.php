@@ -24,6 +24,16 @@ final class UserResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    public static function getLabel(): string
+    {
+        return __('User');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('Users');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -32,6 +42,16 @@ final class UserResource extends Resource
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('email')->email()->required(),
                 Forms\Components\TextInput::make('password')->password()->required(),
+                Forms\Components\DatePicker::make('created_at')
+                    ->label(__('Created at'))
+                    ->displayFormat('d-m-Y H:i')
+                    ->when(fn ($state) => $state)
+                    ->disabled(),
+                Forms\Components\DatePicker::make('updated_at')
+                    ->label(__('Updated at'))
+                    ->displayFormat('d-m-Y H:i')
+                    ->when(fn ($state) => $state)
+                    ->disabled(),
             ]);
     }
 
@@ -39,19 +59,23 @@ final class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime('d-m-Y H:i')->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name')),
+                Tables\Columns\TextColumn::make('email')
+                    ->label(__('Email')),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('Created at'))
+                    ->dateTime('d-m-Y H:i')
+                    ->sortable(),
             ])
             ->filters([
-                Filter::make('is_admin')->query(fn (Builder $query) => $query->where('is_admin', true)),
+                Filter::make('is_admin')
+                    ->label(__('Admin'))
+                    ->query(fn (Builder $query) => $query->where('is_admin', true)),
+                Filter::make('verified')
+                    ->label(__('Email verified'))
+                    ->query(fn (Builder $query) => $query->whereNotNull('email_verified_at')),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-        ];
     }
 
     public static function getPages(): array

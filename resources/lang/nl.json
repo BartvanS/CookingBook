@@ -55,6 +55,7 @@
     "Edit user": "Gebruiker bewerken",
     "No users found": "Geen gebruikers gevonden",
     "Created at": "Aangemaakt op",
+    "Updated at": "Bijgewerkt op",
     "Categories": "Categorieën",
     "New category": "Nieuwe categorie",
     "Create category": "Categorie aanmaken",
@@ -66,5 +67,6 @@
     "Tag name cannot be longer than %s characters": "Tag naam kan niet lang zijn dan %s karakters",
     "Cannot add more than %s tags to the recipe": "Kan niet meer dan %s tags toevoegen aan het recept",
     "Yield": "Porties",
-    "Duration": "Kooktijd"
+    "Duration": "Kooktijd",
+    "Message": "Bericht"
 }

@@ -22,7 +22,11 @@ Breadcrumbs::for('recipes.create', function ($trail): void {
 });
 
 Breadcrumbs::for('recipes.show', function ($trail, Recipe $recipe): void {
-    $trail->parent('recipes.index');
+    if ($recipe->user->is(Auth::user())) {
+        $trail->parent('my-recipes');
+    } else {
+        $trail->parent('recipes.index');
+    }
     $trail->push(Str::limit($recipe->title, 30), route('recipes.show', $recipe));
 });
 

@@ -18,11 +18,13 @@ final class DashboardController extends Controller
 
         $categories = Category::query()
             ->with('latestRecipe', fn (HasOne $query) => $query->whereNotNull('thumbnail'))
+            ->whereHas('recipes', fn (Builder $query) => $query->whereNotNull('thumbnail'))
             ->withCount('recipes')
             ->orderByDesc('recipes_count')
             ->get();
 
-        $comments = Comment::with('recipe', 'user')
+        $comments = Comment::query()
+            ->with('recipe', 'user')
             ->where('user_id', '!=', $user->id)
             ->whereHas('recipe', fn (Builder $query) => $query->where('user_id', '=', $user->id))
             ->latest()

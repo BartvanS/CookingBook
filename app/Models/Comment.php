@@ -17,6 +17,7 @@ final class Comment extends Model
 
     protected $fillable = [
         'message',
+        'recipe_id',
     ];
 
     public function user(): BelongsTo
