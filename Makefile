@@ -13,7 +13,7 @@ migrate:
 	php artisan migrate:fresh --seed
 
 test:
-	php artisan test --parallel
+	php artisan test --parallel --drop-databases
 
 test-coverage:
 	php -d xdebug.mode=coverage ./vendor/bin/pest --coverage-html ./public/coverage
