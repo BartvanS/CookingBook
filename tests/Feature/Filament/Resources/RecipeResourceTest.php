@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Instruction;
 use App\Models\Recipe;
+use App\Models\Tag;
 use App\Models\User;
 
 beforeEach(function (): void {
@@ -15,6 +16,15 @@ beforeEach(function (): void {
 
 it('can render index', function (): void {
     $this->get(RecipeResource::getUrl('index'))->assertSuccessful();
+});
+
+it('can filter with tags', function (): void {
+    $tag = Tag::factory()->create();
+    $recipe = Recipe::factory()->create();
+    $recipe->tags()->attach($tag);
+
+    Livewire::test(RecipeResource\Pages\ListRecipes::class)
+        ->set('tableFilters.tag.value', $tag->id);
 });
 
 it('can render create', function (): void {
