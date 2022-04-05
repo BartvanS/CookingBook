@@ -5,31 +5,45 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 use Livewire\Livewire;
-use Tests\TestCase;
 
-final class ProfileInformationTest extends TestCase
-{
-    public function test_current_profile_information_is_available(): void
-    {
-        $this->actingAs($user = User::factory()->create());
+it('can view profile information', function (): void {
+    $this->actingAs($user = User::factory()->create());
 
-        $component = Livewire::test(UpdateProfileInformationForm::class);
+    $component = Livewire::test(UpdateProfileInformationForm::class);
 
-        $this->assertEquals($user->name, $component->state['name']);
-        $this->assertEquals($user->email, $component->state['email']);
-    }
+    $this->assertEquals($user->name, $component->state['name']);
+    $this->assertEquals($user->email, $component->state['email']);
+});
 
-    public function test_profile_information_can_be_updated(): void
-    {
-        $this->actingAs($user = User::factory()->create());
+it('can update the user profile information', function (): void {
+    $this->actingAs(User::factory()->create());
 
-        Livewire::test(UpdateProfileInformationForm::class)
-                ->set('state', ['name' => 'Test Name', 'email' => 'test@example.com'])
-                ->call('updateProfileInformation');
+    Livewire::test(UpdateProfileInformationForm::class)
+        ->set('state', [
+            'name' => 'Test Name',
+            'email' => 'test@example.com',
+        ])
+        ->call('updateProfileInformation');
 
-        $this->assertEquals('Test Name', $user->fresh()->name);
-        $this->assertEquals('test@example.com', $user->fresh()->email);
-    }
-}
+    $this->assertDatabaseHas('users', [
+        'name' => 'Test Name',
+        'email' => 'test@example.com',
+    ]);
+});
+
+it('can update the user photo', function (): void {
+    $this->actingAs($user = User::factory()->create());
+
+    $file = UploadedFile::fake()->image('avatar.jpg');
+
+    Livewire::test(UpdateProfileInformationForm::class)
+        ->set('state.photo', $file)
+        ->call('updateProfileInformation');
+
+    $user->refresh();
+
+    $this->assertNotNull($user->profile_photo_path);
+});

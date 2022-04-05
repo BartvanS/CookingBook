@@ -15,7 +15,8 @@
     </option>
     @foreach(\App\Models\Category::orderBy('name')->get() as $category)
         <option value="{{ $category->id }}"
-            {{ intval(old($name, $default)) === $category->id ? 'selected="selected"' : '' }}>
+                @selected(intval(old($name, $default)) === $category->id)
+            >
             {{ $category->name }}
         </option>
     @endforeach

@@ -24,6 +24,8 @@ final class Recipe extends Model
         'yield',
         'thumbnail',
         'image',
+        'category_id',
+        'user_id',
     ];
 
     protected $casts = [

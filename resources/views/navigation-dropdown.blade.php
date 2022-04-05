@@ -18,7 +18,7 @@
                     </x-jet-nav-link>
 
                     @can('admin')
-                        <x-jet-nav-link href="{{ route('admin.index') }}" :active="Request::routeIs('admin.index')">
+                        <x-jet-nav-link href="/admin">
                             {{ __('Admin') }}
                         </x-jet-nav-link>
                     @endcan

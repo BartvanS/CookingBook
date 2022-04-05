@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-final class AddTwoFactorColumnsToUsersTable extends Migration
-{
+return new class() extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table): void {
@@ -27,4 +26,4 @@ final class AddTwoFactorColumnsToUsersTable extends Migration
             $table->dropColumn('two_factor_secret', 'two_factor_recovery_codes');
         });
     }
-}
+};

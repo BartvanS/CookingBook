@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
 
 final class DashboardController extends Controller
@@ -16,20 +16,15 @@ final class DashboardController extends Controller
     {
         $user = $request->user();
 
-        $categories = Category::withCount('recipes')
-            ->selectSub(
-                Recipe::select('thumbnail')
-                    ->whereColumn('category_id', 'categories.id')
-                    ->whereNotNull('thumbnail')
-                    ->latest()
-                    ->limit(1),
-                'recipe_image'
-            )
+        $categories = Category::query()
+            ->with('latestRecipe', fn (HasOne $query) => $query->whereNotNull('thumbnail'))
+            ->whereHas('recipes', fn (Builder $query) => $query->whereNotNull('thumbnail'))
+            ->withCount('recipes')
             ->orderByDesc('recipes_count')
-            ->limit(3)
             ->get();
 
-        $comments = Comment::with('recipe', 'user')
+        $comments = Comment::query()
+            ->with('recipe', 'user')
             ->where('user_id', '!=', $user->id)
             ->whereHas('recipe', fn (Builder $query) => $query->where('user_id', '=', $user->id))
             ->latest()

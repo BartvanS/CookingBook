@@ -1,12 +1,16 @@
 <x-app-layout :title="__('Dashboard')">
     <x-container>
         <div class="space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+            <h2 class="text-xl font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate">
+                {{ __('Categories') }}
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 @foreach($categories as $category)
                     <a href="{{ route('recipes.index', ['category' => $category->id]) }}"
                        class="surface">
-                        <div class="bg-gray-400 bg-cover h-32 rounded-t-lg"
-                             @if($category->recipe_image) style="background-image: url('{{ Storage::url($category->recipe_image) }}')"@endif>
+                        <div class="bg-gray-400 bg-cover aspect-video rounded-t-lg"
+                             @if($category->latestRecipe?->thumbnail) style="background-image: url('{{ Storage::disk('recipes')->url($category->latestRecipe->thumbnail) }}')"@endif>
                         </div>
                         <div class="p-3 flex justify-between items-center">
                             <div class="font-semibold">

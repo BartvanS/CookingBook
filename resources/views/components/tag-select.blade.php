@@ -15,7 +15,8 @@
     </option>
     @foreach(\App\Models\Tag::orderBy('name')->get() as $tag)
         <option value="{{ $tag->slug }}"
-            {{ intval(old($name, $default)) === $tag->slug ? 'selected="selected"' : '' }}>
+                @selected(intval(old($name, $default)) === $tag->slug)
+            >
             {{ $tag->name }}
         </option>
     @endforeach
