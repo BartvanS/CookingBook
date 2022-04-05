@@ -1,5 +1,5 @@
 intro:
-	@echo "Recipesite"
+	@echo "--- Recipes ---"
 
 setup:
 	composer install
